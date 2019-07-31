@@ -417,10 +417,10 @@ if($mobile === false) {
 <div id="mapmenu-usa-historical" class="popup selectmenu">
 	<object type="image/svg+xml" data="./html/closebutton.svg" >Error</object>
 	<h2>USA Historical Maps</h2>
-	<a class="selectmenu-button" href="./?t=2018_congress">Congress 2018</a>
-	<a class="selectmenu-button" href="./?t=2016_presidential_county">Presidential County 2016</a>
 	<a class="selectmenu-button" href="./?t=2016_presidential">Presidential 2016</a>
+        <a class="selectmenu-button" href="./?t=2016_presidential_county">Presidential County 2016</a>
 	<a class="selectmenu-button" href="./?t=2012_presidential">Presidential 2012</a>
+        <a class="selectmenu-button" href="./?t=2012_presidential_county">Presidential County 2012</a>
 	<a class="selectmenu-button" href="./?t=2008_presidential">Presidential 2008</a>
 	<a class="selectmenu-button" href="./?t=2004_presidential">Presidential 2004</a>
 	<a class="selectmenu-button" href="./?t=2000_presidential">Presidential 2000</a>
