@@ -277,7 +277,7 @@ function loadPresetUK() {
 		['#0087DC', '#0087DC', '#0087DC', '#0087DC']);
 	var snp = new Candidate('SNP',
 		['#cccc00', '#cccc00', '#cccc00', '#cccc00']);
-	var chuk = new Candidate('CHUK',
+	var chuk = new Candidate('TIG',
 		['#222221', '#222221', '#222221', '#222221']);
 	var ukip = new Candidate('UKIP',
 		['#70147A', '#70147A', '#70147A', '#70147A']);
@@ -319,15 +319,15 @@ function loadPresetCanada() {
 		['#9ACD32', '#9ACD32', '#9ACD32', '#9ACD32']);
 	var bqc = new Candidate('BQC',
 		['#87CEFA', '#87CEFA', '#87CEFA', '#87CEFA']);
-	var ppl = new Candidate('PPL',
-		['#2A317C', '#2A317C', '#2A317C', '#2A317C']);
+	var ppc = new Candidate('PPC',
+		['#83789E', '#83789E', '#83789E', '#83789E']);
 
 	candidates['CON'] = con;
 	candidates['LIB'] = lib;
 	candidates['NDP'] = ndp;
 	candidates['GRN'] = grn;
 	candidates['BQC'] = bqc;
-	candidates['PPL'] = ppl;
+	candidates['PPC'] = ppc;
 	toggleLegendLeans()
 }
 
