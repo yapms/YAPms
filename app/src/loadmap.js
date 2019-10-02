@@ -89,7 +89,7 @@ function loadMapFromId(id) {
 			loadPresetMap(id);
 			break;
 		case "USA_Canada":
-			loadMap("./res/usa_canada.svg", 16, 0.01, "congressional", "congressional", "open", {updateText: false});
+			loadMap("./res/usa_canada.svg", 16, 0.01, "congressional", "presidential", "open", {updateText: false});
 			break;
 		case "USA_2020_presidential":
 			loadMap("./res/usa_presidential.svg", 16, 1, "usa_ec", "presidential", "open", {updateText: true, voters: 'usa_voting_pop', enablePopularVote: true});
