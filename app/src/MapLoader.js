@@ -311,9 +311,8 @@ class MapLoader {
 				MapLoader.loadMap("./res/usa_pre_civilwar.svg", 16, 0.75, "usa_pre_civilwar_ec", "presidential", "open");
 				break;
 			case "Pakistan_national_assembly":
-				alert('test');
-				PresetLoader.loadPreset('argentina');
-				MapLoader.loadMap("./res/pak/pakistan.svg", 16, 0.08, "1", "takeall_noedit", "open");
+				PresetLoader.loadPreset('pakistan');
+				MapLoader.loadMap("./res/pak/pakistan_constituencies.svg", 16, 0.02, "1", "takeall_noedit", "open");
 				break;
 			case "Argentina_chamber_of_deputies":
 				PresetLoader.loadPreset('argentina');

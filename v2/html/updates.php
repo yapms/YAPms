@@ -5,6 +5,34 @@
 	</h2>
 	</div>
 	<div class="featured-section-body">
+	<div class="info-box">
+		<div class="info-box-header">
+			<img src="app/res/flags/usa.svg">
+			<h3>
+				Congress
+			</h3>
+		</div>
+		<div class="link-list">
+			<p>Jeff Van Drew (NJ-02) switches to the Republican Party</p>	
+			<a class="link" href="./app/?t=USA_current_house">
+				Current House
+			</a>
+		</div>
+	</div>
+	<div class="info-box">
+		<div class="info-box-header">
+			<img src="app/res/flags/pak.svg">
+			<h3>
+				New Map
+			</h3>
+		</div>
+		<div class="link-list">
+			<p>Pakistan</p>	
+			<a class="link" href="./app/?t=Pakistan_national_assembly">
+				National Assembly
+			</a>
+		</div>
+	</div>
 	<div class="info-box update-1">
 		<div class="info-box-header">
 			<img src="app/res/flags/ukd.svg">
@@ -85,20 +113,6 @@
 		<p><small>North Carolina Redistricting</small></p>
 		<a class="link" href="./app/?t=USA_2020_house">
 			House
-		</a>
-		</div>
-	</div>
-	<div class="info-box update-6">
-		<div class="info-box-header">
-			<img src="app/res/flags/swe.svg">
-			<h3>
-				New Map
-			</h3>
-		</div>
-		<div class="link-list">
-		<p>Sweden</p>
-		<a class="link" href="./app/?t=Sweden_riksdag">
-			Riksdag
 		</a>
 		</div>
 	</div>

@@ -397,6 +397,14 @@ if (isset($_GET["t"]) && !empty($_GET["t"])) {
 			$h1title = "French National Assembly";
 		break;
 
+		case 'Pakistan_national_assembly':
+		echo '<meta name="description" content="Pakistan - Interactive National Assembly election map">
+			<title>Pakistan - National Assembly Election Map</title>
+			<meta property="og:title" content="YAPms - Pakistan National Assembly">
+			<meta property="og:description" content="Interactive Pakistan National Assembly Map">';
+			$h1title = "Pakistan National Assembly";
+		break;
+
 		case 'Russia_federal_council':
 		echo '<meta name="description" content="Russia - Interactive Federal Council election map">
 			<title>Russia - Federal Council Election Map</title>

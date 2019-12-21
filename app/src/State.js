@@ -380,22 +380,29 @@ class State {
 
 		this.colorValue = colorValue;
 		
-		var color = CandidateManager.candidates[candidate].colors[colorValue];
+		var color = null;
 
-		this.htmlElement.style.fill = color;
-
-		var land = document.getElementById(this.name + '-land');
-		if(land != null) {
-			land.style.fill = color;
+		if(CandidateManager.candidates[candidate]) {
+			color = CandidateManager.candidates[candidate].colors[colorValue];
 		}
 
-		var button = document.getElementById(this.name + '-button');
-		if(button != null) {
-			button.style.fill = color;
+		if(color) {
+			this.htmlElement.style.fill = color;
+
+			var land = document.getElementById(this.name + '-land');
+			if(land != null) {
+				land.style.fill = color;
+			}
+
+			var button = document.getElementById(this.name + '-button');
+			if(button != null) {
+				button.style.fill = color;
+			}
 		}
 
-		if(this.onChange)
-		this.onChange();
+		if(this.onChange) {
+			this.onChange();
+		}
 	}
 
 	static setEC() {

@@ -65,6 +65,10 @@
 	<img class="flag-ned">
 	<div class="selectmenu-button-text">Netherlands</div>
 </a>
+<a class="selectmenu-button" href="./?t=Pakistan_national_assembly">
+	<img class="flag-pak">
+	<div class="selectmenu-button-text">Pakistan</div>
+</a>
 <a class="selectmenu-button" href="./?t=Portugal_assembly_of_the_republic">
 	<img class="flag-prt">
 	<div class="selectmenu-button-text">Portugal</div>

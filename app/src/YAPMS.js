@@ -1728,7 +1728,7 @@ class LogoManager {
 		var countries = ['aus', 'usa', 'bra', 'can', 'ger', 'ind',
 			'ita', 'ire', 'ned', 'prt', 'rus', 'esp', 'tur',
 			'ukd', 'eu', 'un', 'fra', 'tat', 'che', 'zaf', 'swe',
-			'arg'];
+			'arg', 'pak'];
 	
 		for(var countryIndex = 0; countryIndex < countries.length; ++countryIndex) {	
 			var country = countries[countryIndex];
@@ -2109,9 +2109,8 @@ class MapLoader {
 				MapLoader.loadMap("./res/usa_pre_civilwar.svg", 16, 0.75, "usa_pre_civilwar_ec", "presidential", "open");
 				break;
 			case "Pakistan_national_assembly":
-				alert('test');
-				PresetLoader.loadPreset('argentina');
-				MapLoader.loadMap("./res/pak/pakistan.svg", 16, 0.08, "1", "takeall_noedit", "open");
+				PresetLoader.loadPreset('pakistan');
+				MapLoader.loadMap("./res/pak/pakistan_constituencies.svg", 16, 0.02, "1", "takeall_noedit", "open");
 				break;
 			case "Argentina_chamber_of_deputies":
 				PresetLoader.loadPreset('argentina');
@@ -2798,6 +2797,9 @@ class PresetLoader {
 				break;
 			case 'portugal':
 				PresetLoader.loadPresetPortugal();
+				break;
+			case 'pakistan':
+				PresetLoader.loadPresetPakistan();
 				break;
 		}
 	
@@ -3537,6 +3539,53 @@ class PresetLoader {
 		CandidateManager.candidates['LdT'] = ldt;
 		LegendManager.toggleLegendLeans()
 	}
+	
+	static loadPresetPakistan() {
+		var pti = new Candidate('PTI', 
+			['#ff0f0f','#ff0f0f','#ff0f0f','#ff0f0f']);
+		var mqmp = new Candidate('MQM-P', 
+			['#8f0303','#8f0303','#8f0303','#8f0303']);
+		var pmlq = new Candidate('PML-Q', 
+			['#00800d','#00800d','#00800d','#00800d']);
+		var bap = new Candidate('BAP', 
+			['#9eee58','#9eee58','#9eee58','#9eee58']);
+		var gda = new Candidate('GDA', 
+			['#769c1e','#769c1e','#769c1e','#769c1e']);
+		var aml = new Candidate('AML', 
+			['#4aee31','#4aee31','#4aee31','#4aee31']);
+		var jwp = new Candidate('JWP', 
+			['#d984e3','#d984e3','#d984e3','#d984e3']);
+		
+		var bnpm = new Candidate('BNP-M', 
+			['#eee600','#eee600','#eee600','#eee600']);
+
+		var pmln = new Candidate('PML-N', 
+			['#228000','#228000','#228000','#228000']);
+		var ppp = new Candidate('PPP', 
+			['#000000','#000000','#000000','#000000']);
+		var mma = new Candidate('MMA', 
+			['#004c00','#004c00','#004c00','#004c00']);
+		var anp = new Candidate('ANP', 
+			['#ff0800','#ff0800','#ff0800','#ff0800']);
+
+		var ind = new Candidate('Ind', 
+			['#afafaf','#afafaf','#afafaf','#afafaf']);
+
+		CandidateManager.candidates['PTI'] = pti;
+		CandidateManager.candidates['MQM-P'] = mqmp;
+		CandidateManager.candidates['PML-Q'] = pmlq;
+		CandidateManager.candidates['BAP'] = bap;
+		CandidateManager.candidates['GDA'] = gda;
+		CandidateManager.candidates['AML'] = aml;
+		CandidateManager.candidates['JWP'] = jwp;
+		CandidateManager.candidates['BNP-M'] = bnpm;
+		CandidateManager.candidates['PML-N'] = pmln;
+		CandidateManager.candidates['PPP'] = ppp;
+		CandidateManager.candidates['MMA'] = mma;
+		CandidateManager.candidates['ANP'] = anp;
+		CandidateManager.candidates['Ind'] = ind;
+		LegendManager.toggleLegendLeans()
+	}
 }
 var totalVotes = 0;
 var stateCount = 0;
@@ -3920,22 +3969,29 @@ class State {
 
 		this.colorValue = colorValue;
 		
-		var color = CandidateManager.candidates[candidate].colors[colorValue];
+		var color = null;
 
-		this.htmlElement.style.fill = color;
-
-		var land = document.getElementById(this.name + '-land');
-		if(land != null) {
-			land.style.fill = color;
+		if(CandidateManager.candidates[candidate]) {
+			color = CandidateManager.candidates[candidate].colors[colorValue];
 		}
 
-		var button = document.getElementById(this.name + '-button');
-		if(button != null) {
-			button.style.fill = color;
+		if(color) {
+			this.htmlElement.style.fill = color;
+
+			var land = document.getElementById(this.name + '-land');
+			if(land != null) {
+				land.style.fill = color;
+			}
+
+			var button = document.getElementById(this.name + '-button');
+			if(button != null) {
+				button.style.fill = color;
+			}
 		}
 
-		if(this.onChange)
-		this.onChange();
+		if(this.onChange) {
+			this.onChange();
+		}
 	}
 
 	static setEC() {
@@ -6601,7 +6657,7 @@ function saveMap_new(img, token) {
 function numberWithCommas(number) {
 	return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
-var currentCache = 'v1.12.6';
+var currentCache = 'v1.12.8';
 
 var states = [];
 var lands = [];

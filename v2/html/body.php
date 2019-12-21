@@ -29,6 +29,7 @@
 			require './v2/html/ita.php'; 
 			require './v2/html/ire.php'; 
 			require './v2/html/ned.php'; 
+			require './v2/html/pak.php';
 			require './v2/html/prt.php'; 
 			require './v2/html/rus.php'; 
 			require './v2/html/zaf.php'; 
