@@ -87,15 +87,7 @@ class State {
 
 		
 	}
-/*
-	test_setColor(options) {
-		var svg = document.getElementById("svgdata");
-		var defs = svg.querySelector("#defs");
-		if(defs === null) {
-			defs = document.createElement("defs");
-		}
-	}
-*/
+
 	setVoteCount(value) {
 		var diff = value - this.voteCount;
 		this.voteCount = value;
@@ -371,6 +363,8 @@ class State {
 
 	// directly change the color of a state (add error checking pls)
 	setColor(candidate, colorValue, options = {setDelegates: true}) {
+		//this.test_setColor();
+
 		if(this.disabled) {
 			return;
 		}
@@ -398,21 +392,92 @@ class State {
 
 		if(color) {
 			this.htmlElement.style.fill = color;
+			//this.htmlElement.setAttribute("fill", "url(#" + this.name + "_pattern)");
 
 			var land = document.getElementById(this.name + '-land');
 			if(land != null) {
 				land.style.fill = color;
+				//land.setAttribute("fill", "url(#" + this.name + "_pattern)");
 			}
 
 			var button = document.getElementById(this.name + '-button');
 			if(button != null) {
 				button.style.fill = color;
+				//button.setAttribute("fill", "url(#" + this.name + "_pattern)");
 			}
 		}
 
 		if(this.onChange) {
 			this.onChange();
 		}
+	}
+	
+	test_setColor(options) {
+		console.log("TEST SET COLOR");
+		var svg = document.getElementById("svgdata").firstChild;
+
+		var defs = svg.querySelector("#defs");
+		if(defs === null) {
+			defs = document.createElementNS("http://www.w3.org/2000/svg", "defs");
+			defs.setAttribute("id", "defs");
+			svg.insertBefore(defs, svg.firstChild);
+		}
+	
+		var pattern = svg.querySelector("#" + this.name + "_pattern");
+		if(pattern === null) {
+			pattern = document.createElementNS("http://www.w3.org/2000/svg", "pattern");
+			pattern.setAttribute("id", this.name + "_pattern");
+			pattern.setAttribute("width", "30");
+			pattern.setAttribute("height", "30");
+			pattern.setAttribute("patternUnits", "userSpaceOnUse");
+			pattern.setAttribute("patternTransform", "rotate(-35)");
+			defs.appendChild(pattern);
+		}
+
+		while(pattern.firstChild) {
+			pattern.removeChild(pattern.lastChild);
+		}
+		
+		var candidates = Object.keys(this.delegates);	
+		var candidateCount = candidates.length;	
+		var realCandidateCount = 0;
+		for(var index = 0; index < candidateCount; ++index) {
+			var candidateName = CandidateManager.candidates[candidates[index]].name;
+			if(this.delegates[candidates[index]] && candidateName !== "Tossup") { 
+				realCandidateCount += 1;
+			}
+		}
+		var xPos = 0;
+		for(var index = 0; index < candidateCount; ++index) {
+			var colorName = CandidateManager.candidates[candidates[index]].colors[0];
+			var candidateName = CandidateManager.candidates[candidates[index]].name;
+			var candidateDelegates = this.delegates[candidates[index]];
+			if(this.delegates[candidates[index]] && candidateName !== "Tossup") { 
+			} else {
+				continue;
+			}
+			var color = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+			console.log(colorName);
+			color.setAttribute("class", candidateName);
+			color.setAttribute("fill", colorName);
+			color.setAttribute("width", (30* (candidateDelegates / this.voteCount)).toString());
+			color.setAttribute("height", "100%");
+			color.setAttribute("x", xPos.toString());
+			xPos += (30 / realCandidateCount);
+			color.setAttribute("y", "0");
+			pattern.appendChild(color);
+		}
+/*
+		color = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+		color.setAttribute("fill", "#0000ff");
+		color.setAttribute("width", "10");
+		color.setAttribute("height", "20");
+		color.setAttribute("x", "0");
+		color.setAttribute("y", "0");
+		pattern.appendChild(color);
+		*/
+
+		this.htmlElement.removeAttribute("style");
 	}
 
 	static setEC() {

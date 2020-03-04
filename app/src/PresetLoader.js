@@ -114,25 +114,13 @@ class PresetLoader {
 			['#457FFF','#457FFF','#457FFF','#457FFF']);
 		var warren = new Candidate('Warren',
 			['#996600','#996600','#996600','#996600']);
-		var buttigieg = new Candidate('Buttigieg',
-			['#990099','#990099','#990099','#990099']);
-		var bloomberg = new Candidate('Bloomberg',
-			['#ff9900','#ff9900','#ff9900','#ff9900']);
-		var klobuchar = new Candidate('Klobuchar',
-			['#000000','#000000','#000000','#000000']);
 		var gabbard = new Candidate('Gabbard',
 			['#FF0074','#FF0074','#FF0074','#FF0074']);
-		var steyer = new Candidate('Steyer',
-			['#3da882','#3da882','#3da882','#3da882']);
 		
 		CandidateManager.candidates['Biden'] = biden;
 		CandidateManager.candidates['Sanders'] = sanders;
 		CandidateManager.candidates['Warren'] = warren;
-		CandidateManager.candidates['Buttigieg'] = buttigieg;
-		CandidateManager.candidates['Bloomberg'] = bloomberg;
-		CandidateManager.candidates['Klobuchar'] = klobuchar;
 		CandidateManager.candidates['Gabbard'] = gabbard;
-		CandidateManager.candidates['Steyer'] = steyer;
 	}
 
 	// French parties
