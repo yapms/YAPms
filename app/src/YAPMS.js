@@ -2865,11 +2865,22 @@ class PresetLoader {
 			['#996600','#996600','#996600','#996600']);
 		var gabbard = new Candidate('Gabbard',
 			['#FF0074','#FF0074','#FF0074','#FF0074']);
+
+		var buttigieg = new Candidate('Buttigieg',
+			['#990099','#990099','#990099','#990099']);
+		var bloomberg = new Candidate('Bloomberg',
+			['#ff9900','#ff9900','#ff9900','#ff9900']);
+		var klobuchar = new Candidate('Klobuchar',
+			['#000000','#000000','#000000','#000000']);
 		
 		CandidateManager.candidates['Biden'] = biden;
 		CandidateManager.candidates['Sanders'] = sanders;
 		CandidateManager.candidates['Warren'] = warren;
 		CandidateManager.candidates['Gabbard'] = gabbard;
+
+		CandidateManager.candidates['Buttigieg'] = buttigieg;
+		CandidateManager.candidates['Bloomberg'] = bloomberg;
+		CandidateManager.candidates['Klobuchar'] = klobuchar;
 	}
 
 	// French parties
@@ -4009,7 +4020,7 @@ class State {
 
 	// directly change the color of a state (add error checking pls)
 	setColor(candidate, colorValue, options = {setDelegates: true}) {
-		//this.test_setColor();
+		this.test_setColor();
 
 		if(this.disabled) {
 			return;
@@ -4038,18 +4049,18 @@ class State {
 
 		if(color) {
 			this.htmlElement.style.fill = color;
-			//this.htmlElement.setAttribute("fill", "url(#" + this.name + "_pattern)");
+			this.htmlElement.setAttribute("fill", "url(#" + this.name + "_pattern)");
 
 			var land = document.getElementById(this.name + '-land');
 			if(land != null) {
 				land.style.fill = color;
-				//land.setAttribute("fill", "url(#" + this.name + "_pattern)");
+				land.setAttribute("fill", "url(#" + this.name + "_pattern)");
 			}
 
 			var button = document.getElementById(this.name + '-button');
 			if(button != null) {
 				button.style.fill = color;
-				//button.setAttribute("fill", "url(#" + this.name + "_pattern)");
+				button.setAttribute("fill", "url(#" + this.name + "_pattern)");
 			}
 		}
 
@@ -4828,7 +4839,7 @@ data = {
 
 'lte_ec': {'NE': 11, 'SE': 9, 'MW': 8, 'WE': 6, 'SW': 5, 'OV': 7},
 
-'dem_primary': {'AL': 52, 'AK': 14, 'AS': 6, 'AZ': 67, 'AR': 31, 'CA': 416, 'CO': 67, 'CT': 49, 'DE': 17, 'DA': 13, 'DC': 17, 'FL': 219, 'GA': 105, 'GU': 6, 'HI': 22, 'ID': 20, 'IL': 155, 'IN': 70, 'IA': 41, 'KS': 33, 'KY': 46, 'LA': 50, 'ME': 24, 'MD': 79, 'MA': 91, 'MI': 125, 'MN': 75, 'MS': 36, 'MO': 68, 'MT': 16, 'NE': 25, 'NV': 36, 'NH': 24, 'NJ': 107, 'NM': 29, 'NY': 224, 'NC': 110, 'ND': 14, 'NI': 6, 'OH': 136, 'OK': 37, 'OR': 52, 'PA': 153, 'PR': 51, 'RI': 21, 'SC': 54, 'SD': 14, 'SU': 764, 'TN': 64, 'TX': 228, 'UT': 29, 'VT': 16, 'VI': 6, 'VA': 99, 'WA': 89, 'WV': 24, 'WI': 77, 'WY': 13},
+'dem_primary': {'AL': 52, 'AK': 15, 'AS': 6, 'AZ': 67, 'AR': 31, 'CA': 415, 'CO': 67, 'CT': 60, 'DE': 21, 'DA': 13, 'DC': 20, 'FL': 219, 'GA': 105, 'GU': 7, 'HI': 24, 'ID': 20, 'IL': 155, 'IN': 82, 'IA': 41, 'KS': 39, 'KY': 54, 'LA': 54, 'ME': 24, 'MD': 96, 'MA': 91, 'MI': 125, 'MN': 75, 'MS': 36, 'MO': 68, 'MT': 19, 'NE': 29, 'NV': 36, 'NH': 24, 'NJ': 126, 'NM': 34, 'NY': 274, 'NC': 110, 'ND': 14, 'NI': 6, 'OH': 136, 'OK': 37, 'OR': 61, 'PA': 186, 'PR': 51, 'RI': 26, 'SC': 54, 'SD': 16, 'SU': 764, 'TN': 64, 'TX': 228, 'UT': 29, 'VT': 16, 'VI': 7, 'VA': 99, 'WA': 89, 'WV': 28, 'WI': 84, 'WY': 14},
 
 'rep_primary': {'AL': 50, 'AK': 28, 'AS': 9, 'AZ': 57, 'AR': 40, 'CA': 172, 'CO': 37, 'CT': 28, 'DE': 16, 'DC': 19, 'FL': 122, 'GA': 76, 'GU': 9, 'HI': 19, 'ID': 32, 'IL': 67, 'IN': 70, 'IA': 40, 'KS': 39, 'KY': 46, 'LA': 46, 'ME': 22, 'MD': 38, 'MA': 41, 'MI': 73, 'MN': 39, 'MS': 39, 'MO': 54, 'MT': 27, 'NE': 36, 'NV': 25, 'NH': 22, 'NJ': 49, 'NM': 22, 'NY': 95, 'NC': 71, 'ND': 29, 'NI': 9, 'OH': 82, 'OK': 43, 'OR': 28, 'PA': 88, 'PR': 23, 'RI': 19, 'SC': 50, 'SD': 29, 'TN': 58, 'TX': 155, 'UT': 40, 'VT': 17, 'VI': 9, 'VA': 49, 'WA': 44, 'WV': 34, 'WI': 52, 'WY': 29},
 
@@ -6817,7 +6828,7 @@ function saveMap_new(img, token) {
 function numberWithCommas(number) {
 	return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
-var currentCache = 'v1.20.6';
+var currentCache = 'v1.20.8';
 
 var states = [];
 var lands = [];

@@ -363,7 +363,7 @@ class State {
 
 	// directly change the color of a state (add error checking pls)
 	setColor(candidate, colorValue, options = {setDelegates: true}) {
-		//this.test_setColor();
+		this.test_setColor();
 
 		if(this.disabled) {
 			return;
@@ -392,18 +392,18 @@ class State {
 
 		if(color) {
 			this.htmlElement.style.fill = color;
-			//this.htmlElement.setAttribute("fill", "url(#" + this.name + "_pattern)");
+			this.htmlElement.setAttribute("fill", "url(#" + this.name + "_pattern)");
 
 			var land = document.getElementById(this.name + '-land');
 			if(land != null) {
 				land.style.fill = color;
-				//land.setAttribute("fill", "url(#" + this.name + "_pattern)");
+				land.setAttribute("fill", "url(#" + this.name + "_pattern)");
 			}
 
 			var button = document.getElementById(this.name + '-button');
 			if(button != null) {
 				button.style.fill = color;
-				//button.setAttribute("fill", "url(#" + this.name + "_pattern)");
+				button.setAttribute("fill", "url(#" + this.name + "_pattern)");
 			}
 		}
 
