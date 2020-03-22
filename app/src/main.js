@@ -1,4 +1,4 @@
-var currentCache = 'v1.20.8';
+var currentCache = 'v1.21.0';
 
 var states = [];
 var lands = [];
@@ -298,7 +298,6 @@ function setChangeCandidate(oldCandidate, newCandidate) {
 
 		if(state.candidate === oldCandidate) {
 			state.setColor(newCandidate, state.colorValue, {updateDelegates: false});	
-			alert("test");
 		}
 
 		state.delegates[newCandidate] = state.delegates[oldCandidate];

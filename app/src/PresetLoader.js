@@ -116,7 +116,6 @@ class PresetLoader {
 			['#996600','#996600','#996600','#996600']);
 		var gabbard = new Candidate('Gabbard',
 			['#FF0074','#FF0074','#FF0074','#FF0074']);
-
 		var buttigieg = new Candidate('Buttigieg',
 			['#990099','#990099','#990099','#990099']);
 		var bloomberg = new Candidate('Bloomberg',
@@ -127,11 +126,10 @@ class PresetLoader {
 		CandidateManager.candidates['Biden'] = biden;
 		CandidateManager.candidates['Sanders'] = sanders;
 		CandidateManager.candidates['Warren'] = warren;
-		CandidateManager.candidates['Gabbard'] = gabbard;
-
-		CandidateManager.candidates['Buttigieg'] = buttigieg;
 		CandidateManager.candidates['Bloomberg'] = bloomberg;
+		CandidateManager.candidates['Buttigieg'] = buttigieg;
 		CandidateManager.candidates['Klobuchar'] = klobuchar;
+		CandidateManager.candidates['Gabbard'] = gabbard;
 	}
 
 	// French parties
