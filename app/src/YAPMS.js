@@ -4018,7 +4018,7 @@ class State {
 
 	// directly change the color of a state (add error checking pls)
 	setColor(candidate, colorValue, options = {setDelegates: true}) {
-		this.test_setColor();
+		//this.test_setColor();
 
 		if(this.disabled) {
 			return;
@@ -6826,7 +6826,7 @@ function saveMap_new(img, token) {
 function numberWithCommas(number) {
 	return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
-var currentCache = 'v1.21.0';
+var currentCache = 'v1.21.1';
 
 var states = [];
 var lands = [];

@@ -363,7 +363,7 @@ class State {
 
 	// directly change the color of a state (add error checking pls)
 	setColor(candidate, colorValue, options = {setDelegates: true}) {
-		this.test_setColor();
+		//this.test_setColor();
 
 		if(this.disabled) {
 			return;
