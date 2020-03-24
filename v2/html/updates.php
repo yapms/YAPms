@@ -7,6 +7,22 @@
 	<div class="featured-section-body">
 	<div class="info-box">
 		<div class="info-box-header">
+			<img src="app/res/flags/usa.svg">
+			<h3>
+				Update	
+			</h3>
+		</div>
+		<div class="link-list">
+		<p><small>
+			Updated delegate counts for the democratic primary
+		</small></p>
+		<a class="link" href="./app/?t=USA_2020_democratic_primary">
+			Democratic Primary
+		</a>
+		</div>
+	</div>
+	<div class="info-box">
+		<div class="info-box-header">
 			<img src="app/res/flags/aus.svg">
 			<h3>
 				Fix
@@ -80,24 +96,6 @@
 			<a class="link" href="./app/?t=Pakistan_national_assembly">
 				National Assembly
 			</a>
-		</div>
-	</div>
-	<div class="info-box">
-		<div class="info-box-header">
-			<img src="app/res/flags/ukd.svg">
-			<h3>
-				UK 2019 Results
-			</h3>
-		</div>
-		<p>CON - 365</p>
-		<p>LAB - 203</p>
-		<p>SNP - 48</p>
-		<p>LDM - 11</p>
-		<p>Other - 23</p>
-		<div class="link-list">
-		<a class="link" href="./app/?t=UnitedKingdom_current_parliament">
-			2019 Results
-		</a>
 		</div>
 	</div>
 	<div class="info-box">
