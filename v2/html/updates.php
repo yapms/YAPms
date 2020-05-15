@@ -9,6 +9,57 @@
 		<div class="info-box-header">
 			<img src="app/res/flags/usa.svg">
 			<h3>
+				Forecast
+			</h3>
+		</div>
+		<div class="link-list">
+		<p>Cook Political Report</p>
+		<p><small>
+			March 9, 2020
+		</small></p>
+		<a class="link" href="./app/?t=USA_2020_cook">
+			Cook Presidential
+		</a>
+		</div>
+	</div>
+	<div class="info-box">
+		<div class="info-box-header">
+			<img src="app/res/flags/usa.svg">
+			<h3>
+				Forecast
+			</h3>
+		</div>
+		<div class="link-list">
+		<p>Inside Elections</p>
+		<p><small>
+			April 3, 2020
+		</small></p>
+		<a class="link" href="./app/?t=USA_2020_inside">
+			Inside Presidential
+		</a>
+		</div>
+	</div>
+	<div class="info-box">
+		<div class="info-box-header">
+			<img src="app/res/flags/usa.svg">
+			<h3>
+				Forecast
+			</h3>
+		</div>
+		<div class="link-list">
+		<p>Sabatos Crystal Ball</p>
+		<p><small>
+			April 2, 2020
+		</small></p>
+		<a class="link" href="./app/?t=USA_2020_sabatos">
+			Sabatos Presidential
+		</a>
+		</div>
+	</div>
+	<div class="info-box">
+		<div class="info-box-header">
+			<img src="app/res/flags/usa.svg">
+			<h3>
 				Update	
 			</h3>
 		</div>
@@ -84,35 +135,5 @@
 			</a>
 		</div>
 	</div>
-	<div class="info-box">
-		<div class="info-box-header">
-			<img src="app/res/flags/pak.svg">
-			<h3>
-				New Map
-			</h3>
-		</div>
-		<div class="link-list">
-			<p>Pakistan</p>	
-			<a class="link" href="./app/?t=Pakistan_national_assembly">
-				National Assembly
-			</a>
-		</div>
-	</div>
-	<div class="info-box">
-		<div class="info-box-header">
-			<h3>
-				New Feature
-			</h3>
-		</div>
-		<div class="link-list">
-		<p>Hold D to fill or delete entire states</p>
-		<a class="link" href="./app/?t=USA_2020_house_cook">
-			House
-		</a>
-		<a class="link" href="./app/?t=USA_county">
-			County
-		</a>
-		</div>
-	</div>
-	</div>
+</div>
 </div>

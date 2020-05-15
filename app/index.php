@@ -290,6 +290,9 @@ if($mobile === false) {
 if($mobile === false) {
 	echo '<div id="sidebar">
 		<div id="sidebar-social">
+		<a id="sidebar-discord-link" class="social-link" href="https://discord.gg/J4Gk7TR" target="_blank"><div id="sidebar-discord" class="sidebar-button">
+			Discord
+		</div></a>
 		<a id="sidebar-reddit-link" class="social-link" href="https://www.reddit.com/r/YAPms/" target="_blank"><div id="sidebar-reddit" class="sidebar-button">
 			Reddit
 		</div></a>
