@@ -4,6 +4,7 @@
 	require './v2/html/bookmarks.php';
 	require './v2/html/updates.php';
 	require './v2/html/upcoming-elections.php';
+	require './v2/html/fun.php';
 	require './v2/html/primary-timeline.php';
 ?>
 </div>
