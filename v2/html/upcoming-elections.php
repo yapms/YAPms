@@ -45,22 +45,5 @@
 		</a>
 		</div>
 	</div>
-	<div class="info-box upcoming-3">
-		<div class="info-box-header">
-			<img src="app/res/flags/ire.svg">
-			<h3>
-				Ireland
-			</h3>
-		</div>
-		<div class="link-list">
-		<p>General Election</p>
-		<p><small>
-			April 10, 2020
-		</small></p>
-		<a class="link" href="./app/?t=Ireland_dail_eireann">
-			Dáil Éireann
-		</a>
-		</div>
-	</div>
 	</div>
 </div>
