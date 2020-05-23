@@ -57,21 +57,11 @@
 			$mobile = false;	
 		}
 
-		$redesign = false;
-
-		if($_COOKIE['redesign'] === 'true' || isset($_COOKIE['redesign']) === false) {
-			$redesign = true;
-		}
-
-		if($redesign) {
-			echo '<link rel="stylesheet" type="text/css" href="./v2/style/style.css">';
-			if($mobile) {
-				echo '<link rel="stylesheet" type="text/css" href="./v2/style/mobile-navigation.css">';
-			} else {
-				echo '<link rel="stylesheet" type="text/css" href="./v2/style/desktop-navigation.css">';
-			}
+		echo '<link rel="stylesheet" type="text/css" href="./v2/style/style.css">';
+		if($mobile) {
+			echo '<link rel="stylesheet" type="text/css" href="./v2/style/mobile-navigation.css">';
 		} else {
-			echo '<link rel="stylesheet" type="text/css" href="./v1/style.css">';
+			echo '<link rel="stylesheet" type="text/css" href="./v2/style/desktop-navigation.css">';
 		}
 	?>
 </head>
@@ -79,36 +69,11 @@
 <body>
 
 <?php
-	if($redesign) {
 		require './v2/html/body.php';
 		echo '<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
 			<script src="./v2/script/mobile-navigation.js"></script>
 			<script src="./v2/script/bookmark.js"></script>
-			<script src="./v2/script/cookies.js"></script>
-			<script>
-			if(gtag) {
-				gtag("event", "Home Page", {
-					"event_category": "Home Page Version",
-					"event_label": "Home Page New",
-					"non_interaction": true
-				});
-			} else {
-				console.log("No google analytics detected");
-			}
-			</script>';
-	} else {
-		require './v1/body.php';
-		echo 'if(gtag) {
-				gtag("event", "Home Page", {
-					"event_category": "Home Page Version",
-					"event_label": "Home Page Old",
-					"non_interaction": true
-				});
-			} else {
-				console.log("No google analytics detected");
-			}
-			</script>';
-	}
+			<script src="./v2/script/cookies.js"></script>';
 ?>
 
 	<script>

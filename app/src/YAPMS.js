@@ -7047,6 +7047,11 @@ function verifyPaintIndex() {
 	}
 }
 
+// instead of counting all delegates, just count when it changes
+function changeVote(prev, current) {
+
+}
+
 // iterate over each state and delegate votes to the candidate
 function countVotes() {
 	var mid = document.getElementById("battlechartmid");

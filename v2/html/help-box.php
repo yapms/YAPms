@@ -19,12 +19,4 @@
 	<a class="social twitter" href="https://twitter.com/YAPmsOfficial" target="_blank">
 		<i class="fab fa-twitter"></i> Twitter
 	</a>
-	<a class="social redesign" onclick="
-		var cookiedate = new Date;
-		cookiedate.setFullYear(cookiedate.getFullYear() + 10);
-		document.cookie = 'redesign=false; expires=' + cookiedate.toUTCString();
-		refetchHome();
-	">
-		<i class="fas fa-arrow-down"></i> Old Design
-	</a>
 </div>
