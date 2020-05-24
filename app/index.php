@@ -214,12 +214,8 @@
 	<i class="fas fa-share-alt"></i> Share Map
 	</div>
 
-	<div class="click-button" onclick="displayMenu('thememenu')" style="white-space: nowrap;">
-	<i class="fas fa-palette"></i> Theme
-	</div>
-
-	<div class="click-button" onclick="displayMenu('chartmenu')" style="white-space: nowrap;">
-	<i class="fas fa-chart-pie"></i> Chart 
+	<div class="click-button" onclick="displayMenu('stylemenu')" style="white-space: nowrap;">
+	<i class="fas fa-palette"></i> Style
 	</div>
 
 	<div class="click-button" onclick="displayMenu('miscmenu')" style="white-space: nowrap;">
@@ -704,12 +700,8 @@ echo '<!-- mobile-ad -->
 	<?php require './html/menu/mapmenu-lte.php'; ?>
 </div>
 
-<div id="chartmenu" class="popup selectmenu">
-	<?php require './html/menu/chartmenu.php'; ?>
-</div>
-
-<div id="thememenu" class="popup selectmenu">
-	<?php require './html/menu/thememenu.php'; ?>
+<div id="stylemenu" class="popup selectmenu">
+	<?php require './html/menu/stylemenu.php'; ?>
 </div>
 
 <div id="sharemenu" class="popup selectmenu">

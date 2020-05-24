@@ -3,12 +3,39 @@
        <object class="closebutton" type="image/svg+xml">Close</object>
 </div>
 <div class="selectmenu-display-header">
-	<h2 class="selectmenu-display-header-text">Select Chart</h2>
+	<h2 class="selectmenu-display-header-text">Style</h2>
 </div>
 </div>
 <div class="selectmenu-content">
 <a class="selectmenu-split">
-	<div class="selectmenu-split-text">Chart</div>
+	<div class="selectmenu-split-text">Themes</div>
+</a>
+<a class="selectmenu-button" onclick='setPalette("dark", true);'>
+	<div class="selectmenu-button-text">Dark</div>
+</a>
+<a class="selectmenu-button" onclick='setPalette("greyscale", true);'>
+	<div class="selectmenu-button-text">Greyscale</div>
+</a>
+<a class="selectmenu-button" onclick='setPalette("terminal", true);'>
+	<div class="selectmenu-button-text">Terminal</div>
+</a>
+<a class="selectmenu-button" onclick='setPalette("white", true);'>
+	<div class="selectmenu-button-text">White</div>
+</a>
+<a class="selectmenu-button" onclick='setPalette("contrast", true);'>
+	<div class="selectmenu-button-text">Contrast</div>
+</a>
+<a class="selectmenu-button" onclick='setPalette("metallic", true);'>
+	<div class="selectmenu-button-text">Metallic</div>
+</a>
+<a class="selectmenu-button" onclick='setPalette("halloween", true);'>
+	<div class="selectmenu-button-text">Halloween</div>
+</a>
+<a class="selectmenu-button" onclick='setPalette("default", true);'>
+	<div class="selectmenu-button-text">Default</div>
+</a>
+<a class="selectmenu-split">
+	<div class="selectmenu-split-text">Charts</div>
 </a>
 <a class="selectmenu-button" onclick='ChartManager.setChart("horizontalbattle")'>
 	<div class="selectmenu-button-text">Horizontal Battle</div>
