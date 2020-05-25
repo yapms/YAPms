@@ -5,38 +5,38 @@
 		{
 			"src": "/app/res/yapms-48.png",
 			"type": "image/png",
-			"sizes": "48x48"	
+			"sizes": "48x48",
+			"purpose": "any"
 		},
 		{
 			"src": "/app/res/yapms-72.png",
 			"type": "image/png",
-			"sizes": "72x72"	
+			"sizes": "72x72",
+			"purpose": "any"
 		},
 		{
 			"src": "/app/res/yapms-96.png",
 			"type": "image/png",
-			"sizes": "96x96"	
+			"sizes": "96x96",
+			"purpose": "any"
 		},
 		{
 			"src": "/app/res/yapms-144.png",
 			"type": "image/png",
-			"sizes": "144x144"	
+			"sizes": "144x144",
+			"purpose": "any"
 		},
 		{
 			"src": "/app/res/yapms-192.png",
 			"type": "image/png",
-			"sizes": "192x192"	
+			"sizes": "192x192",
+			"purpose": "any"
 		},
 		{
 			"src": "/app/res/yapms-512.png",
 			"type": "image/png",
-			"sizes": "512x512"	
-		},
-		{
-			"src": "/app/res/yapms-mask.png",
-			"type": "image/png",
 			"sizes": "512x512",
-			"purpose": "maskable"
+			"purpose": "any"
 		}
 	],
 	"start_url": ".",
