@@ -21,8 +21,9 @@
 	<meta property="twitter:image" content="https://www.yapms.com/app/res/yapms-96.png">
 	
 	<meta name="theme-color" content="#ffffff"/>
-	<link rel="icon" href="./favicon.png" type="image/png"/>
-	<link rel="apple-touch-icon" href="./favicon.png"/>
+	<link rel="icon" href="./app/res/yapms-32.png" sizes="32x32" type="image/png"/>
+	<link rel="icon" href="./app/res/yapms-16.png" sizes="16x16" type="image/png"/>
+	<link rel="apple-touch-icon" href="./app/res/yapms-180.png" sizes="180x180" type="image/png"/>
 	<link rel="manifest" href="./manifest.json">
 
 	<title>YAPms - Yet Another Political Map Simulator</title>
