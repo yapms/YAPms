@@ -36,11 +36,11 @@
 			"src": "/app/res/yapms-512.png",
 			"type": "image/png",
 			"sizes": "512x512",
-			"purpose": "any"
+			"purpose": "maskable any"
 		}
 	],
 	"start_url": ".",
-	"background_color": "#f9eacb",
+	"background_color": "#e5e5e5",
 	"display": "standalone",
 	"theme_color": "#000000"
 }
