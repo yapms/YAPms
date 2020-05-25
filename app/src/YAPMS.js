@@ -6830,7 +6830,7 @@ function saveMap_new(img, token) {
 function numberWithCommas(number) {
 	return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
-var currentCache = 'v2.1.0';
+var currentCache = 'v2.1.1';
 
 var states = [];
 var lands = [];
