@@ -21,7 +21,9 @@
 	<meta property="twitter:image" content="https://www.yapms.com/app/res/yapms-96.png">
 	
 	<meta name="theme-color" content="#ffffff"/>
+	<link rel="icon" href="./app/res/yapms-16.png" sizes="16x16" type="image/png"/>
 	<link rel="icon" href="./app/res/yapms-32.png" sizes="32x32" type="image/png"/>
+	<link rel="icon" href="./app/res/yapms-48.png" sizes="48x48" type="image/png"/>
 	<link rel="apple-touch-icon" href="./app/res/yapms-180.png" sizes="180x180" type="image/png"/>
 	<link rel="manifest" href="./manifest.json">
 
@@ -40,9 +42,6 @@
 
 	<script data-ad-client="ca-pub-1660456925957249" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
-	<link rel="icon" href="https://www.yapms.com/favicon.ico" type="image/x-icon"/>
-	<link rel="shortcut icon" href="https://www.yapms.com/favicon.ico" type="image/x-icon"/>
-	
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
 	<script async src="./app/res/fontawesome/js/all.min.js"></script>
 
