@@ -31,6 +31,12 @@
 			"src": "/app/res/yapms-512.png",
 			"type": "image/png",
 			"sizes": "512x512"	
+		},
+		{
+			"src": "/app/res/yapms-mask.png",
+			"type": "image/png",
+			"sizes": "512x512",
+			"purpose": "maskable"
 		}
 	],
 	"start_url": ".",
