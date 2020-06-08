@@ -2001,6 +2001,10 @@ class MapLoader {
 				PresetLoader.loadPreset("classic");
 				MapLoader.loadMap("./res/usa/iowa/2020_house.svg", 16, 0.2, "1", "takeall_noedit", "open");
 				break;
+			case "Iowa_2020_state_upper":
+				PresetLoader.loadPreset("classic");
+				MapLoader.loadMap("./res/usa/iowa/2020_senate.svg", 16, 0.2, "1", "takeall_noedit", "open");
+				break;
 			case "Michigan_2020_state_lower":
 				PresetLoader.loadPreset("classic");
 				MapLoader.loadMap("./res/usa/michigan/2020_house.svg", 16, 0.2, "1", "takeall_noedit", "open");
@@ -2064,6 +2068,10 @@ class MapLoader {
 			case "Texas_2020_state_lower":
 				PresetLoader.loadPreset("classic");
 				MapLoader.loadMap("./res/usa/texas/2020_house.svg", 16, 0.5, "1", "takeall_noedit", "open");
+				break;
+			case "Virginia_2020_state_upper":
+				PresetLoader.loadPreset("classic");
+				MapLoader.loadMap("./res/usa/virginia/2020_senate.svg", 16, 0.015, "1", "takeall_noedit", "open");
 				break;
 			case "Virginia_2020_state_lower":
 				PresetLoader.loadPreset("classic");
@@ -6833,7 +6841,7 @@ function saveMap_new(img, token) {
 function numberWithCommas(number) {
 	return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
-var currentCache = 'v2.2.1';
+var currentCache = 'v2.2.2';
 
 var states = [];
 var lands = [];
