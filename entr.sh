@@ -3,7 +3,7 @@
 trap "echo helppp" 2
 
 cmd1='ls ./app/src/*.js | grep -v ./app/src/YAPms.js | entr -s "cat '
-for ELEMENT in 'Account.js' 'Candidate.js' 'ChartManager.js' 'CookieManager.js' 'InputManager.js' 'KeyboardManager.js' 'LegendManager.js' 'LogoManager.js' 'MapManager.js' 'MapLoader.js' 'PresetLoader.js' 'State.js' 'battlechart.js' 'click.js' 'congress.js' 'data.js' 'htmlControl.js' 'menuControl.js' 'popularvote.js' 'savemap.js' 'main.js'; 
+for ELEMENT in 'Account.js' 'Candidate.js' 'ChartManager.js' 'CookieManager.js' 'InputManager.js' 'KeyboardManager.js' 'LegendManager.js' 'LogoManager.js' 'MapManager.js' 'MapLoader.js' 'PresetLoader.js' 'State.js' 'battlechart.js' 'click.js' 'congress.js' 'data.js' 'htmlControl.js' 'menuControl.js' 'PopularVote.js' 'savemap.js' 'main.js'; 
 do
 	cmd1+="./app/src/${ELEMENT} "
 done
