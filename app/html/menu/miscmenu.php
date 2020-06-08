@@ -35,4 +35,8 @@
 	<i class="fas fa-desktop"></i>
 	<div class="selectmenu-button-text">PoliticsGaming Logo</div>
 </a>
+<a class="selectmenu-button" onclick="LogoManager.toggleLogo('EP')">
+	<i class="fas fa-desktop"></i>
+	<div class="selectmenu-button-text">PoliticsGaming Logo</div>
+</a>
 </div>
