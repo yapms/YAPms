@@ -6841,7 +6841,7 @@ function saveMap_new(img, token) {
 function numberWithCommas(number) {
 	return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
-var currentCache = 'v2.2.2';
+var currentCache = 'v2.3.0';
 
 var states = [];
 var lands = [];

@@ -23,29 +23,37 @@
 			<a class="navigation-4" href="./app/?t=Florida_2020_state_upper">
 				Florida
 			</a>
+			<a class="navigation-4" href="./app/?t=Iowa_2020_state_upper">
+				Iowa
+			</a>
+		</div>
+		<div class="navigation-3">
 			<a class="navigation-4" href="./app/?t=Minnesota_2020_state_upper">
 				Minnesota
 			</a>
-		</div>
-		<div class="navigation-3">
 			<a class="navigation-4" href="./app/?t=NewJersey_2020_state_upper">
 				New Jersey
 			</a>
+		</div>
+		<div class="navigation-3">
 			<a class="navigation-4" href="./app/?t=NorthDakota_2020_state_upper">
 				North Dakota
 			</a>
-		</div>
-		<div class="navigation-3">
 			<a class="navigation-4" href="./app/?t=Ohio_2020_state_upper">
 				Ohio
 			</a>
+		</div>
+		<div class="navigation-3">
 			<a class="navigation-4" href="./app/?t=Pennsylvania_2020_state_upper">
 				Pennsylvania
 			</a>
-		</div>
-		<div class="navigation-3">
 			<a class="navigation-4" href="./app/?t=Texas_2020_state_upper">
 				Texas
+			</a>
+		</div>
+		<div class="navigation-3">
+			<a class="navigation-4" href="./app/?t=Virginia_2020_state_upper">
+				Virginia
 			</a>
 		</div>
 		
@@ -127,9 +135,14 @@
 			</a>
 		</div>
 		<div class="navigation-3">
+			<a class="navigation-4" href="./app/?t=Virginia_2020_state_lower">
+				Virginia
+			</a>
 			<a class="navigation-4" href="./app/?t=Washington_2020_state_lower">
 				Washington
 			</a>
+		</div>
+		<div class="navigation-3">
 			<a class="navigation-4" href="./app/?t=Wisconsin_2020_state_lower">
 				Wisconsin
 			</a>
