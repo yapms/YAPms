@@ -126,6 +126,10 @@ a {
 	user-select: none;
 }
 
+.minecraft {
+	background: #248641;
+}
+
 .discord {
 	background: #7289da;
 }

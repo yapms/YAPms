@@ -10,6 +10,9 @@
 	<a id="installbutton" class="social install" style="display: none">
 		<i class="fas fa-home"></i> Install
 	</a>
+	<a class="social minecraft" href="https://www.yapms.net" target="_blank">
+		<i class="fas fa-gem"></i> Minecraft
+	</a>
 	<a class="social discord" href="https://discord.gg/J4Gk7TR" target="_blank">
 		<i class="fab fa-discord"></i> Discord
 	</a>
