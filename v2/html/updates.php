@@ -6,6 +6,19 @@
 	</div>
 	<div class="featured-section-body">
 	<div class="info-box">
+		<div class="info-box-header" style="background: #348740; color: white;">
+			<i class="fas fa-gem"></i>
+			<h3 style="font-weight: bold">
+				Minecraft
+			</h3>
+		</div>
+		<div class="link-list">
+		<a class="link" href="https://www.yapms.net">
+			Join Our Minecraft Server!
+		</a>
+		</div>
+	</div>
+	<div class="info-box">
 		<div class="info-box-header">
 			<img src="app/res/flags/usa.svg">
 			<h3>
