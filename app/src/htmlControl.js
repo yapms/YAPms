@@ -87,13 +87,13 @@ function closeAllPopups() {
 	document.activeElement.blur();
 }
 
-function displayCustomColorMenu(type) {
+function displayCustomColorEditor(type) {
 	LogoManager.loadFlags();
 	LogoManager.loadButtons();
 	closeAllPopups();
 	var customColorName = document.getElementById('custom-color-name');
 	customColorName.value = type;
-	var miscmenu = document.getElementById('customcolormenu');
+	var miscmenu = document.getElementById('customcoloreditor');
 	miscmenu.style.display = 'flex';
 	document.getElementById("solidcustom").value = CookieManager.cookies[type + 'solid'];
 	document.getElementById("likelycustom").value = CookieManager.cookies[type + 'likely'];

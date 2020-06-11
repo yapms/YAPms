@@ -1,5 +1,5 @@
-var indexCache = 'i2.3.3';
-var staticCache = 's2.3.3';
+var indexCache = 'i2.5.0';
+var staticCache = 's2.5.0';
 
 var _indexCache = [
 	'./',
@@ -15,6 +15,7 @@ var _indexCache = [
 	
 	'./app/html/battlechart.html',
 	'./app/html/closebutton.svg',
+	'./app/html/backbutton-addcandidate.svg',
 	'./app/html/backbutton.svg',
 	'./app/html/loading.svg',
 	'./app/html/deletebutton.svg',

@@ -815,6 +815,26 @@ class CandidateManager {
 			likely.value = '#e8c84d';
 			leaning.value = '#ffe78a';
 			tilting.value = '#b8a252';
+		} else if(palette === 'blue-light') {
+			solid.value = '#5555ff';
+			likely.value = '#8080ff';
+			leaning.value = '#aaaaff';
+			tilting.value = '#d5d5ff';
+		} else if(palette === 'red-light') {
+			solid.value = '#ff5555';
+			likely.value = '#ff8080';
+			leaning.value = '#ffaaaa';
+			tilting.value = '#ffd5d5';
+		} else if(palette === 'blue-dark') {
+			solid.value = '#302e80';
+			likely.value = '#444cc5';
+			leaning.value = '#817ffb';
+			tilting.value = '#cdd3f7';
+		} else if(palette === 'red-dark') {
+			solid.value = '#80302e';
+			likely.value = '#cb4b40';
+			leaning.value = '#fb817f';
+			tilting.value = '#f5c8c4';
 		} else {
 			solid.value = CookieManager.cookies[palette + 'solid'];
 			likely.value = CookieManager.cookies[palette + 'likely'];
@@ -1412,7 +1432,7 @@ class CookieManager {
 
 	static loadCookies() {
 		// preload all color cookies with black
-		for(var i = 1; i < 5; ++i) {
+		for(var i = 1; i < 11; ++i) {
 			CookieManager.cookies['custom' + i + 'solid'] = '#000000';
 			CookieManager.cookies['custom' + i + 'likely'] = '#000000';
 			CookieManager.cookies['custom' + i + 'leaning'] = '#000000';
@@ -1430,6 +1450,16 @@ class CookieManager {
 	}
 
 	static loadCustomColors() {
+		for(var index = 1; index < 11; ++index) {
+			var c = document.getElementById('custom' + index + 'button');
+			c.style.background = 'linear-gradient(to right,' +
+				CookieManager.cookies['custom' + index + 'solid'] + ',' +
+				CookieManager.cookies['custom' + index + 'likely'] + ',' +
+				CookieManager.cookies['custom' + index + 'leaning'] + ',' +
+				CookieManager.cookies['custom' + index + 'tilting'] + ')';
+			
+		}
+		/*
 		var c1 = document.getElementById('custom1button');
 		c1.style.background = 'linear-gradient(to right,' +
 			CookieManager.cookies['custom1solid'] + ',' +
@@ -1454,6 +1484,7 @@ class CookieManager {
 			CookieManager.cookies['custom4likely'] + ',' +
 			CookieManager.cookies['custom4leaning'] + ',' +
 			CookieManager.cookies['custom4tilting'] + ')';
+			*/
 	}
 
 	static askConsent() {
@@ -1709,8 +1740,14 @@ class LogoManager {
 		}
 		LogoManager.buttonsLoaded = true;
 
+		var backButtons_addcandidatemenu = document.getElementsByClassName("backbutton-addcandidatemenu");
 		var backButtons = document.getElementsByClassName("backbutton");
 		var closeButtons = document.getElementsByClassName("closebutton");
+
+		for(var index = 0; index < backButtons_addcandidatemenu.length; ++index) {
+			var button = backButtons_addcandidatemenu[index];
+			button.setAttribute("data", "./html/backbutton-addcandidate.svg");	
+		}
 
 		for(var index = 0; index < backButtons.length; ++index) {
 			var button = backButtons[index];
@@ -5012,13 +5049,13 @@ function closeAllPopups() {
 	document.activeElement.blur();
 }
 
-function displayCustomColorMenu(type) {
+function displayCustomColorEditor(type) {
 	LogoManager.loadFlags();
 	LogoManager.loadButtons();
 	closeAllPopups();
 	var customColorName = document.getElementById('custom-color-name');
 	customColorName.value = type;
-	var miscmenu = document.getElementById('customcolormenu');
+	var miscmenu = document.getElementById('customcoloreditor');
 	miscmenu.style.display = 'flex';
 	document.getElementById("solidcustom").value = CookieManager.cookies[type + 'solid'];
 	document.getElementById("likelycustom").value = CookieManager.cookies[type + 'likely'];
@@ -6841,7 +6878,7 @@ function saveMap_new(img, token) {
 function numberWithCommas(number) {
 	return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
-var currentCache = 'v2.3.3';
+var currentCache = 'v2.5.0';
 
 var states = [];
 var lands = [];

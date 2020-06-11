@@ -564,7 +564,141 @@ echo '<!-- mobile-ad -->
 	</div>
 </div>
 
+<div id="classiccolormenu" class="popup selectmenu">
+	<div class="selectmenu-header">
+	<div class="selectmenu-controls">
+    	<object class="backbutton-addcandidatemenu" type="image/svg+xml">Back</object>
+		<object class="closebutton" type="image/svg+xml">Close</object>
+	</div>
+	<div class="selectmenu-display-header">
+		<h2 class="selectmenu-display-header-text">Classic Colors</h2>
+	</div>
+	</div>
+	<div class="selectmenu-content">
+	<a class="selectmenu-button selectmenu-red" onclick='CandidateManager.setColors("red"); displayMenu("addcandidatemenu");'>
+		<div class="selectmenu-button-text">Red</div>
+	</a>
+	<a class="selectmenu-button selectmenu-blue" onclick='CandidateManager.setColors("blue"); displayMenu("addcandidatemenu");'>
+		<div class="selectmenu-button-text">Blue</div>
+	</a>
+	<a class="selectmenu-button selectmenu-green" onclick='CandidateManager.setColors("green"); displayMenu("addcandidatemenu");'>
+		<div class="selectmenu-button-text">Green</div>
+	</a>
+	<a class="selectmenu-button selectmenu-yellow" onclick='CandidateManager.setColors("yellow"); displayMenu("addcandidatemenu");'>
+		<div class="selectmenu-button-text">Yellow</div>
+	</a>
+	</div>
+</div>
+
+<div id="altcolormenu" class="popup selectmenu">
+	<div class="selectmenu-header">
+	<div class="selectmenu-controls">
+    	<object class="backbutton-addcandidatemenu" type="image/svg+xml">Back</object>
+	    <object class="closebutton" type="image/svg+xml">Close</object>
+	</div>
+	<div class="selectmenu-display-header">
+		<h2 class="selectmenu-display-header-text">Alt Colors</h2>
+	</div>
+	</div>
+	<div class="selectmenu-content">
+	<a class="selectmenu-button selectmenu-red-light" onclick='CandidateManager.setColors("red-light"); displayMenu("addcandidatemenu");'>
+		<div class="selectmenu-button-text">Light Red</div>
+	</a>
+	<a class="selectmenu-button selectmenu-blue-light" onclick='CandidateManager.setColors("blue-light"); displayMenu("addcandidatemenu");'>
+		<div class="selectmenu-button-text">Light Blue</div>
+	</a>
+	<a class="selectmenu-button selectmenu-red-dark" onclick='CandidateManager.setColors("red-dark"); displayMenu("addcandidatemenu");'>
+		<div class="selectmenu-button-text">Dark Red</div>
+	</a>
+	<a class="selectmenu-button selectmenu-blue-dark" onclick='CandidateManager.setColors("blue-dark"); displayMenu("addcandidatemenu");'>
+		<div class="selectmenu-button-text">Dark Blue</div>
+	</a>
+	</div>
+</div>
+
 <div id="customcolormenu" class="popup selectmenu">
+	<div class="selectmenu-header">
+	<div class="selectmenu-controls">
+    	<object class="backbutton-addcandidatemenu" type="image/svg+xml">Back</object>
+	    <object class="closebutton" type="image/svg+xml">Close</object>
+	</div>
+	<div class="selectmenu-display-header">
+		<h2 class="selectmenu-display-header-text">Custom Colors</h2>
+	</div>
+	</div>
+	<div class="selectmenu-button-double">
+		<a id="custom1button" class="selectmenu-button-left selectmenu-button selectmenu-button-bold" onclick='CandidateManager.setColors("custom1")'>
+			<div class="selectmenu-button-text">Custom 1</div>
+		</a>	
+		<a class="selectmenu-button-right selectmenu-button fas fa-cog"
+			onclick='displayCustomColorEditor("custom1")'></a>
+	</div>
+	<div class="selectmenu-button-double">
+		<a id="custom2button" class="selectmenu-button-left selectmenu-button selectmenu-button-bold" onclick='CandidateManager.setColors("custom2")'>
+			<div class="selectmenu-button-text">Custom 2</div>
+		</a>	
+		<a class="selectmenu-button-right selectmenu-button fas fa-cog"
+			onclick='displayCustomColorEditor("custom2")'></a>
+	</div>
+	<div class="selectmenu-button-double">
+		<a id="custom3button" class="selectmenu-button-left selectmenu-button selectmenu-button-bold" onclick='CandidateManager.setColors("custom3")'>
+			<div class="selectmenu-button-text">Custom 3</div>
+		</a>	
+		<a class="selectmenu-button-right selectmenu-button fas fa-cog"
+			onclick='displayCustomColorEditor("custom3")'></a>
+	</div>
+	<div class="selectmenu-button-double">
+		<a id="custom4button" class="selectmenu-button-left selectmenu-button selectmenu-button-bold" onclick='CandidateManager.setColors("custom4")'>
+			<div class="selectmenu-button-text">Custom 4</div>
+		</a>	
+		<a class="selectmenu-button-right selectmenu-button fas fa-cog"
+			onclick='displayCustomColorEditor("custom4")'></a>
+	</div>
+	<div class="selectmenu-button-double">
+		<a id="custom5button" class="selectmenu-button-left selectmenu-button selectmenu-button-bold" onclick='CandidateManager.setColors("custom5")'>
+			<div class="selectmenu-button-text">Custom 5</div>
+		</a>	
+		<a class="selectmenu-button-right selectmenu-button fas fa-cog"
+			onclick='displayCustomColorEditor("custom5")'></a>
+	</div>
+	<div class="selectmenu-button-double">
+		<a id="custom6button" class="selectmenu-button-left selectmenu-button selectmenu-button-bold" onclick='CandidateManager.setColors("custom6")'>
+			<div class="selectmenu-button-text">Custom 6</div>
+		</a>	
+		<a class="selectmenu-button-right selectmenu-button fas fa-cog"
+			onclick='displayCustomColorEditor("custom6")'></a>
+	</div>
+	<div class="selectmenu-button-double">
+		<a id="custom7button" class="selectmenu-button-left selectmenu-button selectmenu-button-bold" onclick='CandidateManager.setColors("custom7")'>
+			<div class="selectmenu-button-text">Custom 7</div>
+		</a>	
+		<a class="selectmenu-button-right selectmenu-button fas fa-cog"
+			onclick='displayCustomColorEditor("custom7")'></a>
+	</div>
+	<div class="selectmenu-button-double">
+		<a id="custom8button" class="selectmenu-button-left selectmenu-button selectmenu-button-bold" onclick='CandidateManager.setColors("custom8")'>
+			<div class="selectmenu-button-text">Custom 8</div>
+		</a>	
+		<a class="selectmenu-button-right selectmenu-button fas fa-cog"
+			onclick='displayCustomColorEditor("custom8")'></a>
+	</div>
+	<div class="selectmenu-button-double">
+		<a id="custom9button" class="selectmenu-button-left selectmenu-button selectmenu-button-bold" onclick='CandidateManager.setColors("custom9")'>
+			<div class="selectmenu-button-text">Custom 9</div>
+		</a>	
+		<a class="selectmenu-button-right selectmenu-button fas fa-cog"
+			onclick='displayCustomColorEditor("custom9")'></a>
+	</div>
+	<div class="selectmenu-button-double">
+		<a id="custom10button" class="selectmenu-button-left selectmenu-button selectmenu-button-bold" onclick='CandidateManager.setColors("custom10")'>
+			<div class="selectmenu-button-text">Custom 10</div>
+		</a>	
+		<a class="selectmenu-button-right selectmenu-button fas fa-cog"
+			onclick='displayCustomColorEditor("custom10")'></a>
+	</div>
+</div>
+
+<div id="customcoloreditor" class="popup selectmenu">
 	<div class="selectmenu-header">
 	<div class="selectmenu-controls">
 	       <object class="closebutton" type="image/svg+xml">Close</object>
@@ -594,46 +728,15 @@ echo '<!-- mobile-ad -->
 	</div>
 	<div class="selectmenu-content">
 	<div class="selectmenu-section">Name<input id="name" type="text"></div>
-	<a class="selectmenu-button selectmenu-red" onclick='CandidateManager.setColors("red")'>
-		<div class="selectmenu-button-text">Red Colors</div>
+	<a class="selectmenu-button" onclick='displayMenu("classiccolormenu")'>
+		<div class="selectmenu-button-text">Classic Colors</div>
 	</a>
-	<a class="selectmenu-button selectmenu-blue" onclick='CandidateManager.setColors("blue")'>
-		<div class="selectmenu-button-text">Blue Colors</div>
+	<a class="selectmenu-button" onclick='displayMenu("altcolormenu")'>
+		<div class="selectmenu-button-text">Alt Colors</div>
 	</a>
-	<a class="selectmenu-button selectmenu-green" onclick='CandidateManager.setColors("green")'>
-		<div class="selectmenu-button-text">Green Colors</div>
+	<a class="selectmenu-button" onclick='displayMenu("customcolormenu")'>
+		<div class="selectmenu-button-text">Custom Colors</div>
 	</a>
-	<a class="selectmenu-button selectmenu-yellow" onclick='CandidateManager.setColors("yellow")'>
-		<div class="selectmenu-button-text">Yellow Colors</div>
-	</a>
-	<div class="selectmenu-button-double">
-		<a id="custom1button" class="selectmenu-button-left selectmenu-button selectmenu-button-bold" onclick='CandidateManager.setColors("custom1")'>
-			<div class="selectmenu-button-text">Custom 1</div>
-		</a>	
-		<a class="selectmenu-button-right selectmenu-button fas fa-cog"
-			onclick='displayCustomColorMenu("custom1")'></a>
-	</div>
-	<div class="selectmenu-button-double">
-		<a id="custom2button" class="selectmenu-button-left selectmenu-button selectmenu-button-bold" onclick='CandidateManager.setColors("custom2")'>
-			<div class="selectmenu-button-text">Custom 2</div>
-		</a>	
-		<a class="selectmenu-button-right selectmenu-button fas fa-cog"
-			onclick='displayCustomColorMenu("custom2")'></a>
-	</div>
-	<div class="selectmenu-button-double">
-		<a id="custom3button" class="selectmenu-button-left selectmenu-button selectmenu-button-bold" onclick='CandidateManager.setColors("custom3")'>
-			<div class="selectmenu-button-text">Custom 3</div>
-		</a>	
-		<a class="selectmenu-button-right selectmenu-button fas fa-cog"
-			onclick='displayCustomColorMenu("custom3")'></a>
-	</div>
-	<div class="selectmenu-button-double">
-		<a id="custom4button" class="selectmenu-button-left selectmenu-button selectmenu-button-bold" onclick='CandidateManager.setColors("custom4")'>
-			<div class="selectmenu-button-text">Custom 4</div>
-		</a>	
-		<a class="selectmenu-button-right selectmenu-button fas fa-cog"
-			onclick='displayCustomColorMenu("custom4")'></a>
-	</div>
 	<div class="selectmenu-section">Solid <input id="solid" type="color"></div>
 	<div class="selectmenu-section">Likely <input id="likely" type="color"></div>
 	<div class="selectmenu-section">Leaning <input id="leaning" type="color"></div>

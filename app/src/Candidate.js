@@ -200,6 +200,26 @@ class CandidateManager {
 			likely.value = '#e8c84d';
 			leaning.value = '#ffe78a';
 			tilting.value = '#b8a252';
+		} else if(palette === 'blue-light') {
+			solid.value = '#5555ff';
+			likely.value = '#8080ff';
+			leaning.value = '#aaaaff';
+			tilting.value = '#d5d5ff';
+		} else if(palette === 'red-light') {
+			solid.value = '#ff5555';
+			likely.value = '#ff8080';
+			leaning.value = '#ffaaaa';
+			tilting.value = '#ffd5d5';
+		} else if(palette === 'blue-dark') {
+			solid.value = '#302e80';
+			likely.value = '#444cc5';
+			leaning.value = '#817ffb';
+			tilting.value = '#cdd3f7';
+		} else if(palette === 'red-dark') {
+			solid.value = '#80302e';
+			likely.value = '#cb4b40';
+			leaning.value = '#fb817f';
+			tilting.value = '#f5c8c4';
 		} else {
 			solid.value = CookieManager.cookies[palette + 'solid'];
 			likely.value = CookieManager.cookies[palette + 'likely'];

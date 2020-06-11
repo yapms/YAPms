@@ -15,7 +15,7 @@ class CookieManager {
 
 	static loadCookies() {
 		// preload all color cookies with black
-		for(var i = 1; i < 5; ++i) {
+		for(var i = 1; i < 11; ++i) {
 			CookieManager.cookies['custom' + i + 'solid'] = '#000000';
 			CookieManager.cookies['custom' + i + 'likely'] = '#000000';
 			CookieManager.cookies['custom' + i + 'leaning'] = '#000000';
@@ -33,6 +33,16 @@ class CookieManager {
 	}
 
 	static loadCustomColors() {
+		for(var index = 1; index < 11; ++index) {
+			var c = document.getElementById('custom' + index + 'button');
+			c.style.background = 'linear-gradient(to right,' +
+				CookieManager.cookies['custom' + index + 'solid'] + ',' +
+				CookieManager.cookies['custom' + index + 'likely'] + ',' +
+				CookieManager.cookies['custom' + index + 'leaning'] + ',' +
+				CookieManager.cookies['custom' + index + 'tilting'] + ')';
+			
+		}
+		/*
 		var c1 = document.getElementById('custom1button');
 		c1.style.background = 'linear-gradient(to right,' +
 			CookieManager.cookies['custom1solid'] + ',' +
@@ -57,6 +67,7 @@ class CookieManager {
 			CookieManager.cookies['custom4likely'] + ',' +
 			CookieManager.cookies['custom4leaning'] + ',' +
 			CookieManager.cookies['custom4tilting'] + ')';
+			*/
 	}
 
 	static askConsent() {

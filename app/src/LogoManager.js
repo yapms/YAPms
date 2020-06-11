@@ -33,8 +33,14 @@ class LogoManager {
 		}
 		LogoManager.buttonsLoaded = true;
 
+		var backButtons_addcandidatemenu = document.getElementsByClassName("backbutton-addcandidatemenu");
 		var backButtons = document.getElementsByClassName("backbutton");
 		var closeButtons = document.getElementsByClassName("closebutton");
+
+		for(var index = 0; index < backButtons_addcandidatemenu.length; ++index) {
+			var button = backButtons_addcandidatemenu[index];
+			button.setAttribute("data", "./html/backbutton-addcandidate.svg");	
+		}
 
 		for(var index = 0; index < backButtons.length; ++index) {
 			var button = backButtons[index];

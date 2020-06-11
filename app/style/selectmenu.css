@@ -134,10 +134,34 @@ h2.selectmenu-toptext {
 	background: linear-gradient(to right, #bf1d29, #ff5865, #ff8b98, #cf8980);
 }
 
+.selectmenu-red-light {
+	font-weight: bold;
+	color: white;
+	background: linear-gradient(to right, #ff5555, #ff8080, #ffaaaa, #ffd5d5);
+}
+
+.selectmenu-red-dark {
+	font-weight: bold;
+	color: white;
+	background: linear-gradient(to right, #80302e, #cb4b40, #fb817f, #f5c8c4);
+}
+
 .selectmenu-blue {
 	font-weight: bold;
 	color: white;
 	background: linear-gradient(to right, #1c408c, #577ccc, #8aafff, #949bb3);
+}
+
+.selectmenu-blue-light {
+	font-weight: bold;
+	color: white;
+	background: linear-gradient(to right, #5555ff, #8080ff, #aaaaff, #d5d5ff);
+}
+
+.selectmenu-blue-dark {
+	font-weight: bold;
+	color: white;
+	background: linear-gradient(to right, #302e80, #444cc5, #817ffb, #cdd3f7);
 }
 
 .selectmenu-green {
