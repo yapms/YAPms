@@ -45,19 +45,6 @@
 		</div>
 	</div>
 	<div class="info-box">
-		<div class="info-box-header" style="background: #7289da; color: white;">
-			<i class="fab fa-discord"></i>
-			<h3 style="font-weight: bold">
-				Discord
-			</h3>
-		</div>
-		<div class="link-list">
-		<a class="link" href="https://discord.gg/J4Gk7TR">
-			Join Our Discord Server!
-		</a>
-		</div>
-	</div>
-	<div class="info-box">
 		<div class="info-box-header">
 			<img src="app/res/flags/usa.svg">
 			<h3>
