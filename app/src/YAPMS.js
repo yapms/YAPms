@@ -1719,7 +1719,7 @@ class LogoManager {
 			logoSlot.style.backgroundImage = 'url("https://www.yapms.com/app/res/pg.png")';
 			break;
 			case "EP":
-			logoSlot.style.backgroundImage = 'url("https://testing.yapms.com/app/res/ep.png")';
+			logoSlot.style.backgroundImage = 'url("https://www.yapms.com/app/res/ep.png")';
 			break;
 		}
 	
@@ -2065,6 +2065,10 @@ class MapLoader {
 			case "NewMexico_2020_state_lower":
 				PresetLoader.loadPreset("classic");
 				MapLoader.loadMap("./res/usa/newmexico/2020_house.svg", 16, 0.1, "1", "takeall_noedit", "open");
+				break;
+			case "NorthCarolina_2020_state_upper":
+				PresetLoader.loadPreset("classic");
+				MapLoader.loadMap("./res/usa/northcarolina/2020_senate.svg", 16, 0.5, "1", "takeall_noedit", "open");
 				break;
 			case "NorthDakota_2020_state_upper":
 				PresetLoader.loadPreset("classic");

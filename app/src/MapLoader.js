@@ -227,6 +227,10 @@ class MapLoader {
 				PresetLoader.loadPreset("classic");
 				MapLoader.loadMap("./res/usa/newmexico/2020_house.svg", 16, 0.1, "1", "takeall_noedit", "open");
 				break;
+			case "NorthCarolina_2020_state_upper":
+				PresetLoader.loadPreset("classic");
+				MapLoader.loadMap("./res/usa/northcarolina/2020_senate.svg", 16, 0.5, "1", "takeall_noedit", "open");
+				break;
 			case "NorthDakota_2020_state_upper":
 				PresetLoader.loadPreset("classic");
 				MapLoader.loadMap("./res/usa/northdakota/2020_upper.svg", 16, 0.1, "1", "takeall_noedit", "open");
