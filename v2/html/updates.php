@@ -6,6 +6,21 @@
 	</div>
 	<div class="featured-section-body">
 	<div class="info-box">
+		<div class="info-box-header">
+			<h3>
+				Game
+			</h3>
+		</div>
+		<div class="link-list">
+		<p>
+			Have fun altering history!
+		</p>
+		<a class="link" href="https://abw.blue/index_en.php" target="_blank">
+			awd.blue
+		</a>
+		</div>
+	</div>
+	<div class="info-box">
 		<div class="info-box-header" style="background: #348740; color: white;">
 			<i class="fas fa-gem"></i>
 			<h3 style="font-weight: bold">

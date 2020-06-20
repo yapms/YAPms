@@ -33,6 +33,9 @@
 			</h3>
 		</div>
 		<div class="link-list">
+			<a class="link" href="https://abw.blue/index_en.php" target="_blank">
+				awd.blue (Free)
+			</a>
 			<a class="link" href="https://www.americanhistoryusa.com/campaign-trail/" target="_blank">
 				The Campaign Trail (Free)
 			</a>
