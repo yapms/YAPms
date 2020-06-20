@@ -16,7 +16,7 @@
 			Have fun altering history!
 		</p>
 		<a class="link" href="https://abw.blue/index_en.php" target="_blank">
-			abd.blue
+			abw.blue
 		</a>
 		</div>
 	</div>
