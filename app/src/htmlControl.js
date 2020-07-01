@@ -429,7 +429,7 @@ function setMenuColor(color) {
 	menu.style.backgroundColor = color;
 	var clickButtons = document.getElementsByClassName('click-button');
 	for(var index = 0; index < clickButtons.length; ++index) {
-		button = clickButtons[index];
+		var button = clickButtons[index];
 		button.style.borderColor = color;
 	}
 }
@@ -443,7 +443,7 @@ function setMenuImage(image) {
 function setClickButtonTextColor(color) {
 	var clickButtons = document.getElementsByClassName('click-button');
 	for(var index = 0; index < clickButtons.length; ++index) {
-		button = clickButtons[index];
+		var button = clickButtons[index];
 		button.style.color = color;
 	}
 }
@@ -451,7 +451,7 @@ function setClickButtonTextColor(color) {
 function setClickButtonColor(color) {
 	var clickButtons = document.getElementsByClassName('click-button');
 	for(var index = 0; index < clickButtons.length; ++index) {
-		button = clickButtons[index];
+		var button = clickButtons[index];
 		button.style.backgroundColor = color;
 	}
 }
@@ -544,7 +544,7 @@ function setTextStyle(color, weight) {
 		text.style.fill = color;
 		text.style.textAlign = 'center';
 		
-		for(key in text.children) {
+		for(var key in text.children) {
 			var child = text.children[key];
 			try {
 				child.setAttribute('text-anchor', 'middle');

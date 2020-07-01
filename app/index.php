@@ -36,6 +36,7 @@
 
 	<link rel="preload" href="./res/fonts/roboto/roboto-v20-latin-regular.woff" as="font">
 
+	<script>"use strict";</script>
 	<?php
 		$mobile = false;
 
