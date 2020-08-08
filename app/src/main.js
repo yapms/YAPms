@@ -1,4 +1,4 @@
-var currentCache = 'v2.5.7';
+var currentCache = 'v2.6.1';
 
 var states = [];
 var lands = [];
@@ -55,16 +55,6 @@ function share_afterCenter() {
 	}
 
 	html2canvas(document.getElementById('application'), {/*width: 1200, height: 630,*/ logging: false, onclone: function(clone) {
-/*
-		console.log(clone);
-		clone.getElementById('application').style.maxWidth = '1200px';
-		clone.getElementById('application').style.width = '1200px';
-		clone.getElementById('application').style.minWidth = '1200px';
-		clone.getElementById('application').style.maxHeight = '630px';
-		clone.getElementById('application').style.height = '630px';
-		clone.getElementById('application').style.minHeight = '630px';
-*/ 
-
 		// remove the custom fonts from the clone
 		var svgtext = clone.getElementById('text');
 		if(svgtext) {
@@ -75,37 +65,17 @@ function share_afterCenter() {
 		var svg = clone.getElementById("svgdata");
 		var mapdiv = clone.getElementById('map-div');
 		if(svg && mapdiv) {
-/*
-			var view = svg.firstChild;
-			while(view.firstChild) {
-				view.parentNode.insertBefore(view.firstChild, view);
-			}
-			view.parentNode.removeChild(view);
-*/
-
 			var width = mapdiv.offsetWidth + (mapdiv.offsetWidth * 0);
 			var height = mapdiv.offsetHeight + (mapdiv.offsetHeight * 0);
 			svg.setAttribute('width', width);
 			svg.setAttribute('height', height);
-/*
-			svg.setAttribute('viewBox', -width * 0.35 + ' ' + 0 + ' ' + width * 1.35 + ' ' + height);
-			console.log(svg);
-			var pan = svgPanZoom(svg, {
-				fit: true,
-				center: true,
-				contain: false,
-				panEnabled: true,
-				zoomEnabled: true,
-				dblClickZoomEnabled: false,
-				maxZoom: 100,
-				zoomScaleSensitivity: 0.1
-			});
-*/
 		}
+
 		var notification = clone.getElementById('legend-tooltip');
 		if(notification) {
 			notification.style.display = 'none';
 		}
+
 		var editButtons = clone.getElementsByClassName('legend-delete');
 		for(var index = 0, length = editButtons.length; index < length; ++index) {
 			var element = editButtons[index];
@@ -113,6 +83,7 @@ function share_afterCenter() {
 				element.style.display = 'none';
 			}
 		}
+
 		var addCandidate = clone.getElementById('legend-addcandidate-button');
 		if(addCandidate) {
 			addCandidate.style.display = 'none';

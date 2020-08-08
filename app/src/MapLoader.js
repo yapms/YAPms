@@ -428,7 +428,7 @@ class MapLoader {
 				break;
 			case "Ireland_dail_eireann":
 				PresetLoader.loadPreset('ireland')
-				MapLoader.loadMap("./res/ireland_constituencies.svg", 16, 0.075, "ireland_constituencies", "proportional", "open");
+				MapLoader.loadMap("./res/irl/ireland_constituencies_2020.svg", 16, 0.075, "ireland_constituencies", "proportional", "open");
 				break;
 			case "Canada_provinces":
 				PresetLoader.loadPreset('canada')

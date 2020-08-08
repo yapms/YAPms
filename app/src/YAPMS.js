@@ -2267,7 +2267,7 @@ class MapLoader {
 				break;
 			case "Ireland_dail_eireann":
 				PresetLoader.loadPreset('ireland')
-				MapLoader.loadMap("./res/ireland_constituencies.svg", 16, 0.075, "ireland_constituencies", "proportional", "open");
+				MapLoader.loadMap("./res/irl/ireland_constituencies_2020.svg", 16, 0.075, "ireland_constituencies", "proportional", "open");
 				break;
 			case "Canada_provinces":
 				PresetLoader.loadPreset('canada')
@@ -4865,7 +4865,7 @@ var data = {
 
 'portugal_constituencies': {'Lisbon': 47, 'Porto': 39, 'Braga': 19, 'Setúbal': 18, 'Aveiro': 16, 'Leiria': 10, 'Coimbra': 9, 'Faro': 9, 'Santarém': 9, 'Viseu': 9, 'Madeira': 6, 'Viana do Castelo': 6, 'Azores': 5, 'Vila Real': 5, 'Guarda': 4, 'Castelo Branco': 4, 'Beja': 3, 'Bragança': 3, 'Évora': 3, 'Portalegre': 2, 'Europe': 2, 'Outside Europe': 2},
 
-'ireland_constituencies': {'Donegal': 5, 'Sligo-Leitrim': 4, 'Mayo': 4, 'Galway-West': 5, 'Clare': 4, 'Kerry': 5, 'Cork South-West': 3, 'Cork North-West': 3, 'Limerick County': 3, 'Limerick City': 4, 'Cork South-Central': 4, 'Cork North-Central': 4, 'Cork East': 4, 'Waterford': 4, 'Tipperary': 5, 'Carlow-Kilkenny': 5, 'Wexford': 5, 'Wicklow & East Carlow': 5, 'Kildare North': 4, 'Kildare South': 4, 'Laois': 3, 'Offaly': 3, 'Galway-East': 3, 'Roscommon-Galway': 3, 'Longford-Westmeath': 4, 'Meath West': 3, 'Meath East': 3, 'Louth': 5, 'Cavan-Monaghan': 5, 'Sligo-Leitrim': 4, 'Donegal': 5, 'Dublin Fingal': 5, 'Dublin West': 4, 'Dublin North-West': 3, 'Dublin Bay North': 5, 'Dublin Mid-West': 4, 'Dublin South-Central': 4, 'Dublin Central': 4, 'Dublin Bay South': 4, 'Dublin South-West': 5, 'Dublin Rathdown': 3, 'Dún Laoghaire': 4},
+'ireland_constituencies': {'Donegal': 5, 'Sligo-Leitrim': 4, 'Mayo': 4, 'Galway West': 5, 'Clare': 4, 'Kerry': 5, 'Cork South-West': 3, 'Cork North-West': 3, 'Limerick County': 3, 'Limerick City': 4, 'Cork South-Central': 4, 'Cork North-Central': 4, 'Cork East': 4, 'Waterford': 4, 'Tipperary': 5, 'Carlow-Kilkenny': 5, 'Wexford': 5, 'Wicklow': 5, 'Kildare North': 4, 'Kildare South': 4, 'Laois-Offaly': 5, 'Galway East': 3, 'Roscommon-Galway': 3, 'Longford-Westmeath': 4, 'Meath West': 3, 'Meath East': 3, 'Louth': 5, 'Cavan-Monaghan': 5, 'Sligo-Leitrim': 4, 'Donegal': 5, 'Dublin Fingal': 5, 'Dublin West': 4, 'Dublin North-West': 3, 'Dublin Bay North': 5, 'Dublin Mid-West': 4, 'Dublin South-Central': 4, 'Dublin Central': 4, 'Dublin Bay South': 4, 'Dublin South-West': 5, 'Dublin Rathdown': 3, 'Dún Laoghaire': 4},
 
 'brazil_deputies':{'São Paulo': 70, 'Minas Gerais': 53, 'Rio de Janeiro': 46, 'Bahia': 39, 'Rio Grande do Sul': 31, 'Paraná': 30, 'Pernambuco': 25, 'Ceará': 22, 'Maranhão': 18, 'Goiás': 17, 'Pará': 17, 'Santa Catarina': 16, 'Paraíba': 12, 'Espírito Santo': 10, 'Piauí': 10, 'Alagoas': 9, 'Acre': 8, 'Amazonas': 8, 'Amapá': 8, 'Distrito Federal do Brasil': 8, 'Mato Grosso do Sul': 8, 'Mato Grosso': 8, 'Rio Grande do Norte': 8, 'Rondônia': 8, 'Roraima': 8, 'Sergipe': 8, 'Tocantins': 8},
 
@@ -6882,7 +6882,7 @@ function saveMap_new(img, token) {
 function numberWithCommas(number) {
 	return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
-var currentCache = 'v2.5.7';
+var currentCache = 'v2.6.1';
 
 var states = [];
 var lands = [];
@@ -6939,16 +6939,6 @@ function share_afterCenter() {
 	}
 
 	html2canvas(document.getElementById('application'), {/*width: 1200, height: 630,*/ logging: false, onclone: function(clone) {
-/*
-		console.log(clone);
-		clone.getElementById('application').style.maxWidth = '1200px';
-		clone.getElementById('application').style.width = '1200px';
-		clone.getElementById('application').style.minWidth = '1200px';
-		clone.getElementById('application').style.maxHeight = '630px';
-		clone.getElementById('application').style.height = '630px';
-		clone.getElementById('application').style.minHeight = '630px';
-*/ 
-
 		// remove the custom fonts from the clone
 		var svgtext = clone.getElementById('text');
 		if(svgtext) {
@@ -6959,37 +6949,17 @@ function share_afterCenter() {
 		var svg = clone.getElementById("svgdata");
 		var mapdiv = clone.getElementById('map-div');
 		if(svg && mapdiv) {
-/*
-			var view = svg.firstChild;
-			while(view.firstChild) {
-				view.parentNode.insertBefore(view.firstChild, view);
-			}
-			view.parentNode.removeChild(view);
-*/
-
 			var width = mapdiv.offsetWidth + (mapdiv.offsetWidth * 0);
 			var height = mapdiv.offsetHeight + (mapdiv.offsetHeight * 0);
 			svg.setAttribute('width', width);
 			svg.setAttribute('height', height);
-/*
-			svg.setAttribute('viewBox', -width * 0.35 + ' ' + 0 + ' ' + width * 1.35 + ' ' + height);
-			console.log(svg);
-			var pan = svgPanZoom(svg, {
-				fit: true,
-				center: true,
-				contain: false,
-				panEnabled: true,
-				zoomEnabled: true,
-				dblClickZoomEnabled: false,
-				maxZoom: 100,
-				zoomScaleSensitivity: 0.1
-			});
-*/
 		}
+
 		var notification = clone.getElementById('legend-tooltip');
 		if(notification) {
 			notification.style.display = 'none';
 		}
+
 		var editButtons = clone.getElementsByClassName('legend-delete');
 		for(var index = 0, length = editButtons.length; index < length; ++index) {
 			var element = editButtons[index];
@@ -6997,6 +6967,7 @@ function share_afterCenter() {
 				element.style.display = 'none';
 			}
 		}
+
 		var addCandidate = clone.getElementById('legend-addcandidate-button');
 		if(addCandidate) {
 			addCandidate.style.display = 'none';
