@@ -7,7 +7,7 @@
 	<div class="featured-section-body">
 	<div class="info-box">
 		<div class="info-box-header">
-			<img src="app/res/flags/usa.svg">
+			<img src="app/res/flags/ire.svg">
 			<h3>
 				Update
 			</h3>

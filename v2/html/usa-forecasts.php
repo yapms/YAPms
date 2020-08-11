@@ -16,14 +16,14 @@
 				Cook Political Report
 				<br>
 				<small>
-					10/29/19
+					7/14/20
 				</small>
 			</a>
 			<a class="navigation-4" href="./app/?t=USA_2020_sabatos">
 				Sabatos Crystal Ball
 				<br>
 				<small>
-					11/7/19
+					7/14/20
 				</small>
 			</a>
 		</div>
@@ -32,7 +32,7 @@
 				Inside Elections
 				<br>
 				<small>
-					9/1/19
+					7/17/20
 				</small>
 			</a>
 		</div>
