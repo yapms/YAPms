@@ -93,13 +93,13 @@
 			<meta property="og:image:height" content="1200">';
 			if(isset($_GET["u"]) && !empty($_GET["u"])) {
 				echo "<meta property='og:image:secure_url' content='https://yapms.org/users/{$_GET['u']}/{$_GET["m"]}.png'>
-				<meta property='og:image' content='https://yapms.org/users/{$_GET['u']}/{$_GET["m"]}.png'>
-				<meta name='twitter:image' content='https://yapms.org/users/{$_GET['u']}/{$_GET['m']}.png'>
+				<meta property='og:image' content='http://yapms.org/users/{$_GET['u']}/{$_GET["m"]}.png'>
+				<meta name='twitter:image' content='http://yapms.org/users/{$_GET['u']}/{$_GET['m']}.png'>
 				<meta property='og:url' content='https://www.yapms.com/app/?u={$_GET['u']}&m={$_GET['m']}'>";
 			} else {
 				echo "<meta property='og:image:secure_url' content='https://yapms.org/maps/{$_GET['m']}.png'>
-				<meta property='og:image' content='https://yapms.org/maps/{$_GET["m"]}.png'>
-				<meta name='twitter:image' content='https://yapms.org/maps/{$_GET['m']}.png'>
+				<meta property='og:image' content='http://yapms.org/maps/{$_GET["m"]}.png'>
+				<meta name='twitter:image' content='http://yapms.org/maps/{$_GET['m']}.png'>
 				<meta property='og:url' content='https://www.yapms.com/app/?m={$_GET['m']}'>";
 			}
 		} else if(isset($_GET["t"]) && !empty($_GET["t"])) {
