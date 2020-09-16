@@ -1,0 +1,10 @@
+{
+	"contact_email": "admin@yapms.com",
+	"version": "1.0",
+	"sellers": [{
+		"seller_id": "pub-1660456925957249",
+		"seller_type": "PUBLISHER",
+		"name": "YAPms",
+		"domain": "yapms.com"
+	}]
+}
