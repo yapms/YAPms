@@ -25,18 +25,22 @@
 </a>
 <a class="selectmenu-button" onclick="LogoManager.toggleLogo('LTE')">
 	<i class="fas fa-desktop"></i>
-	<div class="selectmenu-button-text">LTE Logo</div>
+	<div class="selectmenu-button-text">LTE</div>
 </a>
 <a class="selectmenu-button" onclick="LogoManager.toggleLogo('RedEagle')">
 	<i class="fas fa-desktop"></i>
-	<div class="selectmenu-button-text">RedEagle Logo</div>
+	<div class="selectmenu-button-text">RedEagle</div>
 </a>
 <a class="selectmenu-button" onclick="LogoManager.toggleLogo('PG')">
 	<i class="fas fa-desktop"></i>
-	<div class="selectmenu-button-text">PoliticsGaming Logo</div>
+	<div class="selectmenu-button-text">PoliticsGaming</div>
 </a>
 <a class="selectmenu-button" onclick="LogoManager.toggleLogo('EP')">
 	<i class="fas fa-desktop"></i>
-	<div class="selectmenu-button-text">Election Predictions Logo</div>
+	<div class="selectmenu-button-text">Election Predictions</div>
+</a>
+<a class="selectmenu-button" onclick="LogoManager.toggleLogo('RedDonkey')">
+	<i class="fas fa-desktop"></i>
+	<div class="selectmenu-button-text">Red Donkey Projections</div>
 </a>
 </div>

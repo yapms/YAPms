@@ -14,6 +14,9 @@ class LogoManager {
 			case "EP":
 			logoSlot.style.backgroundImage = 'url("https://www.yapms.com/app/res/ep.png")';
 			break;
+			case "RedDonkey":
+			logoSlot.style.backgroundImage = 'url("https://testing.yapms.com/app/res/reddonkey.jpg")';
+			break;
 		}
 	
 		if(LogoManager.currentLogo !== name) {
