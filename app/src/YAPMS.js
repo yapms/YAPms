@@ -1722,7 +1722,7 @@ class LogoManager {
 			logoSlot.style.backgroundImage = 'url("https://www.yapms.com/app/res/ep.png")';
 			break;
 			case "RedDonkey":
-			logoSlot.style.backgroundImage = 'url("https://testing.yapms.com/app/res/reddonkey.jpg")';
+			logoSlot.style.backgroundImage = 'url("https://testing.yapms.com/app/res/reddonkey.png")';
 			break;
 		}
 	
@@ -6885,7 +6885,7 @@ function saveMap_new(img, token) {
 function numberWithCommas(number) {
 	return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
-var currentCache = 'v2.6.3';
+var currentCache = 'v2.7.0';
 
 var states = [];
 var lands = [];
