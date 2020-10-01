@@ -7,23 +7,6 @@
 	<div class="featured-section-body">
 	<div class="info-box">
 		<div class="info-box-header">
-			<img src="app/res/flags/ire.svg">
-			<h3>
-				Update
-			</h3>
-		</div>
-		<div class="link-list">
-		<p>Ireland</p>
-		<p><small>
-			Updated to the new 2020 map
-		</small></p>
-		<a class="link" href="./app/?t=Ireland_dail_eireann">
-			Dáil Éireann
-		</a>
-		</div>
-	</div>
-	<div class="info-box">
-		<div class="info-box-header">
 			<img src="app/res/flags/usa.svg">
 			<h3>
 				Forecast
@@ -32,7 +15,7 @@
 		<div class="link-list">
 		<p>Cook Political Report</p>
 		<p><small>
-			July 14, 2020
+			October 1, 2020
 		</small></p>
 		<a class="link" href="./app/?t=USA_2020_cook">
 			Cook Presidential
@@ -49,7 +32,7 @@
 		<div class="link-list">
 		<p>Inside Elections</p>
 		<p><small>
-			July 17, 2020
+			October 1, 2020
 		</small></p>
 		<a class="link" href="./app/?t=USA_2020_inside">
 			Inside Presidential
@@ -66,10 +49,27 @@
 		<div class="link-list">
 		<p>Sabatos Crystal Ball</p>
 		<p><small>
-			July 14, 2020
+			October 1, 2020
 		</small></p>
 		<a class="link" href="./app/?t=USA_2020_sabatos">
 			Sabatos Presidential
+		</a>
+		</div>
+	</div>
+	<div class="info-box">
+		<div class="info-box-header">
+			<img src="app/res/flags/ire.svg">
+			<h3>
+				Update
+			</h3>
+		</div>
+		<div class="link-list">
+		<p>Ireland</p>
+		<p><small>
+			Updated to the new 2020 map
+		</small></p>
+		<a class="link" href="./app/?t=Ireland_dail_eireann">
+			Dáil Éireann
 		</a>
 		</div>
 	</div>
