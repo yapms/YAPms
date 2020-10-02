@@ -12,7 +12,7 @@
 			</h3>
 		</div>
 		<div class="link-list">
-		<a class="link" href="https://discord.gg/kT9dMHY">
+		<a class="link" href="https://discord.gg/kT9dMHY" target="_blank">
 			Join Our Discord!
 		</a>
 		</div>
