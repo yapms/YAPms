@@ -12,7 +12,7 @@
 			</h3>
 		</div>
 		<div class="link-list">
-		<a class="link" href="./app/?t=USA_2020_cook">
+		<a class="link" href="https://discord.gg/kT9dMHY">
 			Join Our Discord!
 		</a>
 		</div>
