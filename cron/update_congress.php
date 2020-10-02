@@ -1,7 +1,7 @@
 <?php
 require 'dblogin.php';
 $sql = 'select * from congress';
-$test = $dbh->query($sql);
+$q = $dbh->query($sql);
 
 echo 'HELLO WORLD</br>';
 
