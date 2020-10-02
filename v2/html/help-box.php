@@ -10,6 +10,9 @@
 	<a id="installbutton" class="social install" style="display: none">
 		<i class="fas fa-home"></i> Install
 	</a>
+	<a class="social discord" href="https://discord.gg/kT9dMHY" target="_blank">
+		<i class="fab fa-discord"></i> Discord
+	</a>
 	<a class="social reddit" href="https://www.reddit.com/r/YAPms/" target="_blank">
 		<i class="fab fa-reddit"></i> Reddit
 	</a>

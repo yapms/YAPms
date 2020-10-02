@@ -6,6 +6,18 @@
 	</div>
 	<div class="featured-section-body">
 	<div class="info-box">
+		<div class="info-box-header" style="background: #7289da">
+			<h3 style="font-weight: bold; color: white; letter-spacing: 2px;">
+				Discord
+			</h3>
+		</div>
+		<div class="link-list">
+		<a class="link" href="./app/?t=USA_2020_cook">
+			Join Our Discord!
+		</a>
+		</div>
+	</div>
+	<div class="info-box">
 		<div class="info-box-header">
 			<img src="app/res/flags/usa.svg">
 			<h3>
