@@ -1,5 +1,5 @@
 <?php
-	require '../../../external/db_congress.php';
+	require '../../external/db_congress.php';
 
 	$dbh = null;
 	try {
