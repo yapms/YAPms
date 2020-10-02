@@ -6,6 +6,7 @@ $q = $dbh->query($sql);
 echo 'HELLO WORLD</br>';
 
 foreach($q as $row) {
-	echo $row . '</br>';
+	print_r($row);
+	echo '</br>';
 }
 ?>
