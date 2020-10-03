@@ -3378,7 +3378,7 @@ class PresetLoader {
 			['#326760','#326760','#326760','#326760']);
 		var labour = new Candidate('Lab',
 			['#CC0000','#CC0000','#CC0000','#CC0000']);
-		var aaapbp = new Candidate('AAA-PBP',
+		var spbp = new Candidate('S-PBP',
 			['#E5E500','#E5E500','#E5E500','#E5E500']);
 		var inds4change = new Candidate('I4C',
 			['#FFC0CB','#FFC0CB','#FFC0CB','#FFC0CB']);
@@ -3393,7 +3393,7 @@ class PresetLoader {
 		CandidateManager.candidates['FF'] = fiannafail;
 		CandidateManager.candidates['SF'] = sinnfein;
 		CandidateManager.candidates['Lab'] = labour;
-		CandidateManager.candidates['AAA-PBP'] = aaapbp;
+		CandidateManager.candidates['S-PBP'] = spbp;
 		CandidateManager.candidates['I4C'] = inds4change;
 		CandidateManager.candidates['SD'] = socialdemocrats;
 		CandidateManager.candidates['GP'] = green;
@@ -6885,7 +6885,7 @@ function saveMap_new(img, token) {
 function numberWithCommas(number) {
 	return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
-var currentCache = 'v2.7.1';
+var currentCache = 'v2.8.0';
 
 var states = [];
 var lands = [];
