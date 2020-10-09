@@ -3,19 +3,19 @@ class LogoManager {
 		var logoSlot = document.getElementById("logo-div");
 		switch(name) {
 			case "LTE":
-			logoSlot.style.backgroundImage = 'url("https://www.yapms.com/app/res/lte.jpg")';
+			logoSlot.style.backgroundImage = 'url("https://testing.yapms.com/app/res/logos/lte.png")';
 			break;
 			case "RedEagle":
-			logoSlot.style.backgroundImage = 'url("https://www.yapms.com/app/res/redeagletv.png")';
+			logoSlot.style.backgroundImage = 'url("https://testing.yapms.com/app/res/logos/redeagletv.png")';
 			break;
 			case "PG":
-			logoSlot.style.backgroundImage = 'url("https://www.yapms.com/app/res/pg.png")';
+			logoSlot.style.backgroundImage = 'url("https://testing.yapms.com/app/res/logos/pg.png")';
 			break;
 			case "EP":
-			logoSlot.style.backgroundImage = 'url("https://www.yapms.com/app/res/ep.png")';
+			logoSlot.style.backgroundImage = 'url("https://testing.yapms.com/app/res/logos/ep.png")';
 			break;
 			case "RedDonkey":
-			logoSlot.style.backgroundImage = 'url("https://testing.yapms.com/app/res/reddonkey.png")';
+			logoSlot.style.backgroundImage = 'url("https://testing.yapms.com/app/res/logos/reddonkey.png")';
 			break;
 		}
 	

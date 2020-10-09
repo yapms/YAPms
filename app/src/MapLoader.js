@@ -293,31 +293,31 @@ class MapLoader {
 				break;
 			case "USA_2020_presidential":
 				PresetLoader.loadPreset('classic');
-				MapLoader.loadMap("./res/usa_presidential.svg", 16, 0.75, "usa_ec", "takeall", "open", {voters: 'usa_voting_pop', enablePopularVote: true});
+				MapLoader.loadMap("./res/usa/presidential/usa_presidential.svg", 16, 0.75, "usa_ec", "takeall", "open", {voters: 'usa_voting_pop', enablePopularVote: true});
 				break;
 			case "USA_split_maine":
 				PresetLoader.loadPreset('classic');
-				MapLoader.loadMap("./res/usa_1972_presidential.svg", 16, 0.75, "usa_1972_ec", "takeall", "open");
+				MapLoader.loadMap("./res/usa/presidential/usa_1972_presidential.svg", 16, 0.75, "usa_1972_ec", "takeall", "open");
 				break;
 			case "USA_2020_senate":
 				PresetLoader.loadPreset('classic');
-				MapLoader.loadMap("./res/usa_senate.svg", 16, 1, "1", "senatorial", "2020");
+				MapLoader.loadMap("./res/usa/senate/usa_senate.svg", 16, 1, "1", "senatorial", "2020");
 				break;
 			case "USA_2020_governors":
 				PresetLoader.loadPreset('classic');
-				MapLoader.loadMap("./res/usa_gubernatorial.svg", 16, 0.75, "1", "gubernatorial", "2020");
+				MapLoader.loadMap("./res/usa/governors/usa_gubernatorial.svg", 16, 0.75, "1", "gubernatorial", "2020");
 				break;
 			case "USA_2020_democratic_primary":
 				PresetLoader.loadPreset('democratic primary');
-				MapLoader.loadMap("./res/usa_dem_primary.svg", 16, 0.75, "dem_primary", "proportional", "open");
+				MapLoader.loadMap("./res/usa/primary/usa_dem_primary.svg", 16, 0.75, "dem_primary", "proportional", "open");
 				break;
 			case "USA_2020_republican_primary":
 				PresetLoader.loadPreset('republican primary');
-				MapLoader.loadMap("./res/usa_rep_primary.svg", 16, 0.75, "rep_primary", "proportional", "open");
+				MapLoader.loadMap("./res/usa/primary/usa_rep_primary.svg", 16, 0.75, "rep_primary", "proportional", "open");
 				break;
 			case "USA_county":
 				PresetLoader.loadPreset('classic');
-				MapLoader.loadMap("./res/usa_county.svg", 16, 0.075, "1", "takeall_noedit", "open");
+				MapLoader.loadMap("./res/usa/county/usa_county.svg", 16, 0.075, "1", "takeall_noedit", "open");
 				break;
 			case "USA_2020_house":
 				PresetLoader.loadPreset('classic');
@@ -325,26 +325,26 @@ class MapLoader {
 				break;
 			case "USA_2008_house":
 				PresetLoader.loadPreset('classic');
-				MapLoader.loadMap("./res/usa_congressional_2008.svg", 16, 0.005, "1", "takeall_noedit", "open");
+				MapLoader.loadMap("./res/usa/house/usa_congressional_2008.svg", 16, 0.005, "1", "takeall_noedit", "open");
 				break;
 			case "USA_governors":
 				PresetLoader.loadPreset('classic');
-				MapLoader.loadMap("./res/usa_gubernatorial.svg", 16, 0.75, "1", "gubernatorial", "open");
+				MapLoader.loadMap("./res/usa/governors/usa_gubernatorial.svg", 16, 0.75, "1", "gubernatorial", "open");
 				break;
 			case "USA_senate":
 				PresetLoader.loadPreset('classic');
-				MapLoader.loadMap("./res/usa_senate.svg", 16, 0.75, "1", "senatorial", "open");
+				MapLoader.loadMap("./res/usa/senate/usa_senate.svg", 16, 0.75, "1", "senatorial", "open");
 				break;
 			case "USA_takeall":
 				PresetLoader.loadPreset('classic');
-				MapLoader.loadMap("./res/usa_no_districts.svg", 16, 0.75, "usa_no_districts_ec", "takeall", "open");
+				MapLoader.loadMap("./res/usa/presidential/usa_no_districts.svg", 16, 0.75, "usa_no_districts_ec", "takeall", "open");
 				break;
 			case "USA_proportional":
 				PresetLoader.loadPreset('classic');
-				MapLoader.loadMap("./res/usa_no_districts.svg", 16, 0.75, "usa_no_districts_ec", "proportional", "open");
+				MapLoader.loadMap("./res/usa/presidential/usa_no_districts.svg", 16, 0.75, "usa_no_districts_ec", "proportional", "open");
 				break;
 			case "USA_pre_civilwar":
-				MapLoader.loadMap("./res/usa_pre_civilwar.svg", 16, 0.75, "usa_pre_civilwar_ec", "presidential", "open");
+				MapLoader.loadMap("./res/usa/presidential/usa_pre_civilwar.svg", 16, 0.75, "usa_pre_civilwar_ec", "presidential", "open");
 				break;
 			case "Pakistan_national_assembly":
 				PresetLoader.loadPreset('pakistan');
@@ -360,35 +360,35 @@ class MapLoader {
 				break;
 			case "USA_Canada":
 				PresetLoader.loadPreset('classic');
-				MapLoader.loadMap("./res/usa_canada.svg", 16, 0.01, "1", "takeall", "open");
+				MapLoader.loadMap("./res/other/usa_canada.svg", 16, 0.01, "1", "takeall", "open");
 				break;
 			case "Germany_states":
 				PresetLoader.loadPreset('germany')
-				MapLoader.loadMap("./res/germany.svg", 16, 1, "1", "takeall", "open");
+				MapLoader.loadMap("./res/deu/germany.svg", 16, 1, "1", "takeall", "open");
 				break;
 			case "Germany_bundestag":
 				PresetLoader.loadPreset('germany')
-				MapLoader.loadMap("./res/germany_constituencies.svg", 16, 0.25, "1", "takeall_noedit", "open");
+				MapLoader.loadMap("./res/deu/germany_constituencies.svg", 16, 0.25, "1", "takeall_noedit", "open");
 				break;
 			case "France_national_assembly":
 				PresetLoader.loadPreset('france')
-				MapLoader.loadMap("./res/france_constituencies.svg", 16, 0.25, "1", "takeall_noedit", "open");
+				MapLoader.loadMap("./res/fra/france_constituencies.svg", 16, 0.25, "1", "takeall_noedit", "open");
 				break;
 			case "Netherlands_provinces":
 				PresetLoader.loadPreset('netherlands');
-				MapLoader.loadMap("./res/netherlands_provinces.svg", 16, 0.15, "netherlands_provinces", "proportional", "open");
+				MapLoader.loadMap("./res/nld/netherlands_provinces.svg", 16, 0.15, "netherlands_provinces", "proportional", "open");
 				break;
 			case "Netherlands_gemeenten":
 				PresetLoader.loadPreset('netherlands');
-				MapLoader.loadMap("./res/netherlands_gemeenten.svg", 16, 0.15, "1", "takeall_noedit", "open");
+				MapLoader.loadMap("./res/nld/netherlands_gemeenten.svg", 16, 0.15, "1", "takeall_noedit", "open");
 				break;
 			case "Italy_states":
 				PresetLoader.loadPreset('italy')
-				MapLoader.loadMap("./res/italy.svg", 16, 1, "1", "takeall_noedit", "open");
+				MapLoader.loadMap("./res/ita/italy.svg", 16, 1, "1", "takeall_noedit", "open");
 				break;
 			case "Portugal_assembly_of_the_republic":
 				PresetLoader.loadPreset('portugal');
-				MapLoader.loadMap("./res/portugal_constituencies.svg", 16, 0.25, "portugal_constituencies", "proportional", "open");
+				MapLoader.loadMap("./res/prt/portugal_constituencies.svg", 16, 0.25, "portugal_constituencies", "proportional", "open");
 				break;
 			case "Poland":
 				PresetLoader.loadPreset('portugal');
@@ -396,7 +396,7 @@ class MapLoader {
 				break;
 			case "Spain_congress_of_deputies":
 				PresetLoader.loadPreset('spain');
-				MapLoader.loadMap("./res/spain_constituencies.svg", 16, 0.25, "spain_constituencies", "proportional", "open");
+				MapLoader.loadMap("./res/esp/spain_constituencies.svg", 16, 0.25, "spain_constituencies", "proportional", "open");
 				break;
 			case "Sweden_riksdag":
 				PresetLoader.loadPreset('sweden');
@@ -404,11 +404,11 @@ class MapLoader {
 				break;
 			case "Turkey_national_assembly":
 				PresetLoader.loadPreset('turkey');
-				MapLoader.loadMap("./res/turkey_provinces.svg", 16, 0.5, "turkey_national_assembly", "proportional", "open");
+				MapLoader.loadMap("./res/tur/turkey_provinces.svg", 16, 0.5, "turkey_national_assembly", "proportional", "open");
 				break;
 			case "India_lok_sabha":
 				PresetLoader.loadPreset('india');
-				MapLoader.loadMap("./res/india_constituencies.svg", 16, 0.1, "1", "takeall_noedit", "open");
+				MapLoader.loadMap("./res/ind/india_constituencies.svg", 16, 0.1, "1", "takeall_noedit", "open");
 				break;
 			case "SouthAfrica_national_assembly":
 				PresetLoader.loadPreset('southafrica');
@@ -416,7 +416,7 @@ class MapLoader {
 				break;
 			case "UnitedKingdom_house_of_commons":
 				PresetLoader.loadPreset('uk')
-				MapLoader.loadMap("./res/unitedkingdom.svg", 16, 0.075, "1", "takeall_noedit", "open");
+				MapLoader.loadMap("./res/ukd/unitedkingdom.svg", 16, 0.075, "1", "takeall_noedit", "open");
 				break;
 			case "UnitedKingdom_historic_counties":
 				PresetLoader.loadPreset('uk')
@@ -432,40 +432,39 @@ class MapLoader {
 				break;
 			case "Canada_provinces":
 				PresetLoader.loadPreset('canada')
-				MapLoader.loadMap("./res/canada_states.svg", 38, 2, "1", "takeall", "open");
+				MapLoader.loadMap("./res/can/canada_states.svg", 38, 2, "1", "takeall", "open");
 				break;
 			case "Canada_house_of_commons":
 				PresetLoader.loadPreset('canada')
-				MapLoader.loadMap("./res/canada_constituencies.svg", 16, 0.1, "1", "takeall_noedit", "open");
+				MapLoader.loadMap("./res/can/canada_constituencies.svg", 16, 0.1, "1", "takeall_noedit", "open");
 				break;
 			case 'Australia_house_of_representatives':
 				PresetLoader.loadPreset('australia')
-				//MapLoader.loadMap("./res/australia_constituencies.svg", 16, 0.5, "1", "takeall_noedit", "open");
 				MapLoader.loadMap("./res/aus/australia.svg", 16, 0.1, "1", "takeall_noedit", "open");
 				break;
 			case "Australia_states":
 				PresetLoader.loadPreset('australia')
-				MapLoader.loadMap("./res/australia.svg", 16, 0.075, "1", "takeall", "open");
+				MapLoader.loadMap("./res/aus/australia.svg", 16, 0.075, "1", "takeall", "open");
 				break;
 			case 'Brazil_chamber_of_deputies':
 				PresetLoader.loadPreset('brazil');
-				MapLoader.loadMap("./res/brazil_states.svg", 16, 50, "brazil_deputies", "proportional", "open");
+				MapLoader.loadMap("./res/bra/brazil_states.svg", 16, 50, "brazil_deputies", "proportional", "open");
 				break;
 			case 'Brazil_federal_senate':
 				PresetLoader.loadPreset('brazil');
-				MapLoader.loadMap('./res/brazil_states.svg', 16, 50, "3", "proportional", "open");
+				MapLoader.loadMap('./res/bra/brazil_states.svg', 16, 50, "3", "proportional", "open");
 				break;
 			case 'Russia_federal_council':
 				PresetLoader.loadPreset('russia');
-				MapLoader.loadMap('./res/russia_federal_subjects.svg', 16, 0.25, '2', 'proportional', 'open');
+				MapLoader.loadMap('./res/rus/russia_federal_subjects.svg', 16, 0.25, '2', 'proportional', 'open');
 				break;
 			case 'Russia_duma':
 				PresetLoader.loadPreset('russia');
-				MapLoader.loadMap('./res/russia_constituencies.svg', 16, 0.15, 'duma', 'takeall_noedit', 'open');
+				MapLoader.loadMap('./res/rus/russia_constituencies.svg', 16, 0.15, 'duma', 'takeall_noedit', 'open');
 				break;
 			case "Trinidad_Tobago_house_of_representatives":
 				PresetLoader.loadPreset('trinidad_tobago');
-				MapLoader.loadMap("./res/trinidad_tobago_house_of_representatives.svg", 16, 0.25, "1", "takeall_noedit", "open");
+				MapLoader.loadMap("./res/tto/trinidad_tobago_house_of_representatives.svg", 16, 0.25, "1", "takeall_noedit", "open");
 				break;
 			case "Switzerland_national_council":
 				PresetLoader.loadPreset('switzerland');
@@ -477,19 +476,11 @@ class MapLoader {
 				break;
 			case "EuropeanUnion":
 				PresetLoader.loadPreset('eu');
-				MapLoader.loadMap("./res/eu.svg", 16, 0.25, "eu_parliament", "proportional", "open");
+				MapLoader.loadMap("./res/eu/eu.svg", 16, 0.25, "eu_parliament", "proportional", "open");
 				break;
 			case "World":
 				PresetLoader.loadPreset('classic');
-				MapLoader.loadMap("./res/world.svg", 38, 0.25, "1", "takeall", "open");
-				break;
-			case "LTE_presidential":
-				PresetLoader.loadPreset('classic');
-				MapLoader.loadMap("./res/lte_president.svg", 30, 1, "lte_ec", "takeall_noedit", "open");
-				break;
-			case "LTE_senatorial":
-				PresetLoader.loadPreset('classic');
-				MapLoader.loadMap("./res/lte_senate.svg", 35, 1, "1", "takeall_noedit", "open");
+				MapLoader.loadMap("./res/other/world.svg", 38, 0.25, "1", "takeall", "open");
 				break;
 			default:
 				PresetLoader.loadPreset('classic');

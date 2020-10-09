@@ -8,6 +8,21 @@
 	<div class="info-box">
 		<div class="info-box-header">
 			<h3>
+				Tools
+			</h3>
+		</div>
+		<div class="link-list">
+			<a class="link" href="https://davesredistricting.org" target="_blank">
+				Daves Redistricting Application
+			</a>
+			<a class="link" href="https://kevinhayeswilson.com/redraw/" target="_blank">
+				County Redraw
+			</a>
+		</div>
+	</div>
+	<div class="info-box">
+		<div class="info-box-header">
+			<h3>
 				Affiliation Tests
 			</h3>
 		</div>
@@ -21,7 +36,7 @@
 			<a class="link" href="https://9axes.github.io" target="_blank">
 				9Axes
 			</a>
-			<a class="link" href="http://www.politiscales.net" target="_blank">
+			<a class="link" href="https://dbhq.github.io/" target="_blank">
 				PolitiScales
 			</a>
 		</div>

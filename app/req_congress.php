@@ -6,8 +6,7 @@ $dbh = null;
 try {
 	$dbh = new PDO("mysql:host=$hostname; dbname=$database;", $username, $password);
 } catch(PDOException $e) {
-	echo $hostname . " " . $database . " " . $username . " " . $password;
-	echo "Error: " . $e->getMessage();
+	echo "req_congress Error: " . $e->getMessage();
 	die();
 }
 

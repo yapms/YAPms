@@ -3,37 +3,37 @@
 	"name": "YAPms - Yet Another Political Map Simulator",
 	"icons": [
 		{
-			"src": "/app/res/yapms-48.png",
+			"src": "/app/res/yapms/yapms-48.png",
 			"type": "image/png",
 			"sizes": "48x48"
 		},
 		{
-			"src": "/app/res/yapms-72.png",
+			"src": "/app/res/yapms/yapms-72.png",
 			"type": "image/png",
 			"sizes": "72x72"
 		},
 		{
-			"src": "/app/res/yapms-96.png",
+			"src": "/app/res/yapms/yapms-96.png",
 			"type": "image/png",
 			"sizes": "96x96"
 		},
 		{
-			"src": "/app/res/yapms-144.png",
+			"src": "/app/res/yapms/yapms-144.png",
 			"type": "image/png",
 			"sizes": "144x144"
 		},
 		{
-			"src": "/app/res/yapms-192.png",
+			"src": "/app/res/yapms/yapms-192.png",
 			"type": "image/png",
 			"sizes": "192x192"
 		},
 		{
-			"src": "/app/res/yapms-512.png",
+			"src": "/app/res/yapms/yapms-512.png",
 			"type": "image/png",
 			"sizes": "512x512"
 		},
 		{
-			"src": "/app/res/yapms-512.png",
+			"src": "/app/res/yapms/yapms-512.png",
 			"type": "image/png",
 			"sizes": "512x512",
 			"purpose": "maskable"

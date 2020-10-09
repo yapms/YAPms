@@ -19,10 +19,10 @@
 	<meta name="twitter:description" content="Interactive Political Maps">
 
 	<meta name="theme-color" content="#ffffff"/>
-	<link rel="icon" href="./res/yapms-16.png" sizes="16x16" type="image/png"/>
-	<link rel="icon" href="./res/yapms-32.png" sizes="32x32" type="image/png"/>
-	<link rel="icon" href="./res/yapms-48.png" sizes="48x48" type="image/png"/>
-	<link rel="apple-touch-icon" href="./res/yapms-180.png" sizes="180x180" type="image/png"/>
+	<link rel="icon" href="./res/yapms/yapms-16.png" sizes="16x16" type="image/png"/>
+	<link rel="icon" href="./res/yapms/yapms-32.png" sizes="32x32" type="image/png"/>
+	<link rel="icon" href="./res/yapms/yapms-48.png" sizes="48x48" type="image/png"/>
+	<link rel="apple-touch-icon" href="./res/yapms/yapms-180.png" sizes="180x180" type="image/png"/>
 	<link rel="manifest" href="../manifest.json">
 
 	<link href="https://www.google-analytics.com" rel="preconnect">
@@ -109,9 +109,9 @@
 				'var php_load_map_id = "' . $_GET["t"] . '";' .
 			     '</script>';
 			echo '<meta property="og:url" content="https://www.yapms.com/app/?t=' . $_GET["t"] . '">
-			<meta property="og:image" content="http://www.yapms.com/app/res/yapms-96.png">
-			<meta property="og:image:secure_url" content="https://www.yapms.com/app/res/yapms-96.png">
-			<meta name="twitter:image" content="https://www.yapms.com/app/res/yamps-96.png">';
+			<meta property="og:image" content="http://www.yapms.com/app/res/yapms/yapms-96.png">
+			<meta property="og:image:secure_url" content="https://www.yapms.com/app/res/yapms/yapms-96.png">
+			<meta name="twitter:image" content="https://www.yapms.com/app/res/yapms/yamps-96.png">';
 		} else {
 			echo '<script>' .
 				'var php_load_map = false;' .
@@ -119,9 +119,9 @@
 				'var php_load_map_id = "0";' .
 			     '</script>';
 			echo '<meta property="og:url" content="https://www.yapms.com/app/">
-			<meta property="og:image" content="http://www.yapms.com/app/res/yapms-96.png">
-			<meta property="og:image:secure_url" content="https://www.yapms.com/app/res/yapms-96.png">
-			<meta name="twitter:image" content="https://www.yapms.com/app/res/yamps-96.png">';
+			<meta property="og:image" content="http://www.yapms.com/app/res/yapms/yapms-96.png">
+			<meta property="og:image:secure_url" content="https://www.yapms.com/app/res/yapms/yapms-96.png">
+			<meta name="twitter:image" content="https://www.yapms.com/app/res/yapms/yamps-96.png">';
 		}
 	?>
 

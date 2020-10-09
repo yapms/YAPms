@@ -11,20 +11,20 @@
 	<meta property="og:image:type" content="image/jpeg">
 	<meta property="og:site_name" content="yapms.com">
 
-	<meta property="og:image" content="http://www.yapms.com/app/res/yapms-96.png">
-	<meta property="og:image:secure_url" content="https://www.yapms.com/app/res/yapms-96.png">
+	<meta property="og:image" content="http://www.yapms.com/app/res/yapms/yapms-96.png">
+	<meta property="og:image:secure_url" content="https://www.yapms.com/app/res/yapms/yapms-96.png">
 
 	<meta name="twitter:card" content="summary">
 	<meta name="twitter:title" content="yapms.com">
 	<meta name="twitter:description" content="Interactive Political Maps">
 
-	<meta property="twitter:image" content="https://www.yapms.com/app/res/yapms-96.png">
+	<meta property="twitter:image" content="https://www.yapms.com/app/res/yapms/yapms-96.png">
 	
 	<meta name="theme-color" content="#ffffff"/>
-	<link rel="icon" href="./app/res/yapms-16.png" sizes="16x16" type="image/png"/>
-	<link rel="icon" href="./app/res/yapms-32.png" sizes="32x32" type="image/png"/>
-	<link rel="icon" href="./app/res/yapms-48.png" sizes="48x48" type="image/png"/>
-	<link rel="apple-touch-icon" href="./app/res/yapms-180.png" sizes="180x180" type="image/png"/>
+	<link rel="icon" href="./app/res/yapms/yapms-16.png" sizes="16x16" type="image/png"/>
+	<link rel="icon" href="./app/res/yapms/yapms-32.png" sizes="32x32" type="image/png"/>
+	<link rel="icon" href="./app/res/yapms/yapms-48.png" sizes="48x48" type="image/png"/>
+	<link rel="apple-touch-icon" href="./app/res/yapms/yapms-180.png" sizes="180x180" type="image/png"/>
 	<link rel="manifest" href="./manifest.json">
 
 	<title>YAPms - Yet Another Political Map Simulator</title>
@@ -55,11 +55,11 @@
 			$mobile = false;	
 		}
 
-		echo '<link rel="stylesheet" type="text/css" href="./v2/style/style.css">';
+		echo '<link rel="stylesheet" type="text/css" href="./src/style/style.css">';
 		if($mobile) {
-			echo '<link rel="stylesheet" type="text/css" href="./v2/style/mobile-navigation.css">';
+			echo '<link rel="stylesheet" type="text/css" href="./src/style/mobile-navigation.css">';
 		} else {
-			echo '<link rel="stylesheet" type="text/css" href="./v2/style/desktop-navigation.css">';
+			echo '<link rel="stylesheet" type="text/css" href="./src/style/desktop-navigation.css">';
 		}
 	?>
 </head>
@@ -67,11 +67,11 @@
 <body>
 
 <?php
-		require './v2/html/body.php';
+		require './src/html/body.php';
 		echo '<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
-			<script src="./v2/script/mobile-navigation.js"></script>
-			<script src="./v2/script/bookmark.js"></script>
-			<script src="./v2/script/cookies.js"></script>';
+			<script src="./src/script/mobile-navigation.js"></script>
+			<script src="./src/script/bookmark.js"></script>
+			<script src="./src/script/cookies.js"></script>';
 ?>
 
 	<script>
