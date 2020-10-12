@@ -122,27 +122,30 @@
 			<a class="navigation-4" href="./app/?t=NorthDakota_2020_state_lower">
 				North Dakota
 			</a>
+			<a class="navigation-4" href="./app/?t=Ohio_2020_state_lower">
+				Ohio
+			</a>
+		</div>
+		<div class="navigation-3">
 			<a class="navigation-4" href="./app/?t=Oregon_2020_state_lower">
 				Oregon
 			</a>
-		</div>
-		<div class="navigation-3">
 			<a class="navigation-4" href="./app/?t=Pennsylvania_2020_state_lower">
 				Pennsylvania
 			</a>
+		</div>
+		<div class="navigation-3">
 			<a class="navigation-4" href="./app/?t=Texas_2020_state_lower">
 				Texas
 			</a>
-		</div>
-		<div class="navigation-3">
 			<a class="navigation-4" href="./app/?t=Virginia_2020_state_lower">
 				Virginia
 			</a>
+		</div>
+		<div class="navigation-3">
 			<a class="navigation-4" href="./app/?t=Washington_2020_state_lower">
 				Washington
 			</a>
-		</div>
-		<div class="navigation-3">
 			<a class="navigation-4" href="./app/?t=Wisconsin_2020_state_lower">
 				Wisconsin
 			</a>

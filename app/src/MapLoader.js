@@ -243,6 +243,10 @@ class MapLoader {
 				PresetLoader.loadPreset("classic");
 				MapLoader.loadMap("./res/usa/ohio/2020_upper.svg", 16, 0.05, "1", "takeall_noedit", "open");
 				break;
+			case "Ohio_2020_state_lower":
+				PresetLoader.loadPreset("classic");
+				MapLoader.loadMap("./res/usa/ohio/2020_lower.svg", 16, 0.05, "1", "takeall_noedit", "open");
+				break;
 			case "Oregon_2020_state_upper":
 				PresetLoader.loadPreset("classic");
 				MapLoader.loadMap("./res/usa/oregon/2020_upper.svg", 16, 0, "1", "takeall_noedit", "open");

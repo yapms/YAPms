@@ -1724,6 +1724,9 @@ class LogoManager {
 			case "RedDonkey":
 			logoSlot.style.backgroundImage = 'url("https://testing.yapms.com/app/res/logos/reddonkey.png")';
 			break;
+			case "PoliticalAnalyst":
+			logoSlot.style.backgroundImage = 'url("https://testing.yapms.com/app/res/logos/pa.jpg")';
+			break;
 		}
 	
 		if(LogoManager.currentLogo !== name) {
@@ -2084,6 +2087,10 @@ class MapLoader {
 			case "Ohio_2020_state_upper":
 				PresetLoader.loadPreset("classic");
 				MapLoader.loadMap("./res/usa/ohio/2020_upper.svg", 16, 0.05, "1", "takeall_noedit", "open");
+				break;
+			case "Ohio_2020_state_lower":
+				PresetLoader.loadPreset("classic");
+				MapLoader.loadMap("./res/usa/ohio/2020_lower.svg", 16, 0.05, "1", "takeall_noedit", "open");
 				break;
 			case "Oregon_2020_state_upper":
 				PresetLoader.loadPreset("classic");
@@ -6875,7 +6882,7 @@ function saveMap_new(img, token) {
 function numberWithCommas(number) {
 	return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
-var currentCache = 'v2.9.0';
+var currentCache = 'v2.9.1';
 
 var states = [];
 var lands = [];

@@ -4,7 +4,7 @@
 	</p>
 	<p>
 		<b>Contact:</b>
-		<a style="color:blue;" href="mailto:bugreport@yapms.com">bugreport@yapms.com</a> 
+		<a style="color:blue;" href="mailto:feedback@yapms.com">feedback@yapms.com</a> 
 	</p>
 	
 	<a id="installbutton" class="social install" style="display: none">

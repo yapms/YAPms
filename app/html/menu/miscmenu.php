@@ -43,4 +43,8 @@
 	<i class="fas fa-desktop"></i>
 	<div class="selectmenu-button-text">Red Donkey Projections</div>
 </a>
+<a class="selectmenu-button" onclick="LogoManager.toggleLogo('PoliticalAnalyst')">
+	<i class="fas fa-desktop"></i>
+	<div class="selectmenu-button-text">Political Analyst</div>
+</a>
 </div>

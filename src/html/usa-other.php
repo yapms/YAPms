@@ -22,14 +22,5 @@
 				Proportional
 			</a>
 		</div>
-		<div class="navigation-3">
-			<a class="navigation-4" href="./app/?t=USA_trump_impeachment_support">
-				Impeachment Support
-				<br>
-				<small>
-					11/5/19
-				</small>
-			</a>
-		</div>
 	</div>
 </div>

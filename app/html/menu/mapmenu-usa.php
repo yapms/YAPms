@@ -86,9 +86,6 @@
 <a class="selectmenu-split">
 	<div class="selectmenu-split-text">Other</div>
 </a>
-<a class="selectmenu-button" href="./?t=USA_trump_impeachment_support">
-	<div class="selectmenu-button-text">Impeachment Support</div>
-</a>
 <a class="selectmenu-button" href="./?t=USA_2024_projection">
 	<div class="selectmenu-button-text">2024</div>
 </a>

@@ -1,5 +1,5 @@
-var indexCache = 'i2.9.0';
-var staticCache = 's2.9.0';
+var indexCache = 'i2.9.1';
+var staticCache = 's2.9.1';
 
 var _indexCache = [
 	'./',
@@ -46,7 +46,6 @@ var _indexCache = [
 	'./app/?t=USA_split_maine',
 	'./app/?t=USA_2024_projection',
 	'./app/?t=USA_2020_house_cook',
-	'./app/?t=USA_trump_impeachment_support',
 
 	'./app/?t=Argentina_chamber_of_deputies',
 	'./app/?t=Australia_states',
