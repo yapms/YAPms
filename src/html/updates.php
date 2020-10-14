@@ -12,7 +12,7 @@
 			</h3>
 		</div>
 		<div class="link-list">
-		<a class="link" href="https://discord.gg/AuNrCzS" target="_blank">
+		<a class="link" href="https://discord.gg/m3rNkvd" target="_blank">
 			Join Our Mock Government!
 		</a>
 		</div>
