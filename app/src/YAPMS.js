@@ -2090,7 +2090,7 @@ class MapLoader {
 				break;
 			case "Ohio_2020_state_lower":
 				PresetLoader.loadPreset("classic");
-				MapLoader.loadMap("./res/usa/ohio/2020_lower.svg", 16, 0.05, "1", "takeall_noedit", "open");
+				MapLoader.loadMap("./res/usa/ohio/2020_lower.svg", 16, 0.1, "1", "takeall_noedit", "open");
 				break;
 			case "Oregon_2020_state_upper":
 				PresetLoader.loadPreset("classic");
@@ -6882,7 +6882,7 @@ function saveMap_new(img, token) {
 function numberWithCommas(number) {
 	return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
-var currentCache = 'v2.9.2';
+var currentCache = 'v2.10.0';
 
 var states = [];
 var lands = [];

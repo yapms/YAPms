@@ -121,10 +121,4 @@
 	<div class="selectmenu-button-text">USA Canada</div>
 	<img class="flag-can">
 </a>
-<a class="selectmenu-split">
-	<div class="selectmenu-split-text">Mock Elections</div>
-</a>
-<a class="selectmenu-button" onclick='displayMenu("mapmenu-lte")'>
-	<div class="selectmenu-button-text">LTE</div>
-</a>
 </div>

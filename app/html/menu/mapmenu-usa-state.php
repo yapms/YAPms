@@ -93,6 +93,9 @@
 <a class="selectmenu-button" href="./?t=NewMexico_2020_state_lower">
 	<div class="selectmenu-button-text">New Mexico</div>
 </a>
+<a class="selectmenu-button" href="./?t=Ohio_2020_state_lower">
+	<div class="selectmenu-button-text">Ohio</div>
+</a>
 <a class="selectmenu-button" href="./?t=Oregon_2020_state_lower">
 	<div class="selectmenu-button-text">Oregon</div>
 </a>

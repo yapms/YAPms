@@ -800,10 +800,6 @@ echo '<!-- mobile-ad -->
 	<?php require './html/menu/mapmenu-india.php'; ?>
 </div>
 
-<div id="mapmenu-lte" class="popup selectmenu">
-	<?php require './html/menu/mapmenu-lte.php'; ?>
-</div>
-
 <div id="stylemenu" class="popup selectmenu">
 	<?php require './html/menu/stylemenu.php'; ?>
 </div>

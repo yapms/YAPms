@@ -5,23 +5,6 @@
 	</h2>
 	</div>
 	<div class="featured-section-body">
-	<div class="info-box upcoming-1">
-		<div class="info-box-header">
-			<img src="app/res/flags/tat.svg">
-			<h3>
-				Trinidad and Tobago
-			</h3>
-		</div>
-		<div class="link-list">
-		<p>General Election</p>
-		<p><small>
-			September 2020
-		</small></p>
-		<a class="link" href="./app/?t=Trinidad_Tobago_house_of_representatives">
-			House of Representatives
-		</a>
-		</div>
-	</div>
 	<div class="info-box upcoming-2">
 		<div class="info-box-header">
 			<img src="app/res/flags/usa.svg">

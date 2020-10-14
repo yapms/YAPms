@@ -19,4 +19,7 @@
 	<a class="social twitter" href="https://twitter.com/YAPmsOfficial" target="_blank">
 		<i class="fab fa-twitter"></i> Twitter
 	</a>
+	<a class="social discord" href="https://discord.gg/AuNrCzS" target="_blank">
+		<i class="fas fa-landmark"></i> Mock Government
+	</a>
 </div>
