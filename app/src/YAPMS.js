@@ -1079,7 +1079,13 @@ class ChartManager {
 					borderColor: '#ffffff',
 					borderWidth: 0,
 					data:[]
-				}, {}, {}, {}],
+				}, {
+					label: "",
+					backgroundColor: '#ffffff',
+					borderColor: '#ffffff',
+					borderWidth: 0,
+					data:[]
+				}, {}, {}],
 			},
 			options: ChartManager.chartOptions,
 			maintainAspectRatio: true
@@ -2330,6 +2336,11 @@ class MapLoader {
 			case "World":
 				PresetLoader.loadPreset('classic');
 				MapLoader.loadMap("./res/other/world.svg", 38, 0.25, "1", "takeall", "open");
+				break;
+			case "YAPmg":
+				PresetLoader.loadPreset('classic');
+				//MapLoader.loadMap("./res/mock/yapmg.svg", 38, 0.25, "1", "proportional", "open");
+				MapLoader.loadMap("./res/mock/yapmg.svg", 16, 0.75, "2", "takeall", "open");
 				break;
 			default:
 				PresetLoader.loadPreset('classic');
@@ -6882,7 +6893,7 @@ function saveMap_new(img, token) {
 function numberWithCommas(number) {
 	return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
-var currentCache = 'v2.10.2';
+var currentCache = 'v2.10.3';
 
 var states = [];
 var lands = [];

@@ -230,7 +230,13 @@ class ChartManager {
 					borderColor: '#ffffff',
 					borderWidth: 0,
 					data:[]
-				}, {}, {}, {}],
+				}, {
+					label: "",
+					backgroundColor: '#ffffff',
+					borderColor: '#ffffff',
+					borderWidth: 0,
+					data:[]
+				}, {}, {}],
 			},
 			options: ChartManager.chartOptions,
 			maintainAspectRatio: true
