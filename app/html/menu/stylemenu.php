@@ -31,6 +31,9 @@
 <a class="selectmenu-button" onclick='setPalette("halloween", true);'>
 	<div class="selectmenu-button-text">Halloween</div>
 </a>
+<a class="selectmenu-button" onclick='setPalette("usaelection", true);'>
+	<div class="selectmenu-button-text">USA Election</div>
+</a>
 <a class="selectmenu-button" onclick='setPalette("default", true);'>
 	<div class="selectmenu-button-text">Default</div>
 </a>

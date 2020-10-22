@@ -128,6 +128,9 @@ function setPalette(palette, setCookie) {
 		case 'white':
 			toWinPalette();
 			break;
+		case 'usaelection':
+			usaElectionPalette();	
+			break;
 		case 'default':
 			lightPalette();
 			break;
@@ -332,6 +335,41 @@ function metallicPalette() {
 	previousPalette = metallicPalette;
 }
 
+function usaElectionPalette() {
+	setBackgroundImage('url("./res/images/usa_flag.jpeg")', 'cover');
+
+	setOtherText('black');
+
+	setDisableColor('#212326');
+	setTossupColor('#888888');
+	setMapStyle('#232323', 1.8);
+
+	setChartBarColor('#454545');
+	setChartBarColor('#000000');
+	setChartBarShadow('');
+	setChartBarShadow('0px -5px 5px 2px #060606');
+
+	setTextStyle('white', 'bold');
+	setChartBorderStyle(1, '#3b3e43');
+	
+	setClickButtonColor('#555555');
+	setClickButtonTextColor('#FFFFFF');
+	setMenuColor('#101010');
+	
+	setSideBarColor('#aaaaaa');
+	setSideBarTextStyle('#000000');
+	
+	setBorderStyle('#454545', 6.0);
+	
+	ChartManager.chartOptions.plugins.datalabels.borderWidth = 2;
+	ChartManager.chartOptions.plugins.datalabels.borderRadius = 4;
+	
+	ChartManager.chartBarScales.yAxes[0].ticks.fontColor = '#ffffff';
+	ChartManager.chartBarScales.xAxes[0].ticks.fontColor = '#ffffff';
+	ChartManager.setChart(ChartManager.chartType, ChartManager.chartPosition);
+	previousPalette = usaElectionPalette;
+}
+
 function halloweenPalette() {
 	setBackgroundImage('url("./res/images/halloween.jpg")');
 
@@ -400,10 +438,15 @@ function setOtherText(color) {
 	}
 }
 
-function setBackgroundImage(img) {
+function setBackgroundImage(img, size) {
 	var body = document.getElementById('application');
 	body.style.backgroundColor = '';
 	body.style.backgroundImage = img;
+	if(size) {
+		body.style.backgroundSize = size;
+	} else {
+		body.style.backgroundSize = 'auto';
+	}
 }
 
 function setBackgroundColor(color) {
