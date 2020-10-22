@@ -350,7 +350,7 @@ function usaElectionPalette() {
 	setChartBarShadow('0px -5px 5px 2px #060606');
 
 	setTextStyle('white', 'bold');
-	setChartBorderStyle(1, '#3b3e43');
+	setChartBorderStyle(1, '#000000');
 	
 	setClickButtonColor('#555555');
 	setClickButtonTextColor('#FFFFFF');
