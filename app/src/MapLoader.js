@@ -487,10 +487,10 @@ class MapLoader {
 				MapLoader.loadMap("./res/other/world.svg", 38, 0.25, "1", "takeall", "open");
 				break;
 			case "YAPmg":
-				PresetLoader.loadPreset('classic');
+				//PresetLoader.loadPreset('classic');
 				//MapLoader.loadMap("./res/mock/yapmg.svg", 38, 0.25, "1", "proportional", "open");
-				MapLoader.loadMap("./res/mock/yapmg.svg", 16, 0.75, "2", "takeall", "open");
-				break;
+				//MapLoader.loadMap("./res/mock/yapmg.svg", 16, 0.75, "2", "takeall", "open");
+				//break;
 			default:
 				PresetLoader.loadPreset('classic');
 				MapLoader.loadMap("./res/usa_presidential.svg", 16, 1, "usa_ec", "takeall", "open", {voters: 'usa_voting_pop', enablePopularVote: true});
