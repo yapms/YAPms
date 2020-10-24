@@ -206,6 +206,14 @@
 		</div>';
 	}
 ?>
+<!--
+	<div id="highlightbutton" class="click-button highlight-button" onclick="setHighlight()">
+		<i class="fas fa-arrow-up"></i>
+		<div class="tooltip-menu">
+			Highlight
+		</div>
+	</div>
+-->
 
 	<div id="update-button" class="click-button" onclick="forceUpdate()" style="white-space: nowrap; display: none;">
 		<i class="fas fa-arrow-up"></i> Update
