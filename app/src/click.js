@@ -11,6 +11,8 @@ function buttonClick(clickElement) {
 		stateClickEC(state);
 	} else if(mode === 'delete') {
 		stateClickDelete(state);
+	} else if(mode === 'highlight') {
+		stateClickHighlight(state);
 	}
 	
 	countVotes();
@@ -92,6 +94,9 @@ function stateClick(clickElement) {
 		case 'delete':
 			stateClickDelete(state);
 			break;
+		case 'highlight':
+			stateClickHighlight(state);
+			break;
 	}
 
 	countVotes();
@@ -130,6 +135,14 @@ function stateClickPaint(state, options = {forceProportional: false}) {
 	}
 
 	displayProportionalEdit(state);
+}
+
+function stateClickHighlight(state) {
+	if(state.disabled) {
+		return;
+	}
+
+	state.highlight();
 }
 
 function paintEntireState(state) {

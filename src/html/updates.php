@@ -6,6 +6,19 @@
 	</div>
 	<div class="featured-section-body">
 	<div class="info-box">
+		<div class="info-box-header">
+			<img src="app/res/flags/usa.svg">
+			<h3>
+				New Maps
+			</h3>
+		</div>
+		<div class="link-list">
+		<p>State Senate Maps</p>
+		<a class="link" href="./app/?t=Idaho_2020_state_upper">Idaho</a>
+		<a class="link" href="./app/?t=Washington_2020_state_upper">Washington</a>
+		</div>
+	</div>
+	<div class="info-box">
 		<div class="info-box-header" style="background: #7289da">
 			<h3 style="font-weight: bold; color: white; letter-spacing: 2px;">
 				YAPms Poll

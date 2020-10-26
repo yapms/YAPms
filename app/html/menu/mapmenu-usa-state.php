@@ -21,6 +21,9 @@
 <a class="selectmenu-button" href="./?t=Florida_2020_state_upper">
 	<div class="selectmenu-button-text">Florida</div>
 </a>
+<a class="selectmenu-button" href="./?t=Idaho_2020_state_upper">
+	<div class="selectmenu-button-text">Idaho</div>
+</a>
 <a class="selectmenu-button" href="./?t=Iowa_2020_state_upper">
 	<div class="selectmenu-button-text">Iowa</div>
 </a>
@@ -44,6 +47,9 @@
 </a>
 <a class="selectmenu-button" href="./?t=Virginia_2020_state_upper">
 	<div class="selectmenu-button-text">Virginia</div>
+</a>
+<a class="selectmenu-button" href="./?t=Washington_2020_state_upper">
+	<div class="selectmenu-button-text">Washington</div>
 </a>
 <a class="selectmenu-split">
 	<div class="selectmenu-split-text">Lower</div>
@@ -71,9 +77,6 @@
 </a>
 <a class="selectmenu-button" href="./?t=Hawaii_2020_state_lower">
 	<div class="selectmenu-button-text">Hawaii</div>
-</a>
-<a class="selectmenu-button" href="./?t=Idaho_2020_state_lower">
-	<div class="selectmenu-button-text">Idaho</div>
 </a>
 <a class="selectmenu-button" href="./?t=Iowa_2020_state_lower">
 	<div class="selectmenu-button-text">Iowa</div>

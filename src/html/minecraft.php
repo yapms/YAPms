@@ -1,7 +1,11 @@
 <div id="fun" class="featured-section">
 <div class="featured-section-header">
 	<h2>
-		Minecraft 50.21.190.72
+		Minecraft
+		<br>
+		<p style="font-size: 18px; margin: 0.6em;">
+			ip: yapms.online
+		</p>
 	</h2>
 </div>
 <div class="featured-section-body">

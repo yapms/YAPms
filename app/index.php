@@ -195,7 +195,14 @@
 			Delegate Edit
 		</div>
 	</div>
-
+<!--
+	<div id="modebutton-highlight" class="click-button mode-button" onclick='setMode("highlight")'>
+		<i class="fas fa-sun"></i>
+		<div class="tooltip-menu">
+			Highlight
+		</div>
+	</div>
+-->
 <?php
 	if($mobile === false) {
 	echo '<div id="lockbutton" class="click-button lock-button" onclick="MapManager.toggleLockMap()">
@@ -206,14 +213,6 @@
 		</div>';
 	}
 ?>
-<!--
-	<div id="highlightbutton" class="click-button highlight-button" onclick="setHighlight()">
-		<i class="fas fa-arrow-up"></i>
-		<div class="tooltip-menu">
-			Highlight
-		</div>
-	</div>
--->
 
 	<div id="update-button" class="click-button" onclick="forceUpdate()" style="white-space: nowrap; display: none;">
 		<i class="fas fa-arrow-up"></i> Update

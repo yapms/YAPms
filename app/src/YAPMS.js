@@ -2042,6 +2042,10 @@ class MapLoader {
 				PresetLoader.loadPreset("classic");
 				MapLoader.loadMap("./res/usa/hawaii/2020_house.svg", 16, 0.2, "1", "takeall_noedit", "open");
 				break;
+			case "Idaho_2020_state_upper":
+				PresetLoader.loadPreset("classic");
+				MapLoader.loadMap("./res/usa/idaho/2020_house.svg", 16, 0.2, "1", "takeall_noedit", "open");
+				break;
 			case "Idaho_2020_state_lower":
 				PresetLoader.loadPreset("classic");
 				MapLoader.loadMap("./res/usa/idaho/2020_house.svg", 16, 0.2, "2", "proportional", "open");
@@ -2133,6 +2137,10 @@ class MapLoader {
 			case "Virginia_2020_state_lower":
 				PresetLoader.loadPreset("classic");
 				MapLoader.loadMap("./res/usa/virginia/2020_house.svg", 16, 0.015, "1", "takeall_noedit", "open");
+				break;
+			case "Washington_2020_state_upper":
+				PresetLoader.loadPreset("classic");
+				MapLoader.loadMap("./res/usa/washington/2020_house.svg", 16, 0.15, "1", "takeall_noedit", "open");
 				break;
 			case "Washington_2020_state_lower":
 				PresetLoader.loadPreset("classic");
@@ -4083,6 +4091,15 @@ class State {
 		if(this.onChange)
 		this.onChange();
 	}
+	
+	highlight() {
+		if(this.disabled) {
+			return;
+		}
+
+		this.htmlElement.style.stroke = "#ffffff";
+	}
+	
 
 	// directly change the color of a state (add error checking pls)
 	setColor(candidate, colorValue, options = {setDelegates: true}) {
@@ -4225,6 +4242,7 @@ class State {
 		ChartManager.updateChart();
 		LegendManager.updateLegend();
 	}
+
 }
 function updateBattleChart() {
 
@@ -4405,6 +4423,8 @@ function buttonClick(clickElement) {
 		stateClickEC(state);
 	} else if(mode === 'delete') {
 		stateClickDelete(state);
+	} else if(mode === 'highlight') {
+		stateClickHighlight(state);
 	}
 	
 	countVotes();
@@ -4486,6 +4506,9 @@ function stateClick(clickElement) {
 		case 'delete':
 			stateClickDelete(state);
 			break;
+		case 'highlight':
+			stateClickHighlight(state);
+			break;
 	}
 
 	countVotes();
@@ -4524,6 +4547,14 @@ function stateClickPaint(state, options = {forceProportional: false}) {
 	}
 
 	displayProportionalEdit(state);
+}
+
+function stateClickHighlight(state) {
+	if(state.disabled) {
+		return;
+	}
+
+	state.highlight();
 }
 
 function paintEntireState(state) {
@@ -6936,7 +6967,7 @@ function saveMap_new(img, token) {
 function numberWithCommas(number) {
 	return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
-var currentCache = 'v2.11.6';
+var currentCache = 'v2.12.1';
 
 var states = [];
 var lands = [];
@@ -7099,22 +7130,10 @@ function setMode(set) {
 	} else if(set === 'fill') {
 		var button = document.getElementById('modebutton-fill');
 		button.style.opacity = '0.5';
+	} else if(set === 'highlight') {
+		var button = document.getElementById('modebutton-highlight');
+		button.style.opacity = '0.5';
 	}
-
-/*
-	var notification = document.getElementById('notification');
-	if(mode === 'paint' || mode === 'fill' || mode === 'delete' || mode === 'edit') {
-		var notification = document.getElementById('notification');
-		notification.style.display = 'none';
-	} else {
-		var notification = document.getElementById('notification');
-		var message = notification.querySelector('#notification-message');
-		var title = notification.querySelector('#notification-title');
-		notification.style.display = 'inline';
-		title.innerHTML = modeText;
-		message.innerHTML = notificationText;
-	}
-*/
 }
 
 // if paint index is invalid, change it to tossup

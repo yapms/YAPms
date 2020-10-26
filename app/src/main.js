@@ -1,4 +1,4 @@
-var currentCache = 'v2.11.6';
+var currentCache = 'v2.12.1';
 
 var states = [];
 var lands = [];
@@ -161,22 +161,10 @@ function setMode(set) {
 	} else if(set === 'fill') {
 		var button = document.getElementById('modebutton-fill');
 		button.style.opacity = '0.5';
+	} else if(set === 'highlight') {
+		var button = document.getElementById('modebutton-highlight');
+		button.style.opacity = '0.5';
 	}
-
-/*
-	var notification = document.getElementById('notification');
-	if(mode === 'paint' || mode === 'fill' || mode === 'delete' || mode === 'edit') {
-		var notification = document.getElementById('notification');
-		notification.style.display = 'none';
-	} else {
-		var notification = document.getElementById('notification');
-		var message = notification.querySelector('#notification-message');
-		var title = notification.querySelector('#notification-title');
-		notification.style.display = 'inline';
-		title.innerHTML = modeText;
-		message.innerHTML = notificationText;
-	}
-*/
 }
 
 // if paint index is invalid, change it to tossup

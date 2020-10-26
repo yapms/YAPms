@@ -360,6 +360,15 @@ class State {
 		if(this.onChange)
 		this.onChange();
 	}
+	
+	highlight() {
+		if(this.disabled) {
+			return;
+		}
+
+		this.htmlElement.style.stroke = "#ffffff";
+	}
+	
 
 	// directly change the color of a state (add error checking pls)
 	setColor(candidate, colorValue, options = {setDelegates: true}) {
@@ -502,4 +511,5 @@ class State {
 		ChartManager.updateChart();
 		LegendManager.updateLegend();
 	}
+
 }

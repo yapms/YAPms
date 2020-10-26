@@ -191,6 +191,10 @@ class MapLoader {
 				PresetLoader.loadPreset("classic");
 				MapLoader.loadMap("./res/usa/hawaii/2020_house.svg", 16, 0.2, "1", "takeall_noedit", "open");
 				break;
+			case "Idaho_2020_state_upper":
+				PresetLoader.loadPreset("classic");
+				MapLoader.loadMap("./res/usa/idaho/2020_house.svg", 16, 0.2, "1", "takeall_noedit", "open");
+				break;
 			case "Idaho_2020_state_lower":
 				PresetLoader.loadPreset("classic");
 				MapLoader.loadMap("./res/usa/idaho/2020_house.svg", 16, 0.2, "2", "proportional", "open");
@@ -282,6 +286,10 @@ class MapLoader {
 			case "Virginia_2020_state_lower":
 				PresetLoader.loadPreset("classic");
 				MapLoader.loadMap("./res/usa/virginia/2020_house.svg", 16, 0.015, "1", "takeall_noedit", "open");
+				break;
+			case "Washington_2020_state_upper":
+				PresetLoader.loadPreset("classic");
+				MapLoader.loadMap("./res/usa/washington/2020_house.svg", 16, 0.15, "1", "takeall_noedit", "open");
 				break;
 			case "Washington_2020_state_lower":
 				PresetLoader.loadPreset("classic");

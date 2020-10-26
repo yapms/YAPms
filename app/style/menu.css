@@ -29,6 +29,12 @@
 	text-decoration: none;
 }
 
+.highlight-button {
+	padding-left: 12px;
+	padding-right: 12px;
+	transition: opacity 250ms;
+}
+
 .lock-button {
 	padding-left: 12px;
 	padding-right: 12px;
