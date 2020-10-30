@@ -366,7 +366,15 @@ class State {
 			return;
 		}
 
-		this.htmlElement.style.stroke = "#ffffff";
+		this.highlight = !this.highlight;
+
+		this.htmlElement.style.stroke = "#ffff00";
+
+		if(this.htmlElement.style.strokeWidth === "") {
+			this.htmlElement.style.strokeWidth = "1px";
+		}
+
+		this.htmlElement.style.strokeWidth = new String(parseInt(this.htmlElement.style.strokeWidth.slice(0,-2)) * 3) + "px";
 	}
 	
 

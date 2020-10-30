@@ -9,6 +9,57 @@
 		<div class="info-box-header">
 			<img src="app/res/flags/usa.svg">
 			<h3>
+				Forecast
+			</h3>
+		</div>
+		<div class="link-list">
+		<p>Cook Political Report</p>
+		<p><small>
+			October 28, 2020
+		</small></p>
+		<a class="link" href="./app/?t=USA_2020_cook">
+			Cook Presidential
+		</a>
+		</div>
+	</div>
+	<div class="info-box">
+		<div class="info-box-header">
+			<img src="app/res/flags/usa.svg">
+			<h3>
+				Forecast
+			</h3>
+		</div>
+		<div class="link-list">
+		<p>Inside Elections</p>
+		<p><small>
+			October 28, 2020
+		</small></p>
+		<a class="link" href="./app/?t=USA_2020_inside">
+			Inside Presidential
+		</a>
+		</div>
+	</div>
+	<div class="info-box">
+		<div class="info-box-header">
+			<img src="app/res/flags/usa.svg">
+			<h3>
+				Forecast
+			</h3>
+		</div>
+		<div class="link-list">
+		<p>Sabatos Crystal Ball</p>
+		<p><small>
+			October 29, 2020
+		</small></p>
+		<a class="link" href="./app/?t=USA_2020_sabatos">
+			Sabatos Presidential
+		</a>
+		</div>
+	</div>
+	<div class="info-box">
+		<div class="info-box-header">
+			<img src="app/res/flags/usa.svg">
+			<h3>
 				New Maps
 			</h3>
 		</div>
@@ -63,57 +114,6 @@
 		<div class="link-list">
 		<a class="link" href="https://discord.gg/kT9dMHY" target="_blank">
 			Join Our Discord!
-		</a>
-		</div>
-	</div>
-	<div class="info-box">
-		<div class="info-box-header">
-			<img src="app/res/flags/usa.svg">
-			<h3>
-				Forecast
-			</h3>
-		</div>
-		<div class="link-list">
-		<p>Cook Political Report</p>
-		<p><small>
-			October 1, 2020
-		</small></p>
-		<a class="link" href="./app/?t=USA_2020_cook">
-			Cook Presidential
-		</a>
-		</div>
-	</div>
-	<div class="info-box">
-		<div class="info-box-header">
-			<img src="app/res/flags/usa.svg">
-			<h3>
-				Forecast
-			</h3>
-		</div>
-		<div class="link-list">
-		<p>Inside Elections</p>
-		<p><small>
-			October 1, 2020
-		</small></p>
-		<a class="link" href="./app/?t=USA_2020_inside">
-			Inside Presidential
-		</a>
-		</div>
-	</div>
-	<div class="info-box">
-		<div class="info-box-header">
-			<img src="app/res/flags/usa.svg">
-			<h3>
-				Forecast
-			</h3>
-		</div>
-		<div class="link-list">
-		<p>Sabatos Crystal Ball</p>
-		<p><small>
-			October 1, 2020
-		</small></p>
-		<a class="link" href="./app/?t=USA_2020_sabatos">
-			Sabatos Presidential
 		</a>
 		</div>
 	</div>

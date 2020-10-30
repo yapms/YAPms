@@ -56,27 +56,5 @@
 		</a>
 		</div>
 	</div>
-	<div class="info-box popular-4">
-		<div class="info-box-header">
-			<img src="app/res/flags/usa.svg">
-			<h3>
-				Lower State Legislatures
-			</h3>
-		</div>
-		<div class="link-list-2">
-		<a class="link" href="./app/?t=Arkansas_2020_state_lower">
-			Arkansas
-		</a>
-		<a class="link" href="./app/?t=California_2020_state_lower">
-			California
-		</a>
-		<a class="link" href="./app/?t=Pennsylvania_2020_state_lower">
-			Pennsylvania
-		</a>
-		<a class="link" href="./app/?t=Texas_2020_state_lower">
-			Texas
-		</a>
-		</div>
-	</div>
 	</div>
 </div>

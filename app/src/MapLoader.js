@@ -452,7 +452,7 @@ class MapLoader {
 				break;
 			case 'Australia_house_of_representatives':
 				PresetLoader.loadPreset('australia')
-				MapLoader.loadMap("./res/aus/australia.svg", 16, 0.1, "1", "takeall_noedit", "open");
+				MapLoader.loadMap("./res/aus/australia_constituencies.svg", 16, 0.1, "1", "takeall_noedit", "open");
 				break;
 			case "Australia_states":
 				PresetLoader.loadPreset('australia')

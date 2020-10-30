@@ -47,8 +47,8 @@
 
 	<link rel="prerender" href="https://www.yapms.com/app/?t=USA_2020_presidential">
 	
-	<link rel="stylesheet" type="text/css" href="./v2/style/style.css">
-	<link rel="stylesheet" type="text/css" href="./v2/style/embed.css">
+	<link rel="stylesheet" type="text/css" href="./src/style/style.css">
+	<link rel="stylesheet" type="text/css" href="./src/style/embed.css">
 </head>
 
 <body>
