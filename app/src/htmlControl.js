@@ -752,7 +752,7 @@ function ifInIframe() {
 }
 
 function showShortcuts() {
-	if(MapLoader.save_filename === './res/usa_county.svg' ||
+	if(MapLoader.save_filename === './res/usa/county/usa_county.svg' ||
 		MapLoader.save_filename === './res/usa/house/12-2-2019-house.svg') {
 		var countyHouse = document.getElementById("county-house-d");
 		if(countyHouse) {

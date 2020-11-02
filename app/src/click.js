@@ -147,7 +147,7 @@ function stateClickHighlight(state) {
 
 function paintEntireState(state) {
 	if(MapLoader.save_filename === './res/usa/house/12-2-2019-house.svg' ||
-		MapLoader.save_filename === './res/usa_county.svg') {
+		MapLoader.save_filename === './res/usa/county/usa_county.svg') {
 		var setDisable = !state.disabled;
 		var stateName = state.name.substr(0,2);
 		for(var index = 0, length = states.length; index < length; ++index) {
@@ -156,8 +156,7 @@ function paintEntireState(state) {
 			if(MapLoader.save_filename === './res/usa/house/12-2-2019-house.svg') {
 				stateName = state.name.substr(0, 2);
 				stateName_a = state_a.name.substr(0, 2);
-			} else if(MapLoader.save_filename === './res/usa_county.svg') {
-
+			} else if(MapLoader.save_filename === './res/usa/county/usa_county.svg') {
 				stateName = state.name.substr(-2);
 				stateName_a = state_a.name.substr(-2);
 			}
@@ -178,7 +177,7 @@ function stateClickDelete(state) {
 
 function deleteEntireState(state) {
 	if(MapLoader.save_filename === './res/usa/house/12-2-2019-house.svg' ||
-		MapLoader.save_filename === './res/usa_county.svg') {
+		MapLoader.save_filename === './res/usa/county/usa_county.svg') {
 		var setDisable = !state.disabled;
 		var stateName = state.name.substr(0,2);
 		for(var index = 0, length = states.length; index < length; ++index) {
@@ -187,7 +186,7 @@ function deleteEntireState(state) {
 			if(MapLoader.save_filename === './res/usa/house/12-2-2019-house.svg') {
 				stateName = state.name.substr(0, 2);
 				stateName_a = state_a.name.substr(0, 2);
-			} else if(MapLoader.save_filename === './res/usa_county.svg') {
+			} else if(MapLoader.save_filename === './res/usa/county/usa_county.svg') {
 
 				stateName = state.name.substr(-2);
 				stateName_a = state_a.name.substr(-2);
