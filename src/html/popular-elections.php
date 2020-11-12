@@ -16,8 +16,8 @@
 		<a class="link" href="./app/?t=USA_2020_presidential">
 			Presidential
 		</a>
-		<a class="link" href="./app/?t=USA_2020_democratic_primary">
-			Democratic Primary
+		<a class="link" href="./app/?t=USA_2022_senate">
+			2022 Senate
 		</a>
 		</div>
 	</div>

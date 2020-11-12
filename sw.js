@@ -1,5 +1,5 @@
-var indexCache = 'i2.13.2';
-var staticCache = 's2.13.2';
+var indexCache = 'i2.15.0';
+var staticCache = 's2.15.0';
 
 var _indexCache = [
 	'./',
@@ -32,6 +32,7 @@ var _indexCache = [
 	'./app/?t=USA_2020_inside',
 	'./app/?t=USA_2020_sabatos',
 	'./app/?t=USA_2020_senate',
+	'./app/?t=USA_2022_senate',
 	'./app/?t=USA_2020_governors',
 	'./app/?t=USA_2020_house',
 	'./app/?t=USA_2020_democratic_primary',

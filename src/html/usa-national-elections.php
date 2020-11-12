@@ -8,6 +8,16 @@
 	<div class="navigation-2">
 		<div class="navigation-3">
 			<a class="navigation-label">
+				2022
+			</a>
+		</div>
+		<div class="navigation-3">
+			<a class="navigation-4" href="./app/?t=USA_2022_senate">
+				Senate with Georgia
+			</a>
+		</div>
+		<div class="navigation-3">
+			<a class="navigation-label">
 				2020
 			</a>
 		</div>

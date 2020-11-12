@@ -9,6 +9,17 @@
 		<div class="info-box-header">
 			<img src="app/res/flags/usa.svg">
 			<h3>
+				New Map
+			</h3>
+		</div>
+		<div class="link-list">
+		<a class="link" href="./app/?t=USA_2022_senate">2022 Senate with Georgia</a>
+		</div>
+	</div>
+	<div class="info-box">
+		<div class="info-box-header">
+			<img src="app/res/flags/usa.svg">
+			<h3>
 				Forecast
 			</h3>
 		</div>
@@ -90,30 +101,6 @@
 		<div class="link-list">
 		<a class="link" href="https://discord.gg/jndm6qW" target="_blank">
 			Join Our Mock Government!
-		</a>
-		</div>
-	</div>
-	<div class="info-box">
-		<div class="info-box-header">
-			<img src="app/res/flags/usa.svg">
-			<h3>
-				New Maps
-			</h3>
-		</div>
-		<div class="link-list">
-		<p>State House Maps</p>
-		<a class="link" href="./app/?t=Ohio_2020_state_lower">Ohio</a>
-		</div>
-	</div>
-	<div class="info-box">
-		<div class="info-box-header" style="background: #7289da">
-			<h3 style="font-weight: bold; color: white; letter-spacing: 2px;">
-				Discord
-			</h3>
-		</div>
-		<div class="link-list">
-		<a class="link" href="https://discord.gg/kT9dMHY" target="_blank">
-			Join Our Discord!
 		</a>
 		</div>
 	</div>

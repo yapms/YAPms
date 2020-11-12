@@ -10,7 +10,14 @@
 </div>
 <div class="selectmenu-content">
 <a class="selectmenu-split">
-	<div class="selectmenu-split-text">National</div>
+	<div class="selectmenu-split-text">National 2022</div>
+</a>
+<a class="selectmenu-button" href="./?t=USA_2022_senate">
+	<i class="fas fa-chevron-up"></i>
+	<div class="selectmenu-button-text">Senate with Georgia</div>
+</a>
+<a class="selectmenu-split">
+	<div class="selectmenu-split-text">National 2020</div>
 </a>
 <a class="selectmenu-button" href="./?t=USA_2020_presidential">
 	<i class="fas fa-user"></i>
