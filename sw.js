@@ -1,5 +1,5 @@
-var indexCache = 'i2.15.0';
-var staticCache = 's2.15.0';
+var indexCache = 'i2.15.1';
+var staticCache = 's2.15.1';
 
 var _indexCache = [
 	'./',
@@ -136,6 +136,7 @@ var _staticCache = [
 	'./app/data/gubernatorial_2020',
 	'./app/data/gubernatorial_current',
 	'./app/data/senatorial_2020',
+	'./app/data/senatorial_2022',
 	'./app/data/senatorial_current',
 	
 	'./app/res/fonts/roboto/roboto-v20-latin-regular.woff',
