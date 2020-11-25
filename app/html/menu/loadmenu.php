@@ -1,3 +1,4 @@
+<div id="loadmenu" class="popup selectmenu">
 <div class="selectmenu-header">
 <div class="selectmenu-controls">
        <object class="closebutton" type="image/svg+xml">Close</object>
@@ -14,5 +15,6 @@
 	<input type="button" value="<?php echo _("Load") ?>" onclick='MapLoader.loadFileMap()'>
 -->
 </form>
+</div>
 </div>
 </div>

@@ -1,3 +1,4 @@
+<div id="mapmenu" class="popup selectmenu">
 <div class="selectmenu-header">
 <div class="selectmenu-controls">
        <object class="closebutton" type="image/svg+xml">Error</object>
@@ -121,4 +122,5 @@
 	<div class="selectmenu-button-text">USA Canada</div>
 	<img class="flag-can">
 </a>
+</div>
 </div>

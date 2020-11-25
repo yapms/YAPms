@@ -1,5 +1,5 @@
-var indexCache = 'i2.15.1';
-var staticCache = 's2.15.1';
+var indexCache = 'i2.16.1';
+var staticCache = 's2.16.1';
 
 var _indexCache = [
 	'./',
@@ -22,7 +22,7 @@ var _indexCache = [
 	'./app/html/downloadbutton.svg',
 	'./app/html/overwritebutton.svg',
 
-	'./app/src/YAPMS.js',
+	'./app/bin/yapms.js',
 
 	'./app/?t=USA_current_house',
 	'./app/?t=USA_current_senate',
@@ -63,7 +63,7 @@ var _indexCache = [
 	'./app/?t=UnitedKingdom_house_of_commons',
 	'./app/?t=UnitedKingdom_current_parliament',
 
-	'./app/style/YAPMS.css',
+	'./app/bin/yapms.css',
 	'./app/style/mobile.css'
 ];
 

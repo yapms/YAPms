@@ -1,3 +1,4 @@
+<div id="sharemenu" class="popup selectmenu">
 <div class="selectmenu-header">
 <div class="selectmenu-controls">
        <object class="closebutton" type="image/svg+xml">Close</object>
@@ -26,4 +27,5 @@
 <div class="selectmenu-section" id="captcha-notice">This site is protected by reCAPTCHA and the Google
 <a href="https://policies.google.com/privacy" target="_blank" rel="noreferrer">Privacy Policy</a> and
 <a href="https://policies.google.com/terms" target="_blank" rel="noreferrer">Terms of Service</a> apply. </div>
+</div>
 </div>

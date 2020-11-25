@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 <?php
-	include './html/description.php';
+	require './html/description.php';
 ?>
 	<meta name="keywords" content="Map,Election,Political,Interactive,Simulator,Electoral,2020,USA,Presidential">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -35,94 +35,45 @@
 	<link href="https://cdn.jsdelivr.net" rel="preconnect">
 
 	<link rel="preload" href="./res/fonts/roboto/roboto-v20-latin-regular.woff" as="font">
+<?php
+		$mobile = strpos($_SERVER['HTTP_USER_AGENT'], 'Mobi');
+		$mobileText = $mobile ? "true" : "false";	
+		$autoReload = isset($_GET["autoReload"]) ? "true" : "false";
+		$allowEdit = isset($_GET["preventEdit"]) ? "false" : "true";
 
-	<script>"use strict";</script>
-	<?php
-		$mobile = false;
-
-		echo "<!-- {$_SERVER['HTTP_USER_AGENT']} -->";
-
-		if(strpos($_SERVER['HTTP_USER_AGENT'], 'Mobi')) {
-			$mobile = true;	
-			echo '<script>var mobile = true;</script>';
-		} else {
-			$mobile = false;	
-			echo '<script>var mobile = false;</script>';
-		}
-
-		if(isset($_GET["autoReload"]) && !empty($_GET["autoReload"])) {
-			echo '<script>
-				var php_auto_reload = true;
-				</script>';
-		} else {
-			echo '<script>
-				var php_auto_reload = false;
-				</script>';
-		}
-
-		if(isset($_GET["preventEdit"]) && !empty($_GET["preventEdit"])) {
-			echo '<script>
-				var php_candidate_edit = false;
-				</script>';
-		
-		} else {
-			echo '<script>
-				var php_candidate_edit = true;
-				</script>';
-		}
-
-		if(isset($_GET["u"]) && !empty($_GET["u"])) {
-			echo '<script>
-				var php_load_user = true;
-				var php_load_user_id = "' . $_GET["u"] . '";' .
-				'</script>';
-		} else {
-			echo '<script>
-				var php_load_user = false;
-				var php_load_user_id = "-1";
-				</script>';
-		}
-
-		if(isset($_GET["m"]) && !empty($_GET["m"])) {
-			echo '<script>' .
-				'var php_load_map = true;' .
-				'var php_load_type_map = false;' .
-				'var php_load_map_id = "' .$_GET["m"] . '";' .
-				'</script>';	
-			echo '<meta property="og:image:width" content="1200">
-			<meta property="og:image:height" content="1200">';
-			if(isset($_GET["u"]) && !empty($_GET["u"])) {
-				echo "<meta property='og:image:secure_url' content='https://yapms.org/users/{$_GET['u']}/{$_GET["m"]}.png'>
-				<meta property='og:image' content='http://yapms.org/users/{$_GET['u']}/{$_GET["m"]}.png'>
-				<meta name='twitter:image' content='http://yapms.org/users/{$_GET['u']}/{$_GET['m']}.png'>
-				<meta property='og:url' content='https://www.yapms.com/app/?u={$_GET['u']}&m={$_GET['m']}'>";
-			} else {
-				echo "<meta property='og:image:secure_url' content='https://yapms.org/maps/{$_GET['m']}.png'>
-				<meta property='og:image' content='http://yapms.org/maps/{$_GET["m"]}.png'>
-				<meta name='twitter:image' content='http://yapms.org/maps/{$_GET['m']}.png'>
-				<meta property='og:url' content='https://www.yapms.com/app/?m={$_GET['m']}'>";
+		$loadMap = "false";
+		$loadTypeMap = "false";
+		$userid = "-1";
+		$userMap = "false";
+		$loadMapID = 0;
+		$linkURL = "https://www.yapms.com/app/";
+		$secureImageURL = "https://www.yapms.com/app/res/yapms/yapms-96.png";
+		$imageURL = "http://www.yapms.com/app/res/yapms/yapms-96.png";
+		if(isset($_GET["m"])) {
+			$loadMap = "true";
+			$loadMapID = $_GET["m"];
+			$imageURL = "http://yapms.org/maps/{$loadMapID}.png";
+			$secureImageURL = "https://yapms.org/maps/{$loadMapID}.png";
+			$linkURL = "https://www.yapms.com/app/?m={$loadMapID}";
+			if(isset($_GET["u"])) {
+				$userMap = "true";
+				$userid = $_GET["u"];
+				$imageURL = "http://yapms.org/users/{$userid}/{$loadMapID}.png";
+				$secureImageURL = "https://yapms.org/users/{$userid}/{$loadMapID}.png";
+				$linkURL = "https://www.yapms.com/app/?u={$userid}&m={$loadMapID}";
 			}
-		} else if(isset($_GET["t"]) && !empty($_GET["t"])) {
-			echo '<script>' .
-				'var php_load_map = false;' .
-				'var php_load_type_map = true;' .
-				'var php_load_map_id = "' . $_GET["t"] . '";' .
-			     '</script>';
-			echo '<meta property="og:url" content="https://www.yapms.com/app/?t=' . $_GET["t"] . '">
-			<meta property="og:image" content="http://www.yapms.com/app/res/yapms/yapms-96.png">
-			<meta property="og:image:secure_url" content="https://www.yapms.com/app/res/yapms/yapms-96.png">
-			<meta name="twitter:image" content="https://www.yapms.com/app/res/yapms/yamps-96.png">';
-		} else {
-			echo '<script>' .
-				'var php_load_map = false;' .
-				'var php_load_type_map = false;' .
-				'var php_load_map_id = "0";' .
-			     '</script>';
-			echo '<meta property="og:url" content="https://www.yapms.com/app/">
-			<meta property="og:image" content="http://www.yapms.com/app/res/yapms/yapms-96.png">
-			<meta property="og:image:secure_url" content="https://www.yapms.com/app/res/yapms/yapms-96.png">
-			<meta name="twitter:image" content="https://www.yapms.com/app/res/yapms/yamps-96.png">';
+		} else if(isset($_GET["t"])) {
+			$loadMapType = "true";
+			$loadMapID = $_GET["t"];
+			$imageURL = "http://www.yapms.com/app/res/yapms/yapms-96.png";
+			$secureImageURL = "https://www.yapms.com/app/res/yapms/yapms-96.png";
+			$linkURL = "https://www.yapms.com/app/?t={$loadMapID}";
 		}
+
+		echo "<meta property='og:image:secure_url' content='{$secureImageURL}'>
+		<meta property='og:image' content='{$imageURL}'>
+		<meta name='twitter:image' content='{$imageURL}'>
+		<meta property='og:url' content='{$linkURL}'>";
 	?>
 
 	<!-- Ads -->
@@ -145,11 +96,11 @@
 
 	<style>
 	<?php
-	include './style/fonts.css';
+	require './style/fonts.css';
 	?>
 	</style>
 
-	<link rel="stylesheet" type="text/css" href="./style/YAPMS.css">
+	<link rel="stylesheet" type="text/css" href="./bin/yapms.css">
 	<?php
 	if($mobile) {
 		echo '<link rel="stylesheet" type="text/css" href="./style/mobile.css">';
@@ -158,9 +109,7 @@
 
 	<script async src="./res/fontawesome/js/all.min.js"></script>
 </head>
-
 <body id="body" onresize="onResize()">
-
 <div id="yapms">
 <div id="menu-div">
 	<div class="click-button" onclick="MapLoader.clearMap()" style="white-space: nowrap;">
@@ -247,13 +196,13 @@
 	</div>
 
 <?php
-/* margin-left: auto; moves the button all the way to the right */
-if($mobile === false) {
-	echo '
-<div class="click-button" onclick="toggleYAPNews()" style="white-space: nowrap; margin-left: 0px;">
-<i class="fas fa-bars"></i> Sidebar
-</div>';
-}
+	/* margin-left: auto; moves the button all the way to the right */
+	if($mobile === false) {
+		echo '
+	<div class="click-button" onclick="toggleYAPNews()" style="white-space: nowrap; margin-left: 0px;">
+	<i class="fas fa-bars"></i> Sidebar
+	</div>';
+	}
 ?>
 </div>
 
@@ -264,7 +213,7 @@ if($mobile === false) {
 </div>
 
 <div id="application-mysaves" style="display: none;">
-	<?php include './html/menu/application-mysaves.php'; ?>
+	<?php require './html/menu/application-mysaves.php'; ?>
 </div>
 
 <div id="application-sidebar-div">
@@ -275,7 +224,7 @@ if($mobile === false) {
 		<canvas id="chart-canvas" width="100" height="100"></canvas>
 		</div>
 		<?php
-			include 'html/battlechart.html';
+			require 'html/battlechart.html';
 		?>
 		<div id="logo-div">
 		</div>
@@ -291,565 +240,63 @@ if($mobile === false) {
 	<div id="map-div"></div>
 </div>
 <?php
-if($mobile === false) {
-	echo '<div id="sidebar">
-		<div id="sidebar-social">
-		<a id="sidebar-discord-link" class="social-link" href="https://discord.gg/kT9dMHY" target="_blank"><div id="sidebar-discord" class="sidebar-button">
-			Discord
-		</div></a>
-		<a id="sidebar-reddit-link" class="social-link" href="https://www.reddit.com/r/YAPms/" target="_blank"><div id="sidebar-reddit" class="sidebar-button">
-			Reddit
-		</div></a>
-		<a id="sidebar-twitter-link" class="social-link" href="https://twitter.com/YAPmsOfficial" target="_blank"><div id="sidebar-twitter" class="sidebar-button">
-			Twitter
-		</div></a>
-		</div>
-		<div id="sidebar-header">
-			<h1>' ,
-			$h1title
-			, '</h1>
-		</div>
-
-		<ins class="adsbygoogle adslot_sidebar"
-			style="display:inline-block; width:336px; height:280px;"
-			data-ad-client="ca-pub-1660456925957249"
-			data-ad-slot="8033943742"></ins>
-		<script>
-			(adsbygoogle = window.adsbygoogle || []).push({});
-		</script>
-
-		<div id="sidebar-shortcuts" class="sidebar-box">
-			<h3>Shortcuts</h3>
-			<ul>
-				<li>
-					F - Hold down to quickly fill in districts
-				</li>
-				<li id="county-house-d" style="display: none">
-					D - Hold down to fill/disable entire states
-				</li>
-			</ul>
-		</div>
-
-		<div id="sidebar-toggle-popularvote" class="sidebar-box sidebar-tool-button" onclick="PopularVote.toggle()" style="display: none">
-			<i class="fas fa-chevron-circle-right"></i>
-			<h4 id="sidebar-popularvote-head">
-				Enable Popular Vote
-			</h4>
-		</div>
-		<div id="sidebar-popularvote-settings" class="sidebar-box sidebar-tool">
-			<h3>
-				Settings
-			</h3>
-			<div class="sidebar-box-settings">
-				<div class="sidebar-hover-popup"><input type="checkbox" id="popularvote-automargins" onclick="PopularVote.autoMarginsOnClick();" checked>Auto Margins
-					<div class="tooltip-text">
-						Setting the popular vote will also set the color of a state
-					</div>
-				</div>
-				<div class="sidebar-hover-popup"><input type="checkbox" id="popularvote-clicksetpv" checked>Auto Popular Vote
-					<div class="tooltip-text">
-						Clicking on a district will set the popular vote to max
-					</div>
-				</div>
-			</div>
-		</div>
-		<div id="sidebar-popularvote" class="sidebar-box sidebar-tool">
-			<h3>
-				<span>
-				State Popular Vote
-				</span>
-			</h3>
-			<div id="popularvote-message">
-				Select a State
-			</div>
-			<div id="popularvote-state-title">
-			</div>
-			<div id="popularvote-ranges">
-			</div>
-		</div>
-		<div id="sidebar-national-popularvote" class="sidebar-box sidebar-tool">
-			<h3>
-				<span>
-					National Popular Vote
-				</span>
-			</h3>
-			<div id="national-popularvote-ranges">
-			</div>
-		</div>
-
-		<div id="sidebar-enable-simulator" class="sidebar-box sidebar-tool-button" onclick="Simulator.toggle();">
-			<i class="fas fa-chevron-circle-right"></i> 
-			<h4 id="sidebar-simulator-head">
-				Enable Simulator
-			</h4>
-		</div>
-		<div id="sidebar-presets-simulator" class="sidebar-box sidebar-tool" style="display: none;">
-			<h3>
-				National Presets
-			</h3>
-			<select id="sidebar-presets-select-simulator">
-			</select>
-		</div>
-		<div id="sidebar-settings-simulator" class="sidebar-box sidebar-tool">
-			<h3>
-				Settings
-			</h3>
-			<div class="sidebar-box-settings">
-				<div class="sidebar-hover-popup">
-					<input type="checkbox" id="simulator-noclick">
-						Ignore Click
-					</input>
-					<div class="tooltip-text">
-						Clicking doesn\'t set state color or open menu
-					</div>
-				</div>	
-			</div>
-		</div>
-		<div id="sidebar-state-simulator" class="sidebar-box sidebar-tool">
-			<h3>
-				State Percentage
-			</h3>
-			<div id="simulator-state-title">
-				Select a State
-			</div>
-			<div id="simulator-ranges">
-			</div>
-		</div>
-		<div id="sidebar-run-simulator" class="sidebar-box sidebar-tool-button sidebar-tool" onclick="Simulator.run();">
-			<h4>
-				<i class="fas fa-play"></i> Run Simulation
-			</h4>
-		</div>
-
-		<div id="sidebar-congress" class="sidebar-box">
-			<h3><span id="sidebar-congress-district">District</span></h3>
-			<div id="sidebar-congress-representative">
-			</div>
-			<div id="sidebar-congress-party">
-			</div>
-		</div>';
-
-		$url = "";
-		$title = "";
-	
-		switch($_GET["t"]) {
-			case "USA_2020_cook":
-			$url = "https://cookpolitical.com";
-			$title = "cookpolitical.com";
-			break;
-			case "USA_2020_house_cook":
-			$url = "https://cookpolitical.com/index.php/ratings/house-race-ratings";
-			$title = "cookpolitical.com";
-			break;
-			case "USA_2020_sabatos":
-			$url = "http://crystalball.centerforpolitics.org/crystalball/2020-president/";
-			$title = "centerforpolitics.org";
-			break;
-			case "USA_2020_inside":
-			$url = "https://insideelections.com/ratings/president";
-			$title = "insideelections.com";
-			break;
-		}
-		
-		if($url !== "" && $title !== "") {
-			echo "<div id='sidebar-source'>
-				<div class='sidebar-box'>
-					<h3>
-						Source
-					</h3>
-					<a href='{$url}' target='_blank'>{$title}</a>
-				</div>
-			</div>";
-		}
-	
-		echo '<div id="sidebar-congress-contested">
-			<div class="sidebar-box">
-				<h2>
-					Contested Seats
-				</h2>
-			</div>
-			</div>';
-
-		if(strpos($_GET["t"], '_presidential') &&
-			!strpos($_GET["t"], '_county')) {
-			include './html/info/usa_info_electoral_college.php';
-		} else {
-			switch($_GET["t"]) {
-			case "USA_2020_senate":
-			case "USA_current_senate":
-			case "USA_senate":
-				include './html/info/usa_info_senate.php';
-				break;
-			case "USA_2024_projection":
-			case "USA_2020_cook":
-			case "USA_2020_inside":
-			case "USA_2020_sabatos":
-				include './html/info/usa_info_electoral_college.php';
-				break;
-			}
- 		}
-
-		
-		echo '<div id="yapnews-articles">
-			</div>
-		</div>';
+if($mobile == false) {
+	require "./html/component/sidebar.php";
 }
 ?>
 </div>
 <?php
-if($mobile && strpos($_SERVER['HTTP_REFERER'], 'android-app') === false) {
-echo '<!-- mobile-ad -->
-<ins class="adsbygoogle adslot_mobile"
-	style="display:inline-block;"
-	data-full-width-responsive="true"
-	data-ad-client="ca-pub-1660456925957249"
-	data-ad-slot="8771249229"
-</ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>';
-} else if($mobile && strpos($_SERVER['HTTP_REFERER'], 'android-app') === true) {
-	echo '<div style="background: red">The Google Play App is depreciated. Download the new App from yapms.com</div>';
-}
+	if($mobile) {
+		echo '<!-- mobile-ad -->
+		<ins class="adsbygoogle adslot_mobile"
+			style="display:inline-block;"
+			data-full-width-responsive="true"
+			data-ad-client="ca-pub-1660456925957249"
+			data-ad-slot="8771249229"
+		</ins>
+		<script>
+		     (adsbygoogle = window.adsbygoogle || []).push({});
+		</script>';
+	}
 ?>
 </div>
 
-<div id="demdel" class="popup selectmenu">
-	<div class="selectmenu-header">
-	<div class="selectmenu-controls">
-	       <object class="closebutton" type="image/svg+xml">Close</object>
-	</div>
-	<div class="selectmenu-display-header">
-		<h2 id="demdel-message" class="selectmenu-display-header-text"></h2>
-	</div>
-	</div>
-	<div id="demdel-ranges" class="selectmenu-content">
-	</div>
-	<input id="demdel-state-name" type="hidden">
-	<button class="setbutton" onclick="closeAllPopups()">okay</button>
-</div>
+<?php
+require "./html/menu/delegateedit.php";
+require "./html/menu/ecedit.php";
+require "./html/menu/candidateedit.php";
+require "./html/menu/classiccolormenu.php";
+require "./html/menu/altcolormenu.php";
+require "./html/menu/customcolormenu.php";
+require './html/menu/customcoloreditor.php';
+require './html/menu/addcandidatemenu.php';
 
-<div id="ecedit" class="popup selectmenu">
-	<div class="selectmenu-header">
-	<div class="selectmenu-controls">
-	       <object class="closebutton" type="image/svg+xml">Close</object>
-	</div>
-	<div class="selectmenu-display-header">
-		<h2 id="ecedit-message" class="selectmenu-display-header-text"></h2>
-	</div>
-	</div>
-	<div class="selectmenu-content">
-	<div class="selectmenu-section"><input id="state-ec" type="number" name="value" min="1" max="10000" step="1"></div>
-	<div class="selectmenu-button" onclick="State.setEC()">
-		<div class="selectmenu-button-text">Apply</div>
-	</div>
-	<input id="state-id" type="hidden">
-	</div>
-</div>
+require './html/menu/mapmenu.php';
+require './html/menu/mapmenu-usa.php';
+require './html/menu/mapmenu-usa-state.php';
+require './html/menu/mapmenu-usa-historical.php'; 
+require './html/menu/mapmenu-russia.php';
+require './html/menu/mapmenu-netherlands.php';
+require './html/menu/mapmenu-germany.php';
+require './html/menu/mapmenu-canada.php';
+require './html/menu/mapmenu-brazil.php';
+require './html/menu/mapmenu-australia.php';
+require './html/menu/mapmenu-uk.php';
+require './html/menu/mapmenu-switzerland.php';
+require './html/menu/mapmenu-india.php';
 
-<div id="candidateedit" class="popup selectmenu">
-	<input id="candidate-originalName" type="hidden">
-	<div class="selectmenu-header">
-	<div class="selectmenu-controls">
-	       <object class="closebutton" type="image/svg+xml">Close</object>
-	</div>
-	<div class="selectmenu-display-header">
-		<h2 id="candidateedit-message" class="selectmenu-display-header-text">Candidate Edit</h2>
-	</div>
-	</div>
-	<div class="selectmenu-content">
-	<div class="selectmenu-button">Name <input id="candidate-name" type="text" name="name"></div>
-	<div class="selectmenu-section">Solid <input id="candidate-solid" type="color"></div>
-	<div class="selectmenu-section">Likely <input id="candidate-likely" type="color"></div>
-	<div class="selectmenu-section">Lean <input id="candidate-lean" type="color"></div>
-	<div class="selectmenu-section">Tilt <input id="candidate-tilt" type="color"></div>
-	<div class="selectmenu-button" onclick="CandidateManager.setCandidate(); Simulator.uniformPreset();">
-		<div class="selectmenu-button-text">Apply</div>
-	</div>
-	<div class="selectmenu-button" onclick='CandidateManager.deleteCandidate(); Simulator.uniformPreset();'>
-		<div class="selectmenu-button-text">Delete</div>
-	</div>
-	</div>
-</div>
-
-<div id="classiccolormenu" class="popup selectmenu">
-	<div class="selectmenu-header">
-	<div class="selectmenu-controls">
-    	<object class="backbutton-addcandidatemenu" type="image/svg+xml">Back</object>
-		<object class="closebutton" type="image/svg+xml">Close</object>
-	</div>
-	<div class="selectmenu-display-header">
-		<h2 class="selectmenu-display-header-text">Classic Colors</h2>
-	</div>
-	</div>
-	<div class="selectmenu-content">
-	<a class="selectmenu-button selectmenu-red" onclick='CandidateManager.setColors("red"); displayMenu("addcandidatemenu");'>
-		<div class="selectmenu-button-text">Red</div>
-	</a>
-	<a class="selectmenu-button selectmenu-blue" onclick='CandidateManager.setColors("blue"); displayMenu("addcandidatemenu");'>
-		<div class="selectmenu-button-text">Blue</div>
-	</a>
-	<a class="selectmenu-button selectmenu-green" onclick='CandidateManager.setColors("green"); displayMenu("addcandidatemenu");'>
-		<div class="selectmenu-button-text">Green</div>
-	</a>
-	<a class="selectmenu-button selectmenu-yellow" onclick='CandidateManager.setColors("yellow"); displayMenu("addcandidatemenu");'>
-		<div class="selectmenu-button-text">Yellow</div>
-	</a>
-	</div>
-</div>
-
-<div id="altcolormenu" class="popup selectmenu">
-	<div class="selectmenu-header">
-	<div class="selectmenu-controls">
-    	<object class="backbutton-addcandidatemenu" type="image/svg+xml">Back</object>
-	    <object class="closebutton" type="image/svg+xml">Close</object>
-	</div>
-	<div class="selectmenu-display-header">
-		<h2 class="selectmenu-display-header-text">Alt Colors</h2>
-	</div>
-	</div>
-	<div class="selectmenu-content">
-	<a class="selectmenu-button selectmenu-red-light" onclick='CandidateManager.setColors("red-light"); displayMenu("addcandidatemenu");'>
-		<div class="selectmenu-button-text">Light Red</div>
-	</a>
-	<a class="selectmenu-button selectmenu-blue-light" onclick='CandidateManager.setColors("blue-light"); displayMenu("addcandidatemenu");'>
-		<div class="selectmenu-button-text">Light Blue</div>
-	</a>
-	<a class="selectmenu-button selectmenu-red-dark" onclick='CandidateManager.setColors("red-dark"); displayMenu("addcandidatemenu");'>
-		<div class="selectmenu-button-text">Dark Red</div>
-	</a>
-	<a class="selectmenu-button selectmenu-blue-dark" onclick='CandidateManager.setColors("blue-dark"); displayMenu("addcandidatemenu");'>
-		<div class="selectmenu-button-text">Dark Blue</div>
-	</a>
-	</div>
-</div>
-
-<div id="customcolormenu" class="popup selectmenu">
-	<div class="selectmenu-header">
-	<div class="selectmenu-controls">
-    	<object class="backbutton-addcandidatemenu" type="image/svg+xml">Back</object>
-	    <object class="closebutton" type="image/svg+xml">Close</object>
-	</div>
-	<div class="selectmenu-display-header">
-		<h2 class="selectmenu-display-header-text">Custom Colors</h2>
-	</div>
-	</div>
-	<div class="selectmenu-button-double">
-		<a id="custom1button" class="selectmenu-button-left selectmenu-button selectmenu-button-bold" onclick='CandidateManager.setColors("custom1")'>
-			<div class="selectmenu-button-text">Custom 1</div>
-		</a>	
-		<a class="selectmenu-button-right selectmenu-button fas fa-cog"
-			onclick='displayCustomColorEditor("custom1")'></a>
-	</div>
-	<div class="selectmenu-button-double">
-		<a id="custom2button" class="selectmenu-button-left selectmenu-button selectmenu-button-bold" onclick='CandidateManager.setColors("custom2")'>
-			<div class="selectmenu-button-text">Custom 2</div>
-		</a>	
-		<a class="selectmenu-button-right selectmenu-button fas fa-cog"
-			onclick='displayCustomColorEditor("custom2")'></a>
-	</div>
-	<div class="selectmenu-button-double">
-		<a id="custom3button" class="selectmenu-button-left selectmenu-button selectmenu-button-bold" onclick='CandidateManager.setColors("custom3")'>
-			<div class="selectmenu-button-text">Custom 3</div>
-		</a>	
-		<a class="selectmenu-button-right selectmenu-button fas fa-cog"
-			onclick='displayCustomColorEditor("custom3")'></a>
-	</div>
-	<div class="selectmenu-button-double">
-		<a id="custom4button" class="selectmenu-button-left selectmenu-button selectmenu-button-bold" onclick='CandidateManager.setColors("custom4")'>
-			<div class="selectmenu-button-text">Custom 4</div>
-		</a>	
-		<a class="selectmenu-button-right selectmenu-button fas fa-cog"
-			onclick='displayCustomColorEditor("custom4")'></a>
-	</div>
-	<div class="selectmenu-button-double">
-		<a id="custom5button" class="selectmenu-button-left selectmenu-button selectmenu-button-bold" onclick='CandidateManager.setColors("custom5")'>
-			<div class="selectmenu-button-text">Custom 5</div>
-		</a>	
-		<a class="selectmenu-button-right selectmenu-button fas fa-cog"
-			onclick='displayCustomColorEditor("custom5")'></a>
-	</div>
-	<div class="selectmenu-button-double">
-		<a id="custom6button" class="selectmenu-button-left selectmenu-button selectmenu-button-bold" onclick='CandidateManager.setColors("custom6")'>
-			<div class="selectmenu-button-text">Custom 6</div>
-		</a>	
-		<a class="selectmenu-button-right selectmenu-button fas fa-cog"
-			onclick='displayCustomColorEditor("custom6")'></a>
-	</div>
-	<div class="selectmenu-button-double">
-		<a id="custom7button" class="selectmenu-button-left selectmenu-button selectmenu-button-bold" onclick='CandidateManager.setColors("custom7")'>
-			<div class="selectmenu-button-text">Custom 7</div>
-		</a>	
-		<a class="selectmenu-button-right selectmenu-button fas fa-cog"
-			onclick='displayCustomColorEditor("custom7")'></a>
-	</div>
-	<div class="selectmenu-button-double">
-		<a id="custom8button" class="selectmenu-button-left selectmenu-button selectmenu-button-bold" onclick='CandidateManager.setColors("custom8")'>
-			<div class="selectmenu-button-text">Custom 8</div>
-		</a>	
-		<a class="selectmenu-button-right selectmenu-button fas fa-cog"
-			onclick='displayCustomColorEditor("custom8")'></a>
-	</div>
-	<div class="selectmenu-button-double">
-		<a id="custom9button" class="selectmenu-button-left selectmenu-button selectmenu-button-bold" onclick='CandidateManager.setColors("custom9")'>
-			<div class="selectmenu-button-text">Custom 9</div>
-		</a>	
-		<a class="selectmenu-button-right selectmenu-button fas fa-cog"
-			onclick='displayCustomColorEditor("custom9")'></a>
-	</div>
-	<div class="selectmenu-button-double">
-		<a id="custom10button" class="selectmenu-button-left selectmenu-button selectmenu-button-bold" onclick='CandidateManager.setColors("custom10")'>
-			<div class="selectmenu-button-text">Custom 10</div>
-		</a>	
-		<a class="selectmenu-button-right selectmenu-button fas fa-cog"
-			onclick='displayCustomColorEditor("custom10")'></a>
-	</div>
-</div>
-
-<div id="customcoloreditor" class="popup selectmenu">
-	<div class="selectmenu-header">
-	<div class="selectmenu-controls">
-	       <object class="closebutton" type="image/svg+xml">Close</object>
-	</div>
-	<div class="selectmenu-display-header">
-		<h2 class="selectmenu-display-header-text">Custom Color Edit</h2>
-	</div>
-	</div>
-	<div class="selectmenu-content">
-	<input id="custom-color-name" type="hidden">
-	<div class="selectmenu-section">Solid <input id="solidcustom" type="color"></div>
-	<div class="selectmenu-section">Likely <input id="likelycustom" type="color"></div>
-	<div class="selectmenu-section">Leaning <input id="leaningcustom" type="color"></div>
-	<div class="selectmenu-section">Tilting <input id="tiltingcustom" type="color"></div>
-	<div class="selectmenu-section" onclick="CandidateManager.saveCustomColors(); displayAddCandidateMenu()">Set</div>
-	</div>
-</div>
-
-<div id="addcandidatemenu" class="popup selectmenu">
-	<div class="selectmenu-header">
-	<div class="selectmenu-controls">
-	       <object class="closebutton" type="image/svg+xml">Close</object>
-	</div>
-	<div class="selectmenu-display-header">
-		<h2 class="selectmenu-display-header-text">Add Candidate</h2>
-	</div>
-	</div>
-	<div class="selectmenu-content">
-	<div class="selectmenu-section">Name<input id="name" type="text"></div>
-	<a class="selectmenu-button" onclick='displayMenu("classiccolormenu")'>
-		<div class="selectmenu-button-text">Classic Colors</div>
-	</a>
-	<a class="selectmenu-button" onclick='displayMenu("altcolormenu")'>
-		<div class="selectmenu-button-text">Alt Colors</div>
-	</a>
-	<a class="selectmenu-button" onclick='displayMenu("customcolormenu")'>
-		<div class="selectmenu-button-text">Custom Colors</div>
-	</a>
-	<div class="selectmenu-section">Solid <input id="solid" type="color"></div>
-	<div class="selectmenu-section">Likely <input id="likely" type="color"></div>
-	<div class="selectmenu-section">Leaning <input id="leaning" type="color"></div>
-	<div class="selectmenu-section">Tilt <input id="tilting" type="color"></div>
-	<div class="selectmenu-button" onclick="CandidateManager.addCandidate(); Simulator.uniformPreset(); closeAllPopups();">
-		<div class="selectmenu-button-text">Add</div>
-	</div>
-	</div>
-</div>
-
-<div id="mapmenu" class="popup selectmenu">
-	<?php require './html/menu/mapmenu.php'; ?>
-</div>
-
-<div id="mapmenu-usa" class="popup selectmenu">
-	<?php require './html/menu/mapmenu-usa.php'; ?>
-</div>
-
-<div id="mapmenu-usa-state" class="popup selectmenu">
-	<?php require './html/menu/mapmenu-usa-state.php'; ?>
-</div>
-
-<div id="mapmenu-usa-historical" class="popup selectmenu">
-	<?php require './html/menu/mapmenu-usa-historical.php'; ?>
-</div>
-
-<div id="mapmenu-russia" class="popup selectmenu">
-	<?php require './html/menu/mapmenu-russia.php'; ?>
-</div>
-
-<div id="mapmenu-netherlands" class="popup selectmenu">
-	<?php require './html/menu/mapmenu-netherlands.php'; ?>
-</div>
-
-<div id="mapmenu-germany" class="popup selectmenu">
-	<?php require './html/menu/mapmenu-germany.php'; ?>
-</div>
-
-<div id="mapmenu-canada" class="popup selectmenu">
-	<?php require './html/menu/mapmenu-canada.php'; ?>
-</div>
-
-<div id="mapmenu-brazil" class="popup selectmenu">
-	<?php require './html/menu/mapmenu-brazil.php'; ?>
-</div>
-
-<div id="mapmenu-australia" class="popup selectmenu">
-	<?php require './html/menu/mapmenu-australia.php'; ?>
-</div>
-
-<div id="mapmenu-uk" class="popup selectmenu">
-	<?php require './html/menu/mapmenu-uk.php'; ?>
-</div>
-
-<div id="mapmenu-switzerland" class="popup selectmenu">
-	<?php require './html/menu/mapmenu-switzerland.php'; ?>
-</div>
-
-<div id="mapmenu-india" class="popup selectmenu">
-	<?php require './html/menu/mapmenu-india.php'; ?>
-</div>
-
-<div id="stylemenu" class="popup selectmenu">
-	<?php require './html/menu/stylemenu.php'; ?>
-</div>
-
-<div id="sharemenu" class="popup selectmenu">
-	<?php require './html/menu/sharemenu.php'; ?>
-</div>
-
-<div id="sharemenu-autocenter" class="popup selectmenu">
-	<?php require './html/menu/sharemenu-autocenter.php'; ?>
-</div>
-
-<div id="loadmenu" class="popup selectmenu">
-	<?php require './html/menu/loadmenu.php'; ?>
-</div>
-
-<div id="loginmenu" class="popup selectmenu">
-	<?php require './html/menu/loginmenu.php'; ?>
-</div>
-
-<div id="forgotpasswordmenu" class="popup selectmenu">
-	<?php require './html/menu/forgotpasswordmenu.php'; ?>
-</div>
-
-<div id="registermenu" class="popup selectmenu">
-	<?php require './html/menu/registermenu.php'; ?>
-</div>
-
-<div id="passwordmenu" class="popup selectmenu">
-	<?php require './html/menu/passwordmenu.php'; ?>
-</div>
-
-<div id="accountmenu" class="popup selectmenu">
-	<?php require './html/menu/accountmenu.php'; ?>
-</div>
-
-<div id="miscmenu" class="popup selectmenu">
-	<?php require './html/menu/miscmenu.php'; ?>
-</div>
-
-<div id="versionmenu" class="popup selectmenu">
-	<?php require './html/menu/versionmenu.php'; ?>
-</div>
+require './html/menu/stylemenu.php';
+require './html/menu/sharemenu.php';
+require './html/menu/sharemenu-autocenter.php';
+require './html/menu/loadmenu.php';
+require './html/menu/loginmenu.php';
+require './html/menu/forgotpasswordmenu.php';
+require './html/menu/registermenu.php';
+require './html/menu/passwordmenu.php';
+require './html/menu/accountmenu.php';
+require './html/menu/miscmenu.php';
+require './html/menu/versionmenu.php'; 
+?>
 
 <div id="notification" class="popup selectmenu">
 	<div class="selectmenu-header">
@@ -871,13 +318,26 @@ echo '<!-- mobile-ad -->
 
 <!--<script src="https://www.google.com/recaptcha/api.js?render=6LeDYbEUAAAAANfuJ4FxWVjoxPgDPsFGsdTLr1Jo"></script>-->
 <!--<script src="http://www.geoplugin.net/extras/cookielaw.js"></script>-->
+<?php
+echo "<script>
+var mobile = {$mobileText};
+var php_auto_reload = {$autoReload};
+var php_candidate_edit = {$allowEdit};
+var php_load_user = {$userMap};
+var php_load_user_id = \"{$userid}\";
+var php_load_map = {$loadMap};
+var php_load_type_map = {$loadTypeMap};
+var php_load_map_id = \"{$loadMapID}\";
+</script>";
+?>
+
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8/hammer.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.5/dist/html2canvas.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/svg-pan-zoom@3.6.1/dist/svg-pan-zoom.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.2/dist/Chart.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0/dist/chartjs-plugin-datalabels.min.js"></script>
-<script src="./src/YAPMS.js"></script>
+<script src="./bin/yapms.js"></script>
 <?php 
 if($mobile === true) {
 	echo '<script>';

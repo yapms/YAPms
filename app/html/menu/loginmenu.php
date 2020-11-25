@@ -1,3 +1,4 @@
+<div id="loginmenu" class="popup selectmenu">
 <div class="selectmenu-header">
 <div class="selectmenu-controls">
        <object class="closebutton" type="image/svg+xml">Close</object>
@@ -24,4 +25,5 @@
 <a class="selectmenu-button" onclick='displayMenu("forgotpasswordmenu");'>
 	<div class="selectmenu-button-text">Forgot Password</div>
 </a>
+</div>
 </div>

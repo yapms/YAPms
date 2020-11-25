@@ -1,0 +1,12 @@
+#!/bin/bash
+cd $(dirname "$0")
+php -S localhost:8000 &
+p1=$!
+cd ./app/src/
+ls *.js | entr -s 'cat Account.js Candidate.js ChartManager.js CookieManager.js InputManager.js KeyboardManager.js LegendManager.js LogoManager.js MapManager.js MapLoader.js PresetLoader.js State.js battlechart.js click.js congress.js data.js SimulatorData.js htmlControl.js menuControl.js Simulator.js PopularVote.js savemap.js Tools.js main.js > ../bin/yapms.js' &
+p2=$!
+cd ../style/
+ls *.css | entr -s 'cat mysaves.css input.css menu.css selectmenu.css popup.css legend.css style.css battlechart.css yapnews.css sidebar.css consent.css > ../bin/yapms.css' &
+p3=$!
+trap "kill $p1 & kill $p2 & kill $p3" SIGINT
+wait

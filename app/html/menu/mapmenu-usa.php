@@ -1,3 +1,4 @@
+<div id="mapmenu-usa" class="popup selectmenu">
 <div class="selectmenu-header">
 <div class="selectmenu-controls">
        <object class="backbutton" type="image/svg+xml">Back</object>
@@ -108,4 +109,5 @@
 <a class="selectmenu-button" href="./?t=USA_split_maine">
 	<div class="selectmenu-button-text">Split Maine</div>
 </a>
+</div>
 </div>

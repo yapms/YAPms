@@ -1,3 +1,4 @@
+<div id="stylemenu" class="popup selectmenu">
 <div class="selectmenu-header">
 <div class="selectmenu-controls">
        <object class="closebutton" type="image/svg+xml">Close</object>
@@ -79,4 +80,5 @@
 <a class="selectmenu-button" onclick='LegendManager.toggleLegendLeans()'>
 	<div class="selectmenu-button-text">Legend Leans</div>
 </a>
+</div>
 </div>

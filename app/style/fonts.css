@@ -5,9 +5,6 @@
   font-weight: 400;
   font-display: swap;
   src: local('Roboto'), local('Roboto-Regular'),
-/*url('./res/fonts/roboto/roboto-v20-latin-regular.woff2') format('woff2'),*/
-	url('./res/fonts/roboto/roboto-v20-latin-regular.woff') format('woff');
-/*url('./res/fonts/roboto/roboto-v20-latin-regular.ttf') format('truetype'), */
-/*url('./res/fonts/roboto/roboto-v20-latin-regular.svg#Roboto') format('svg'); */
+url('./res/fonts/roboto/roboto-v20-latin-regular.woff') format('woff');
 }
 

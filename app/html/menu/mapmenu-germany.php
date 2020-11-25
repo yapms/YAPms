@@ -1,3 +1,4 @@
+<div id="mapmenu-germany" class="popup selectmenu">
 <div class="selectmenu-header">
 <div class="selectmenu-controls">
        <object class="backbutton" type="image/svg+xml">Back</object>
@@ -17,4 +18,5 @@
 	<i class="fas fa-chevron-down"></i>
 	<div class="selectmenu-button-text">Bundestag</div>
 </a>
+</div>
 </div>

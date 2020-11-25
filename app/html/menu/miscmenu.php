@@ -1,3 +1,4 @@
+<div id="miscmenu" class="popup selectmenu">
 <div class="selectmenu-header">
 <div class="selectmenu-controls">
        <object class="closebutton" type="image/svg+xml">Close</object>
@@ -47,4 +48,5 @@
 	<i class="fas fa-desktop"></i>
 	<div class="selectmenu-button-text">Political Analyst</div>
 </a>
+</div>
 </div>

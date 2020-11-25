@@ -1,3 +1,4 @@
+<div id="accountmenu" class="popup selectmenu">
 <div class="selectmenu-header">
 <div class="selectmenu-controls">
        <object class="closebutton" type="image/svg+xml">Close</object>
@@ -24,4 +25,5 @@
 	<i class="fas fa-sign-out-alt"></i>
 	<div class="selectmenu-button-text">Logout</div>
 </a>
+</div>
 </div>

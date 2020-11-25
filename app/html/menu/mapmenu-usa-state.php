@@ -1,3 +1,4 @@
+<div id="mapmenu-usa-state" class="popup selectmenu">
 <div class="selectmenu-header">
 <div class="selectmenu-controls">
        <object class="backbutton" type="image/svg+xml">Back</object>
@@ -117,4 +118,5 @@
 <a class="selectmenu-button" href="./?t=Wisconsin_2020_state_lower">
 	<div class="selectmenu-button-text">Wisconsin</div>
 </a>
+</div>
 </div>

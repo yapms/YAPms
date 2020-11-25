@@ -1,3 +1,4 @@
+<div id="forgotpasswordmenu" class="popup selectmenu">
 <div class="selectmenu-header">
 <div class="selectmenu-controls">
        <object class="closebutton" type="image/svg+xml">Close</object>
@@ -14,4 +15,5 @@
 <a class="selectmenu-button" onclick="Account.forgotPassword();">
 	<div class="selectmenu-button-text">Reset</div>
 </a>
+</div>
 </div>

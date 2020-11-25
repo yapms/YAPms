@@ -1,3 +1,4 @@
+<div id="mapmenu-usa-historical" class="popup selectmenu">
 <div class="selectmenu-header">
 <div class="selectmenu-controls">
        <object class="backbutton" type="image/svg+xml">Back</object>
@@ -218,5 +219,5 @@
 <a class="selectmenu-button" href="./?t=USA_1789_presidential">
 	<div class="selectmenu-button-text">1789</div>
 </a>
-
+</div>
 </div>

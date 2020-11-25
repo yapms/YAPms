@@ -1,3 +1,4 @@
+<div id="passwordmenu" class="popup selectmenu">
 <div class="selectmenu-header">
 <div class="selectmenu-controls">
        <object class="closebutton" type="image/svg+xml">Close</object>
@@ -22,4 +23,5 @@
 <a class="selectmenu-button" onclick='Account.changePassword();'>
 	<div class="selectmenu-button-text">Set</div>
 </a>
+</div>
 </div>

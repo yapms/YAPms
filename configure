@@ -1,0 +1,13 @@
+#!/bin/bash
+cd $(dirname "$0")
+sudo apt install wget php tar
+mkdir tmp
+cd tmp
+wget http://eradman.com/entrproject/code/entr-4.6.tar.gz
+tar -xf entr-4.6.tar.gz
+cd entr-4.6
+./configure
+make test
+sudo make install
+cd ../..
+rm -rf tmp

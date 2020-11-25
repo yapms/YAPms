@@ -1,3 +1,4 @@
+<div id="sharemenu-autocenter" class="popup selectmenu">
 <div class="selectmenu-header">
 <div class="selectmenu-controls">
        <object class="closebutton" type="image/svg+xml">Close</object>
@@ -16,5 +17,6 @@
 			No
 		</div>
 	</a>
+</div>
 </div>
 </div>

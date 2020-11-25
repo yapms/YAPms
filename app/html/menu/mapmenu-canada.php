@@ -1,3 +1,4 @@
+<div id="mapmenu-canada" class="popup selectmenu">
 <div class="selectmenu-header">
 <div class="selectmenu-controls">
 	<object class="backbutton" type="image/svg+xml">Back</object>
@@ -27,4 +28,5 @@
 	<i class="fas fa-chevron-down"></i>
 	<div class="selectmenu-display-header-text">2019</div>
 </a>
+</div>
 </div>

@@ -1,3 +1,4 @@
+<div id="mapmenu-uk" class="popup selectmenu">
 <div class="selectmenu-header">
 <div class="selectmenu-controls">
 	<object class="backbutton" type="image/svg+xml">Back</object>
@@ -21,4 +22,5 @@
 	<i class="fas fa-border-all"></i>
 	<div class="selectmenu-display-header-text">Historic Counties</div>
 </a>
+</div>
 </div>
