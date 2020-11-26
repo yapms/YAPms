@@ -74,7 +74,7 @@
 		<meta property='og:image' content='{$imageURL}'>
 		<meta name='twitter:image' content='{$imageURL}'>
 		<meta property='og:url' content='{$linkURL}'>";
-	?>
+?>
 
 	<!-- Ads -->
 	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
@@ -106,8 +106,6 @@
 		echo '<link rel="stylesheet" type="text/css" href="./style/mobile.css">';
 	}
 	?>
-
-	<script async src="./res/fontawesome/js/all.min.js"></script>
 </head>
 <body id="body" onresize="onResize()">
 <div id="yapms">
@@ -246,18 +244,18 @@ if($mobile == false) {
 ?>
 </div>
 <?php
-	if($mobile) {
-		echo '<!-- mobile-ad -->
-		<ins class="adsbygoogle adslot_mobile"
-			style="display:inline-block;"
-			data-full-width-responsive="true"
-			data-ad-client="ca-pub-1660456925957249"
-			data-ad-slot="8771249229"
-		</ins>
-		<script>
-		     (adsbygoogle = window.adsbygoogle || []).push({});
-		</script>';
-	}
+if($mobile) {
+	echo '<!-- mobile-ad -->
+	<ins class="adsbygoogle adslot_mobile"
+		style="display:inline-block;"
+		data-full-width-responsive="true"
+		data-ad-client="ca-pub-1660456925957249"
+		data-ad-slot="8771249229"
+	</ins>
+	<script>
+	     (adsbygoogle = window.adsbygoogle || []).push({});
+	</script>';
+}
 ?>
 </div>
 
@@ -316,8 +314,6 @@ require './html/menu/versionmenu.php';
 	<?php require './html/consent.php'; ?>
 </div>
 
-<!--<script src="https://www.google.com/recaptcha/api.js?render=6LeDYbEUAAAAANfuJ4FxWVjoxPgDPsFGsdTLr1Jo"></script>-->
-<!--<script src="http://www.geoplugin.net/extras/cookielaw.js"></script>-->
 <?php
 echo "<script>
 var mobile = {$mobileText};
@@ -330,7 +326,7 @@ var php_load_type_map = {$loadTypeMap};
 var php_load_map_id = \"{$loadMapID}\";
 </script>";
 ?>
-
+<script src="./res/fontawesome/js/all.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8/hammer.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.5/dist/html2canvas.min.js"></script>
@@ -338,37 +334,5 @@ var php_load_map_id = \"{$loadMapID}\";
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.2/dist/Chart.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0/dist/chartjs-plugin-datalabels.min.js"></script>
 <script src="./bin/yapms.js"></script>
-<?php 
-if($mobile === true) {
-	echo '<script>';
-	require './src/mobile.js';
-	echo '</script>';
-} else {
-	echo '<script>';
-	require './src/yapnews.js';
-	echo '</script>';
-}
-?>
-<script>
-if('serviceWorker' in navigator) {
-	console.log('Attempting to register service worker');
-	navigator.serviceWorker
-	.register('../sw.js')
-	.then(function(a) {
-		console.log('SW: registered');
-		if(a.waiting) {
-			console.log('SW: update found');
-			var updateButton = document.getElementById("update-button");
-			if(updateButton) {
-				updateButton.style.display = "inline";
-			}
-		}
-	}, function(err) {
-		console.log('SW: register error ', err);
-	});
-} else {
-	console.log('No service worker detected');
-}
-</script>
 </body>
 </html>

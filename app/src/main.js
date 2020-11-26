@@ -1,4 +1,4 @@
-var currentCache = 'v2.16.2';
+var currentCache = 'v2.20.2';
 
 var states = [];
 var lands = [];
@@ -103,7 +103,7 @@ function share_afterCenter() {
 		if(grecaptcha)
 		grecaptcha.execute('6LeDYbEUAAAAANfuJ4FxWVjoxPgDPsFGsdTLr1Jo', {action: 'share'})
 		.then(function(token) {
-			saveMap_new(img, token);
+			saveMap(img, token);
 		});
 	});
 }
@@ -288,6 +288,66 @@ function forceUpdate() {
 	}
 }
 
+function updateArticles() {
+$.ajax({
+	url: 'req_articles.php',
+	type: 'GET',
+	success : function(data) {
+		if(data.includes("req_article Error:")) {
+			console.log(data);
+			return;
+		}
+
+		var obj = jQuery.parseJSON(data);
+
+		var articles = document.getElementById("yapnews-articles");
+
+		if(articles === null) {
+			return;
+		}
+
+		for(var index = 0; index < obj.length; ++index) {
+			var article = document.createElement('div');
+			article.setAttribute('class', 'yapnews-article');
+			var articleTitle = document.createElement('a');
+			articleTitle.setAttribute('class', 'yapnews-article-title');
+			articleTitle.setAttribute('href', 'https://www.yapms.com/news/article.php?a=' + obj[index]['id']);
+			articleTitle.setAttribute('target', '_blank');
+			var articleAuthor = document.createElement('div');
+			articleAuthor.setAttribute('class', 'yapnews-article-author');
+			var articleSnippet = document.createElement('div');
+			articleSnippet.setAttribute('class', 'yapnews-article-snippet');
+			articleTitle.innerHTML = obj[index]['title'];
+			articleAuthor.innerHTML = obj[index]['author'];
+			articleSnippet.innerHTML = obj[index]['snippet'];
+
+			article.appendChild(articleTitle);
+			article.appendChild(articleAuthor);
+			article.appendChild(articleSnippet);
+			articles.appendChild(article);
+		}
+	},
+	error: function(a,b,c) {
+		console.log(a);
+		console.log(b);
+		console.log(c);
+	}
+});
+}
+
+function updateMobile() {
+	var clickButtons = document.getElementsByClassName('click-button');
+	for(var index = 0; index < clickButtons.length; ++index) {
+		clickButtons[index].style.padding = '7px';
+	}
+	
+	var modeButtons = document.getElementsByClassName('mode-button');
+	for(var index = 0; index < modeButtons.length; ++index) {
+		modeButtons[index].style.paddingLeft = '12px';
+		modeButtons[index].style.paddingRight = '12px';
+	}
+}
+
 function start() {
 	CookieManager.loadCookies();
 	CookieManager.askConsent();
@@ -296,6 +356,12 @@ function start() {
 	ChartManager.initChart();
 
 	ChartManager.setChart('horizontalbattle');
+
+	if(mobile) {
+		updateMobile();
+	} else {
+		updateArticles();
+	}
 
 	if(php_load_map === true) {
 		var url = null;
@@ -326,3 +392,23 @@ function start() {
 }
 
 start();
+
+if('serviceWorker' in navigator) {
+	console.log('Attempting to register service worker');
+	navigator.serviceWorker
+	.register('../sw.js')
+	.then(function(a) {
+		console.log('SW: registered');
+		if(a.waiting) {
+			console.log('SW: update found');
+			var updateButton = document.getElementById("update-button");
+			if(updateButton) {
+				updateButton.style.display = "inline";
+			}
+		}
+	}, function(err) {
+		console.log('SW: register error ', err);
+	});
+} else {
+	console.log('No service worker detected');
+}

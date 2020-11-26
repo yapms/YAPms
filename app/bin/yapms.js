@@ -5780,57 +5780,6 @@ function showShortcuts() {
 		}
 	}
 }
-function displayVersionInfo() {
-	var versioninfotext = document.getElementById('versioninfo-text');
-	versioninfotext.innerHTML = currentCache;
-}
-
-function displayShareMenu() {
-	var sharebuttons = document.getElementById('sharebuttons');
-	if(sharebuttons) {
-		sharebuttons.style.display = 'none';
-	}
-
-	var shareurl = document.getElementById('shareurl');
-	if(shareurl) {
-		shareurl.style.display = 'none';
-		shareurl.innerHTML = '';
-	}
-
-	var image = document.getElementById('screenshotimg');
-	if(image) {
-		image.style.display = 'none';
-	}
-		
-	var loadingAnimation = document.getElementById('loading-animation');
-	if(loadingAnimation) {
-		loadingAnimation.style.display = '';
-	}
-}
-
-function displayMenu(name) {
-	LogoManager.loadFlags();
-	LogoManager.loadButtons();
-	closeAllPopups();
-
-	var menu = document.getElementById(name);
-	menu.style.display = 'flex';
-
-	switch(name) {
-		case 'versionmenu':
-			displayVersionInfo();
-		break;
-		case 'sharemenu':
-			displayShareMenu();
-		break;
-	}
-}
-
-function hideMenu(name) {
-	closeAllPopups();
-	var menu = document.getElementById(name);
-	menu.style.display = 'none';
-}
 class Simulator {
 	static init() {
 		if(mobile) {
@@ -6738,88 +6687,7 @@ function logData() {
 	console.log(JSON.stringify(data));
 }
 
-function saveMap_user() {
-	var formData = new FormData();
-	formData.append('token', Account.token);
-	
-	var element = document.getElementById('savemap-name');
-	formData.append('mapName', element.value);
-
-	var data = {};
-	data['filename'] = MapLoader.save_filename;
-	data['dataid'] = MapLoader.save_dataid;
-	data['type'] = MapLoader.save_type;
-	data['year'] = MapLoader.save_year;
-	data['fontsize'] = MapLoader.save_fontsize;
-	data['strokewidth'] = MapLoader.save_strokewidth;
-	data['candidates'] = {};
-	data['states'] = {};
-	data['proportional'] = {};
-
-	for(var key in CandidateManager.candidates) {
-		if(key === 'Tossup') {
-			continue;
-		}
-		var candidate = CandidateManager.candidates[key];
-		data['candidates'][candidate.name] = {};
-		data['candidates'][candidate.name]['solid'] = candidate.colors[0];
-		data['candidates'][candidate.name]['likely'] = candidate.colors[1];
-		data['candidates'][candidate.name]['lean'] = candidate.colors[2];
-		data['candidates'][candidate.name]['tilt'] = candidate.colors[3];
-	}
-
-	for(var stateIndex = 0; stateIndex < states.length; ++stateIndex) {
-		var state = states[stateIndex];
-		// Remove zero delegates
-		for(var key in state.delegates) {
-			var count = state.delegates[key];
-			if(count === 0) {
-				delete state.delegates[key];
-			}
-		}
-		data['states'][state.name] = {};
-		data['states'][state.name]['candidate'] = state.candidate;
-		data['states'][state.name]['delegates'] = state.delegates;
-		data['states'][state.name]['colorvalue'] = state.colorValue;
-		data['states'][state.name]['disabled'] = state.disabled;
-	}
-
-	for(var stateIndex = 0; stateIndex < proportionalStates.length; ++stateIndex) {
-		var state = proportionalStates[stateIndex];
-		// Remove zero delegates
-		for(var key in state.delegates) {
-			var count = state.delegates[key];
-			if(count === 0) {
-				delete state.delegates[key];
-			}
-		}
-		data['proportional'][state.name] = {};
-		data['proportional'][state.name]['candidate'] = state.candidate;
-		data['proportional'][state.name]['delegates'] = state.delegates;
-		data['proportional'][state.name]['colorvalue'] = state.colorValue;
-		data['proportional'][state.name]['disabled'] = state.disabled;
-	}
-
-	formData.append("data", JSON.stringify(data));
-	
-	$.ajax({
-		url: "https://yapms.org/upload_user.php",
-		type: "POST",
-		data: formData,
-		processData: false,
-		contentType: false,
-		success: function(data) {
-			console.log(data);
-		},
-		error: function(a,b,c) {
-			console.log(a);
-			console.log(b);
-			console.log(c);
-		}
-	});
-}
-
-function saveMap_new(img, token) {
+function saveMap(img, token) {
 	var formData = new FormData();
 	formData.append("captcha", token);
 	formData.append("img", img);
@@ -6978,7 +6846,59 @@ function saveMap_new(img, token) {
 function numberWithCommas(number) {
 	return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
-var currentCache = 'v2.16.2';
+
+function displayVersionInfo() {
+	var versioninfotext = document.getElementById('versioninfo-text');
+	versioninfotext.innerHTML = currentCache;
+}
+
+function displayShareMenu() {
+	var sharebuttons = document.getElementById('sharebuttons');
+	if(sharebuttons) {
+		sharebuttons.style.display = 'none';
+	}
+
+	var shareurl = document.getElementById('shareurl');
+	if(shareurl) {
+		shareurl.style.display = 'none';
+		shareurl.innerHTML = '';
+	}
+
+	var image = document.getElementById('screenshotimg');
+	if(image) {
+		image.style.display = 'none';
+	}
+		
+	var loadingAnimation = document.getElementById('loading-animation');
+	if(loadingAnimation) {
+		loadingAnimation.style.display = '';
+	}
+}
+
+function displayMenu(name) {
+	LogoManager.loadFlags();
+	LogoManager.loadButtons();
+	closeAllPopups();
+
+	var menu = document.getElementById(name);
+	menu.style.display = 'flex';
+
+	switch(name) {
+		case 'versionmenu':
+			displayVersionInfo();
+		break;
+		case 'sharemenu':
+			displayShareMenu();
+		break;
+	}
+}
+
+function hideMenu(name) {
+	closeAllPopups();
+	var menu = document.getElementById(name);
+	menu.style.display = 'none';
+}
+var currentCache = 'v2.20.2';
 
 var states = [];
 var lands = [];
@@ -7083,7 +7003,7 @@ function share_afterCenter() {
 		if(grecaptcha)
 		grecaptcha.execute('6LeDYbEUAAAAANfuJ4FxWVjoxPgDPsFGsdTLr1Jo', {action: 'share'})
 		.then(function(token) {
-			saveMap_new(img, token);
+			saveMap(img, token);
 		});
 	});
 }
@@ -7268,6 +7188,66 @@ function forceUpdate() {
 	}
 }
 
+function updateArticles() {
+$.ajax({
+	url: 'req_articles.php',
+	type: 'GET',
+	success : function(data) {
+		if(data.includes("req_article Error:")) {
+			console.log(data);
+			return;
+		}
+
+		var obj = jQuery.parseJSON(data);
+
+		var articles = document.getElementById("yapnews-articles");
+
+		if(articles === null) {
+			return;
+		}
+
+		for(var index = 0; index < obj.length; ++index) {
+			var article = document.createElement('div');
+			article.setAttribute('class', 'yapnews-article');
+			var articleTitle = document.createElement('a');
+			articleTitle.setAttribute('class', 'yapnews-article-title');
+			articleTitle.setAttribute('href', 'https://www.yapms.com/news/article.php?a=' + obj[index]['id']);
+			articleTitle.setAttribute('target', '_blank');
+			var articleAuthor = document.createElement('div');
+			articleAuthor.setAttribute('class', 'yapnews-article-author');
+			var articleSnippet = document.createElement('div');
+			articleSnippet.setAttribute('class', 'yapnews-article-snippet');
+			articleTitle.innerHTML = obj[index]['title'];
+			articleAuthor.innerHTML = obj[index]['author'];
+			articleSnippet.innerHTML = obj[index]['snippet'];
+
+			article.appendChild(articleTitle);
+			article.appendChild(articleAuthor);
+			article.appendChild(articleSnippet);
+			articles.appendChild(article);
+		}
+	},
+	error: function(a,b,c) {
+		console.log(a);
+		console.log(b);
+		console.log(c);
+	}
+});
+}
+
+function updateMobile() {
+	var clickButtons = document.getElementsByClassName('click-button');
+	for(var index = 0; index < clickButtons.length; ++index) {
+		clickButtons[index].style.padding = '7px';
+	}
+	
+	var modeButtons = document.getElementsByClassName('mode-button');
+	for(var index = 0; index < modeButtons.length; ++index) {
+		modeButtons[index].style.paddingLeft = '12px';
+		modeButtons[index].style.paddingRight = '12px';
+	}
+}
+
 function start() {
 	CookieManager.loadCookies();
 	CookieManager.askConsent();
@@ -7276,6 +7256,12 @@ function start() {
 	ChartManager.initChart();
 
 	ChartManager.setChart('horizontalbattle');
+
+	if(mobile) {
+		updateMobile();
+	} else {
+		updateArticles();
+	}
 
 	if(php_load_map === true) {
 		var url = null;
@@ -7306,3 +7292,23 @@ function start() {
 }
 
 start();
+
+if('serviceWorker' in navigator) {
+	console.log('Attempting to register service worker');
+	navigator.serviceWorker
+	.register('../sw.js')
+	.then(function(a) {
+		console.log('SW: registered');
+		if(a.waiting) {
+			console.log('SW: update found');
+			var updateButton = document.getElementById("update-button");
+			if(updateButton) {
+				updateButton.style.display = "inline";
+			}
+		}
+	}, function(err) {
+		console.log('SW: register error ', err);
+	});
+} else {
+	console.log('No service worker detected');
+}
