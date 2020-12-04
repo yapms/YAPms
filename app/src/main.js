@@ -1,4 +1,4 @@
-var currentCache = 'v2.20.2';
+var currentCache = 'v2.22.7';
 
 var states = [];
 var lands = [];
@@ -54,7 +54,8 @@ function share_afterCenter() {
 		}, 3000);
 	}
 
-	html2canvas(document.getElementById('application'), {/*width: 1200, height: 630,*/ logging: false, onclone: function(clone) {
+	html2canvas(document.getElementById('application'), {
+		logging: false, onclone: function(clone) {
 		// remove the custom fonts from the clone
 		var svgtext = clone.getElementById('text');
 		if(svgtext) {
@@ -103,7 +104,7 @@ function share_afterCenter() {
 		if(grecaptcha)
 		grecaptcha.execute('6LeDYbEUAAAAANfuJ4FxWVjoxPgDPsFGsdTLr1Jo', {action: 'share'})
 		.then(function(token) {
-			saveMap(img, token);
+			SaveMap.upload(img, token);
 		});
 	});
 }
@@ -172,11 +173,6 @@ function verifyPaintIndex() {
 	if(typeof CandidateManager.candidates[paintIndex] === 'undefined') {
 		paintIndex = 'Tossup';
 	}
-}
-
-// instead of counting all delegates, just count when it changes
-function changeVote(prev, current) {
-
 }
 
 // iterate over each state and delegate votes to the candidate
@@ -289,50 +285,36 @@ function forceUpdate() {
 }
 
 function updateArticles() {
-$.ajax({
-	url: 'req_articles.php',
-	type: 'GET',
-	success : function(data) {
-		if(data.includes("req_article Error:")) {
-			console.log(data);
-			return;
-		}
-
-		var obj = jQuery.parseJSON(data);
-
+	fetch("req_articles.php")
+	.then(response => response.json())
+	.then(data => {
 		var articles = document.getElementById("yapnews-articles");
 
 		if(articles === null) {
 			return;
 		}
 
-		for(var index = 0; index < obj.length; ++index) {
+		for(var index = 0; index < data.length; ++index) {
 			var article = document.createElement('div');
 			article.setAttribute('class', 'yapnews-article');
 			var articleTitle = document.createElement('a');
 			articleTitle.setAttribute('class', 'yapnews-article-title');
-			articleTitle.setAttribute('href', 'https://www.yapms.com/news/article.php?a=' + obj[index]['id']);
+			articleTitle.setAttribute('href', 'https://www.yapms.com/news/article.php?a=' + data[index]['id']);
 			articleTitle.setAttribute('target', '_blank');
 			var articleAuthor = document.createElement('div');
 			articleAuthor.setAttribute('class', 'yapnews-article-author');
 			var articleSnippet = document.createElement('div');
 			articleSnippet.setAttribute('class', 'yapnews-article-snippet');
-			articleTitle.innerHTML = obj[index]['title'];
-			articleAuthor.innerHTML = obj[index]['author'];
-			articleSnippet.innerHTML = obj[index]['snippet'];
+			articleTitle.innerHTML = data[index]['title'];
+			articleAuthor.innerHTML = data[index]['author'];
+			articleSnippet.innerHTML = data[index]['snippet'];
 
 			article.appendChild(articleTitle);
 			article.appendChild(articleAuthor);
 			article.appendChild(articleSnippet);
 			articles.appendChild(article);
 		}
-	},
-	error: function(a,b,c) {
-		console.log(a);
-		console.log(b);
-		console.log(c);
-	}
-});
+	});
 }
 
 function updateMobile() {
@@ -345,6 +327,16 @@ function updateMobile() {
 	for(var index = 0; index < modeButtons.length; ++index) {
 		modeButtons[index].style.paddingLeft = '12px';
 		modeButtons[index].style.paddingRight = '12px';
+	}
+
+	var sidebarToggle = document.getElementById("sidebar-toggle");
+	if(sidebarToggle) {
+		sidebarToggle.style.display = "none";
+	}
+
+	var lockButton = document.getElementById("lockbutton");
+	if(lockButton) {
+		lockButton.style.display = "none";
 	}
 }
 
@@ -381,10 +373,8 @@ function start() {
 		MapLoader.loadMapFromId(php_load_map_id);
 	} else {
 		PresetLoader.loadPreset("classic");
-		MapLoader.loadMap("./res/usa_presidential.svg", 16, 1, "usa_ec", "presidential", "open", {voters: 'usa_voting_pop', enablePopularVote: true});
+		MapLoader.loadMap("./res/usa_presidential.svg", 16, 1, "usa_ec", "presidential", "open");
 	}
-
-	Account.verifyState();
 
 	setTimeout(function() {
 		LogoManager.loadButtons();

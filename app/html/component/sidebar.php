@@ -169,16 +169,7 @@
 			</div>
 		</div>";
 	}
-?>
 
-	<div id="sidebar-congress-contested">
-	<div class="sidebar-box">
-		<h2>
-			Contested Seats
-		</h2>
-	</div>
-	</div>
-<?php
 	if(strpos($_GET["t"], '_presidential') &&
 		!strpos($_GET["t"], '_county')) {
 		include './html/info/usa_info_electoral_college.php';

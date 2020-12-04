@@ -16,44 +16,37 @@ class MapLoader {
 			enableHouse = true;
 		}
 
-		$.ajax({
-			url: "./res/presets/" + preset,
-			type: "GET",
-			processData: false,
-			contentType: false,
-			success: function(a, b, c) {
-				console.log("Found preset map...");
-				MapLoader.loadSavedMap(a, {enableCongress: enableHouse});
-			},
-			error: function(a, b, c) {
-				console.log("Did not find preset map...");
-				MapLoader.loadMap("../res/usa_presidential.svg", 16, 1, "usa_ec", "presidential", "open");
-			}
+		fetch("./res/presets/" + preset)
+		.then(response => response.json())
+		.then(data => {
+			alert("GOOD");
+			console.log(data);
+			MapLoader.loadSavedMap(data, {enableCongress: enableHouse});
+		}).catch(error => {
+			alert("TEST");
+			console.error(error);	
 		});
 	}
 
 	static loadMapFromURL(URL) {
 		console.log('Map Loader: ' + URL);
-		$.ajax({
-			url: URL,
-			type: "POST",
-			success: function(data) {
-				PresetLoader.loadPreset('none');
-				console.log("Map Load: Found saved map");
-				console.log('Map Loader: Attemping new file load');
-				MapLoader.loadSavedMap(data);
-			},
-			error: function() {
-				console.log("Map Loader: Did not find saved map");
-				MapLoader.loadMap('./res/usa_presidential.svg', 16, 1, 'usa_ec',"presidential", "open");
+		fetch(URL)
+		.then(response => response.json())
+		.then(data => {
+			PresetLoader.loadPreset('none');
+			console.log("Map Load: Found saved map");
+			console.log('Map Loader: Attemping new file load');
+			MapLoader.loadSavedMap(data);
+		}).catch(error => {
+			console.log("Map Loader: Did not find saved map");
+			MapLoader.loadMap('./res/usa_presidential.svg', 16, 1, 'usa_ec',"presidential", "open");
 
-				var notification = document.getElementById('notification');
-				var message = notification.querySelector('#notification-message');
-				var title = notification.querySelector('#notification-title');
-				title.innerHTML = 'Sorry';
-				message.innerHTML = 'The map you are looking for does not exist.<br><br>This feature is still in development and it may have been deleted.';
-				notification.style.display = 'inline';
-			}
+			var notification = document.getElementById('notification');
+			var message = notification.querySelector('#notification-message');
+			var title = notification.querySelector('#notification-title');
+			title.innerHTML = 'Sorry';
+			message.innerHTML = 'The map you are looking for does not exist.<br><br>This feature is still in development and it may have been deleted.';
+			notification.style.display = 'inline';
 		});
 	}
 
@@ -112,7 +105,6 @@ class MapLoader {
 			case "USA_1888_presidential":
 			case "USA_1884_presidential":
 			case "USA_1880_presidential":
-			case "USA_1876_presidential":
 			case "USA_1876_presidential":
 			case "USA_1872_presidential":
 			case "USA_1868_presidential":
@@ -305,7 +297,7 @@ class MapLoader {
 				break;
 			case "USA_2020_presidential":
 				PresetLoader.loadPreset('classic');
-				MapLoader.loadMap("./res/usa/presidential/usa_presidential.svg", 16, 0.75, "usa_ec", "takeall", "open", {voters: 'usa_voting_pop', enablePopularVote: true});
+				MapLoader.loadMap("./res/usa/presidential/usa_presidential.svg", 16, 0.75, "usa_ec", "takeall", "open");
 				break;
 			case "USA_split_maine":
 				PresetLoader.loadPreset('classic');
@@ -505,7 +497,7 @@ class MapLoader {
 				//break;
 			default:
 				PresetLoader.loadPreset('classic');
-				MapLoader.loadMap("./res/usa_presidential.svg", 16, 1, "usa_ec", "takeall", "open", {voters: 'usa_voting_pop', enablePopularVote: true});
+				MapLoader.loadMap("./res/usa_presidential.svg", 16, 1, "usa_ec", "takeall", "open");
 				break;
 		}
 	}
@@ -569,9 +561,6 @@ class MapLoader {
 		MapLoader.save_strokewidth = strokewidth;
 
 		if(options) {
-			if(options.enablePopularVote) {
-				PopularVote.showPopularVoteButton();
-			}
 			enableCongress = options.enableCongress;
 			verifyCongress();
 		}
@@ -586,7 +575,13 @@ class MapLoader {
 		var dataname = './data/' + type + '_' + year;
 
 		console.log('Loading ' + filename);
-		$('#map-div').load(filename, function(a) {
+
+		fetch(filename)
+		.then(response => response.text())
+		.then(data => {
+			var mapdiv = document.getElementById("map-div");
+			mapdiv.innerHTML = data;
+
 			console.log('Done loading ' + filename);
 			MapLoader.onLoadSVG();
 		
@@ -619,19 +614,7 @@ class MapLoader {
 					options.onLoad();
 				}
 
-				setCongressContested();
 				showShortcuts();
-
-				if(options && options.voters) {
-					for(var stateIndex = 0, length = states.length; stateIndex < length; ++stateIndex) {
-						var state = states[stateIndex];
-						state.voters = data[options.voters][state.name];
-						state.popularVote = {};
-						state.popularVote['Tossup'] = state.voters;
-					}
-
-					PopularVote.count();
-				}
 
 				// disable the load screen when the map is finished loading
 				var loadScreen = document.getElementById('application-loading');
@@ -661,7 +644,9 @@ class MapLoader {
 		
 		var candidateNames = {};
 
-		$.get(gubernatorialfile, function(data) {
+		fetch(gubernatorialfile)
+		.then(response => response.text())
+		.then(data => {
 			console.log('Done loading ' + gubernatorialfile);
 
 			var loadMode = 'candidate';
@@ -714,7 +699,10 @@ class MapLoader {
 
 		var candidateNames = {};
 
-		$.get(senatefile, function(data) {
+		fetch(senatefile)
+		.then(response => response.text())
+		.then(data => {
+			console.log("FETCH SEN");
 			console.log('Done loading ' + senatefile);
 		
 			var loadMode = 'candidate';
@@ -768,11 +756,12 @@ class MapLoader {
 			mapHTML.style.visibility = 'visible';
 
 			onLoad();
+
 		});
 	}
 
 	static loadSavedMap(data, options) {
-		var obj = JSON.parse(data);	
+		obj = data;
 
 		if(options) {
 			enableCongress = options.enableCongress;
@@ -877,7 +866,7 @@ class MapLoader {
 		var fileReader = new FileReader();
 		fileReader.onload = function(loadEvent) {
 			var a = loadEvent.target.result;
-			MapLoader.loadSavedMap(a);
+			MapLoader.loadSavedMap(JSON.parse(a));
 			closeAllPopups();
 		}
 		fileReader.readAsText(file, 'UTF-8');

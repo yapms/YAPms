@@ -1,6 +1,3 @@
-var textOn = true;
-var presentationMode = false;
-
 // when the yapnews div gets resized, center the map
 if(document.getElementById("yapnews")) {
 	document.getElementById("yapnews").addEventListener("transitionend",
@@ -76,11 +73,6 @@ function closeAllPopups() {
 		if(popup.style) {
 			popup.style.display = 'none';
 		}
-	}
-
-	var mysaves = document.getElementById("application-mysaves");
-	if(mysaves) {
-		Account.closeMyMaps();
 	}
 
 	// Remove active focus from close button

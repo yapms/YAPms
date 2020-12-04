@@ -63,12 +63,23 @@
 				$linkURL = "https://www.yapms.com/app/?u={$userid}&m={$loadMapID}";
 			}
 		} else if(isset($_GET["t"])) {
-			$loadMapType = "true";
+			$loadTypeMap = "true";
 			$loadMapID = $_GET["t"];
 			$imageURL = "http://www.yapms.com/app/res/yapms/yapms-96.png";
 			$secureImageURL = "https://www.yapms.com/app/res/yapms/yapms-96.png";
 			$linkURL = "https://www.yapms.com/app/?t={$loadMapID}";
 		}
+
+		echo "<script>
+		var mobile = {$mobileText};
+		var php_auto_reload = {$autoReload};
+		var php_candidate_edit = {$allowEdit};
+		var php_load_user = {$userMap};
+		var php_load_user_id = \"{$userid}\";
+		var php_load_map = {$loadMap};
+		var php_load_type_map = {$loadTypeMap};
+		var php_load_map_id = \"{$loadMapID}\";
+		</script>";
 
 		echo "<meta property='og:image:secure_url' content='{$secureImageURL}'>
 		<meta property='og:image' content='{$imageURL}'>
@@ -95,124 +106,33 @@
 	</script>
 
 	<style>
-	<?php
-	require './style/fonts.css';
-	?>
-	</style>
-
-	<link rel="stylesheet" type="text/css" href="./bin/yapms.css">
-	<?php
-	if($mobile) {
-		echo '<link rel="stylesheet" type="text/css" href="./style/mobile.css">';
+	@font-face {
+		font-family: 'Roboto';
+		font-style: normal;
+		font-weight: 400;
+		font-display: swap;
+		src: local('Roboto'), local('Roboto-Regular'),
+		url('./res/fonts/roboto/roboto-v20-latin-regular.woff') format('woff');
 	}
-	?>
+	</style>
+	<link rel="stylesheet" type="text/css" href="./bin/yapms.css">
+
+	<script defer src="./res/fontawesome/js/all.min.js"></script>
+	<script defer src="https://www.google.com/recaptcha/api.js?render=6LeDYbEUAAAAANfuJ4FxWVjoxPgDPsFGsdTLr1Jo"></script>
+	<script defer src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8/hammer.min.js"></script>
+	<script defer src="https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.7/dist/html2canvas.min.js"></script>
+	<script defer src="https://cdn.jsdelivr.net/npm/svg-pan-zoom@3.6.1/dist/svg-pan-zoom.min.js"></script>
+	<script defer src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+	<script defer src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0/dist/chartjs-plugin-datalabels.min.js"></script>
+	<script defer src="./bin/yapms.min.js"></script>
 </head>
 <body id="body" onresize="onResize()">
 <div id="yapms">
-<div id="menu-div">
-	<div class="click-button" onclick="MapLoader.clearMap()" style="white-space: nowrap;">
-	<i class="fas fa-window-close"></i> Clear
-	</div>
-	
-	<div class="click-button" onclick="displayMenu('mapmenu')" style="white-space: nowrap;">
-	<i class="fas fa-map"></i> Map
-	</div>
-
-	<div id="modebutton-paint" class="click-button mode-button" onclick='setMode("paint")' style='opacity: 0.5'>
-		<i class="fas fa-paint-brush"></i>
-		<div class="tooltip-menu">
-			Paint
-		</div>
-	</div>
-	<div id="modebutton-fill" class="click-button mode-button" onclick='setMode("fill");'>
-		<i class="fas fa-fill-drip"></i>
-		<div class="tooltip-menu">
-			Fill
-		</div>
-	</div>
-	<div id="modebutton-delete" class="click-button mode-button" onclick='setMode("delete")'>
-		<i class="fas fa-eraser"></i>
-		<div class="tooltip-menu">
-			Disable	
-		</div>
-	</div>
-	<div id="modebutton-ec" class="click-button mode-button" onclick='setMode("ec")'>
-		<i class="fas fa-edit"></i>
-		<div class="tooltip-menu">
-			Delegate Edit
-		</div>
-	</div>
-<!--
-	<div id="modebutton-highlight" class="click-button mode-button" onclick='setMode("highlight")'>
-		<i class="fas fa-sun"></i>
-		<div class="tooltip-menu">
-			Highlight
-		</div>
-	</div>
--->
-<?php
-	if($mobile === false) {
-	echo '<div id="lockbutton" class="click-button lock-button" onclick="MapManager.toggleLockMap()">
-		<i class="fas fa-lock"></i>
-		<div class="tooltip-menu">
-			Lock Map
-		</div>
-		</div>';
-	}
+<?php 
+	require './html/component/application-menubar.php';
+	require './html/component/application-loading.php';
+	require './html/component/application-mysaves.php'; 
 ?>
-
-	<div id="update-button" class="click-button" onclick="forceUpdate()" style="white-space: nowrap; display: none;">
-		<i class="fas fa-arrow-up"></i> Update
-	</div>
-
-	<div class="click-button" id="share-button" onclick="displayMenu('sharemenu-autocenter');" style="white-space: nowrap;">
-	<i class="fas fa-share-alt"></i> Share Map
-	</div>
-
-	<div class="click-button" onclick="displayMenu('stylemenu')" style="white-space: nowrap;">
-	<i class="fas fa-palette"></i> Style
-	</div>
-
-	<div class="click-button" onclick="displayMenu('miscmenu')" style="white-space: nowrap;">
-	<i class="fas fa-clipboard"></i> Misc
-	</div>
-
-	<div id="login-button" class="customGPlusSignIn click-button" style="white-space: nowrap; margin-left: auto;" onclick='displayMenu("loginmenu");'>	
-		<i class="fas fa-sign-in-alt"></i> Login
-	</div>
-	<div id="mymaps-button" class="click-button" style="margin-left: auto; white-space: nowrap; display: none;" onclick='Account.getMaps();'>
-		My Maps
-	</div>
-	<div id="account-button" class="click-button" style="display: none;" onclick='displayMenu("accountmenu");'>
-		Account
-	</div>
-	
-	<div class="click-button" style="white-space: nowrap;">
-	<a class="click-button" href="https://www.yapms.com/privacypolicy.html" target="_blank" rel="noreferrer">
-	<i class="fas fa-user-secret"></i> Privacy
-	</a>
-	</div>
-
-<?php
-	/* margin-left: auto; moves the button all the way to the right */
-	if($mobile === false) {
-		echo '
-	<div class="click-button" onclick="toggleYAPNews()" style="white-space: nowrap; margin-left: 0px;">
-	<i class="fas fa-bars"></i> Sidebar
-	</div>';
-	}
-?>
-</div>
-
-<div id="application-loading">
-	<div id="application-loading-div">
-		<object id="application-loading-image" type="image/svg+xml" data="./html/loading.svg"></object>
-	</div>
-</div>
-
-<div id="application-mysaves" style="display: none;">
-	<?php require './html/menu/application-mysaves.php'; ?>
-</div>
 
 <div id="application-sidebar-div">
 <div id="application">
@@ -247,7 +167,7 @@ if($mobile == false) {
 if($mobile) {
 	echo '<!-- mobile-ad -->
 	<ins class="adsbygoogle adslot_mobile"
-		style="display:inline-block;"
+		style="display:inline-block; height: 50px"
 		data-full-width-responsive="true"
 		data-ad-client="ca-pub-1660456925957249"
 		data-ad-slot="8771249229"
@@ -313,26 +233,5 @@ require './html/menu/versionmenu.php';
 <div id="consent" style="display: none;">
 	<?php require './html/consent.php'; ?>
 </div>
-
-<?php
-echo "<script>
-var mobile = {$mobileText};
-var php_auto_reload = {$autoReload};
-var php_candidate_edit = {$allowEdit};
-var php_load_user = {$userMap};
-var php_load_user_id = \"{$userid}\";
-var php_load_map = {$loadMap};
-var php_load_type_map = {$loadTypeMap};
-var php_load_map_id = \"{$loadMapID}\";
-</script>";
-?>
-<script src="./res/fontawesome/js/all.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8/hammer.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.5/dist/html2canvas.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/svg-pan-zoom@3.6.1/dist/svg-pan-zoom.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.2/dist/Chart.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0/dist/chartjs-plugin-datalabels.min.js"></script>
-<script src="./bin/yapms.js"></script>
 </body>
 </html>

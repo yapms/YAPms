@@ -38,7 +38,6 @@ class CandidateManager {
 		countVotes();
 		LegendManager.updateLegend();
 		ChartManager.updateChart();
-		PopularVote.count();
 	}
 
 	static setCandidate() {

@@ -1,618 +1,3 @@
-class Account {
-	static register() {
-		var formData = new FormData();
-		var email = document.getElementById('email-input').value;
-		formData.append('email', email);
-		$.ajax({
-			url: "https://yapms.org/auth/register.php",
-			type: "POST",
-			data: formData,
-			processData: false,
-			contentType: false,
-			xhrFields: {
-				withCredentials: true
-			},
-			crossDomain: true,
-			success: function(data) {
-				console.log('Register: ' + data);
-				//alert(data);
-				var arr = data.split(' ');
-				var registerInfo = document.getElementById('register-info');
-				closeAllPopups();
-				if(arr[0] === 'good') {
-					displayNotification('Account Registered',
-						'Please check your email, and click the verification link. (check your spam)');	
-				} else if(arr[1] === 'inuse') {
-					displayNotification('Register Error',
-						'Account Already Registered');	
-				} else if(arr[1] === 'inactive') {
-					displayNotification('Register Error',
-						'Verification Email Already Sent (check your spam)');	
-				} else if(arr[1] === 'resent') {
-					displayNotification('Account Registered',
-						'Please check your email, and click the verification link. (check your spam)');	
-				} else if(arr[1] === 'invalid_email') {
-					displayNotification('Register Error',
-						email + ' is not a valid email');	
-				}
-			},
-			error: function(a, b, c) {
-				console.log(a);
-				console.log(b);
-				console.log(c);
-				var registerInfo = document.getElementById('register-info');
-				registerInfo.innerHTML = 'Connection Error';	
-			}	
-		});
-	}
-
-	static login() {
-		var formData = new FormData();
-		var email = document.getElementById('email-login').value;
-		var pass = document.getElementById('password-login').value;
-		formData.append('email', email);
-		formData.append('password', pass);
-		$.ajax({
-			url: "https://yapms.org/auth/login.php",
-			type: "POST",
-			data: formData,
-			processData: false,
-			contentType: false,
-			xhrFields: {
-				withCredentials: true
-			},
-			crossDomain: true,
-			success: function(data) {
-				console.log('Login: ' + data);
-				var arr = data.split(' ');
-				Account.verifyState();
-				document.getElementById('password-login').value = "";
-				var loginInfo = document.getElementById('login-info');
-				if(arr[0] === 'good') {
-					loginInfo.innerHTML = 'Please enter your credentials';
-					closeAllPopups();
-				} else if(arr[0] === 'bad') {
-					if(arr[1] === 'account_innactive') {
-						loginInfo.innerHTML = 'Inactive Account';
-					} else if(arr[1] === 'incorrect_login') {
-						loginInfo.innerHTML = 'Incorrect Login';
-					}
-				}
-			},
-			error: function(a, b, c) {
-				console.log(a);
-				console.log(b);
-				console.log(c);
-				var loginInfo = document.getElementById('login-info');
-				loginInfo.innerHTML = 'Connection Error';
-			}	
-		});
-	}
-
-	static verifyState() {
-		var formData = new FormData();
-		formData.append('email', Account.email);
-		$.ajax({
-			url: "https://yapms.org/auth/verify_login.php",
-			type: "POST",
-			data: formData,
-			processData: false,
-			contentType: false,
-			xhrFields: {
-				withCredentials: true
-			},
-			crossDomain: true,
-			success: function(data) {
-				console.log('Verify Login: ' + data);
-				var arr = data.split(' ');
-				Account.isLoggedIn = (arr[0] === 'good');
-				if(Account.isLoggedIn) {
-					Account.email = arr[1];
-					Account.id = arr[2];
-				} else {
-					Account.id = null;
-					Account.email = null;	
-				}
-				Account.updateHTML();
-			},
-			error: function(a, b, c) {
-				console.log("Account: Could not login");
-			}	
-		});
-	}
-
-	static logout() {
-		closeAllPopups();
-		$.ajax({
-			url: "https://yapms.org/auth/logout.php",
-			type: "POST",
-			processData: false,
-			contentType: false,
-			xhrFields: {
-				withCredentials: true
-			},
-			crossDomain: true,
-			success: function(data) {
-				console.log('Logout: ' + data);
-				Account.verifyState();
-			},
-			error: function(a, b, c) {
-				console.log(a);
-				console.log(b);
-				console.log(c);
-			}	
-		});
-	}
-
-	static unlink(mapName) {
-		var formData = new FormData();
-		formData.append("mapName", mapName);
-		$.ajax({
-			url: "https://yapms.org/users/.tools/unlink.php",
-			type: "POST",
-			data: formData,
-			processData: false,
-			contentType: false,
-			xhrFields: {
-				withCredentials: true
-			},
-			crossDomain: true,
-			success: function(data) {
-				gtag('event', currentCache, {
-					'event_category': 'Account',
-					'event_label': 'Map Deleted From Account'
-				});
-			},
-			error: function(a, b, c) {
-				console.log(a);
-				console.log(b);
-				console.log(c);
-			}	
-		});
-	}
-
-	static save(mapName) {
-		var formData = new FormData();
-		var img = document.getElementById("mysaves-current-mappreview");
-		if(img) {
-			formData.append("img", img.src);
-		}
-
-		if(mapName) {
-			formData.append("mapName", mapName);
-		} else {	
-			var mapNameElement = document.getElementById("mysaves-name-input");
-			if(mapNameElement) {
-				formData.append("mapName", mapNameElement.value);
-				mapNameElement.value = '';
-			}
-		}
-
-		var error = document.getElementById("mysaves-current-error");
-		if(error) {
-			error.style.display = 'none';
-		}
-	
-		var data = {};
-		data['filename'] = MapLoader.save_filename;
-		data['dataid'] = MapLoader.save_dataid;
-		data['type'] = MapLoader.save_type;
-		data['year'] = MapLoader.save_year;
-		data['fontsize'] = MapLoader.save_fontsize;
-		data['strokewidth'] = MapLoader.save_strokewidth;
-		data['candidates'] = {};
-		data['states'] = {};
-		data['proportional'] = {};
-
-		for(var key in CandidateManager.candidates) {
-			if(key === 'Tossup') {
-				continue;
-			}
-			var candidate = CandidateManager.candidates[key];
-			data['candidates'][candidate.name] = {};
-			data['candidates'][candidate.name]['solid'] = candidate.colors[0];
-			data['candidates'][candidate.name]['likely'] = candidate.colors[1];
-			data['candidates'][candidate.name]['lean'] = candidate.colors[2];
-			data['candidates'][candidate.name]['tilt'] = candidate.colors[3];
-		}
-
-		for(var stateIndex = 0; stateIndex < states.length; ++stateIndex) {
-			var state = states[stateIndex];
-			// Remove zero delegates
-			for(var key in state.delegates) {
-				var count = state.delegates[key];
-				if(count === 0) {
-					delete state.delegates[key];
-				}
-			}
-			data['states'][state.name] = {};
-			data['states'][state.name]['delegates'] = state.delegates;
-			data['states'][state.name]['simulator'] = state.simulator;
-			data['states'][state.name]['colorvalue'] = state.colorValue;
-			data['states'][state.name]['disabled'] = state.disabled;
-		}
-
-		for(var stateIndex = 0; stateIndex < proportionalStates.length; ++stateIndex) {
-			var state = proportionalStates[stateIndex];
-			// Remove zero delegates
-			for(var key in state.delegates) {
-				var count = state.delegates[key];
-				if(count === 0) {
-					delete state.delegates[key];
-				}
-			}
-			data['proportional'][state.name] = {};
-			data['proportional'][state.name]['delegates'] = state.delegates;
-			data['proportional'][state.name]['simulator'] = state.simulator;
-			data['proportional'][state.name]['colorvalue'] = state.colorValue;
-			data['proportional'][state.name]['disabled'] = state.disabled;
-		}
-		
-		formData.append("data", JSON.stringify(data));
-
-		$.ajax({
-			url: "https://yapms.org/users/.tools/upload.php",
-			type: "POST",
-			data: formData,
-			processData: false,
-			contentType: false,
-			xhrFields: {
-				withCredentials: true
-			},
-			crossDomain: true,
-			success: function(data) {
-				var arr = data.split(' ');
-				console.log(arr);
-				if(arr[0] === "bad") {
-					error.style.display = 'inline';
-					if(arr[1] === "no_map_name") {
-						error.innerHTML = "Enter Map Name";
-					} else if(arr[1] === "file_limit") {
-						error.innerHTML = "File Limit Reached";	
-					} else {
-						error.innerHTML = "Upload Error";	
-					}
-				} else {
-					var base64name = arr[1];
-					Account.addMapBox(base64name, true);
-					gtag('event', currentCache, {
-						'event_category': 'Account',
-						'event_label': 'Map Saved To Account'
-					});
-				}
-			},
-			error: function(a, b, c) {
-				console.log(a);
-				console.log(b);
-				console.log(c);
-			}
-		});
-	}
-
-	static changePassword() {
-		var formData = new FormData();
-		var current = document.getElementById('password-reset-1').value;
-		var newPass = document.getElementById('password-reset-2').value;
-		var verifyPass = document.getElementById('password-reset-3').value;
-		formData.append('current', current);
-		formData.append('new', newPass);
-		formData.append('verify', verifyPass);
-		$.ajax({
-			url: "https://yapms.org/auth/change_password.php",
-			type: "POST",
-			data: formData,
-			processData: false,
-			contentType: false,
-			xhrFields: {
-				withCredentials: true
-			},
-			crossDomain: true,
-			success: function(data) {
-				console.log('Change Password: ' + data);
-				var arr = data.split(' ');
-				var passwordChangeInfo = document.getElementById('passwordchange-info');
-				if(arr[0] === 'good') {
-					closeAllPopups();
-					displayNotification('Password Change',
-						'Your password has been changed');
-					passwordChangeInfo.innerHTML = 'Please enter current and new password';
-					document.getElementById('password-reset-1').value = "";
-					document.getElementById('password-reset-2').value = "";
-					document.getElementById('password-reset-3').value = "";
-				} else if(arr[0] === 'bad') {
-					if(arr[1] === 'verify_incorrect') {
-						passwordChangeInfo.innerHTML = 'Passwords do not match';
-					} else if(arr[1] === 'incorrect_pass') {
-						passwordChangeInfo.innerHTML = 'Current password incorrect';
-					} else if(arr[1] === 'no_post') {
-						passwordChangeInfo.innerHTML = 'Missing information';
-					}
-				}
-			},
-			error: function(a, b, c) {
-				console.log(a);
-				console.log(b);
-				console.log(c);
-			}	
-		});
-	}
-
-	static forgotPassword() {
-		var formData = new FormData();
-		var email = document.getElementById('email-forgot-input').value;
-		formData.append('email', email);
-		$.ajax({
-			url: "https://yapms.org/auth/forgot_password.php",
-			type: "POST",
-			data: formData,
-			processData: false,
-			contentType: false,
-			xhrFields: {
-				withCredentials: true
-			},
-			crossDomain: true,
-			success: function(data) {
-				console.log('Forgot Password: ' + data);
-				var arr = data.split(' ');
-				closeAllPopups();
-				if(arr[0] === 'good') {
-					if(arr[1] === 'reset_sent') {
-						displayNotification('Password Reset',
-							'Password reset email sent. (check your spam)');	
-					}
-				} else if(arr[0] === 'bad') {
-					if(arr[1] === 'innactive_account') {
-						displayNotification('Password Reset Error',
-							email + ' is not active. Please register or verify.');	
-					} else if(arr[1] === 'recent_verification') {
-						displayNotification('Password Reset Error',
-							'Password was recently reset, please wait.');	
-					} else if(arr[1] === 'please_register') {
-						displayNotification('Password Reset Error',
-							email + ' is not registered. Please register.');	
-					}
-				}
-			},
-			error: function(a, b, c) {
-				console.log(a);
-				console.log(b);
-				console.log(c);
-			}	
-		});
-	}
-
-	static addMapBox(base64name, preappend) {
-		/* GET BASE64 DATA AND DECODE */
-		var name = base64name;
-		var nameDecode = atob(base64name);
-
-		/* DELETE MAP BOX IF ALREADY EXISTS */
-		var previous = document.getElementById("mappreview-" + name);
-		if(previous) {
-			previous.src = "https://yapms.org/users/"  + Account.id + "/" + name + ".png#" + new Date().getTime();
-			return;
-		}
-	
-		/* CREATE MAP BOX ELEMENT */	
-		var mapBox = document.createElement('div');
-		mapBox.className = "mysaves-mapbox";
-		mapBox.id = "mapbox-" + name;
-		var mapBoxHeader = document.createElement('div');
-		mapBoxHeader.className = "mysaves-mapbox-header";
-
-		/* CREATE MAP TOOLBAR */
-		var mapToolbar = document.createElement('div');
-		mapToolbar.className = "mysaves-mapbox-toolbar";
-
-		/* CREATE DELETE MAP BUTTON */
-		var mapDelete = document.createElement('img');
-		mapDelete.className = "toolbar-button toolbar-button-red";
-		mapDelete.src = "./html/deletebutton.svg";
-		mapDelete.setAttribute('title', 'Delete Map');
-		mapDelete.onclick = (function() {
-			var name_onclick = name;
-			var thisMap  = mapBox;
-			var allMaps = document.getElementById("mysaves-maps");
-			return function() {
-				Account.unlink(name_onclick);
-				if(allMaps && thisMap) {
-					allMaps.removeChild(thisMap)
-				}
-			}
-		})();
-		//mapBoxHeader.appendChild(mapDelete);
-		mapToolbar.appendChild(mapDelete);
-
-		/* CREATE DOWNLOAD MAP BUTTON */
-		var mapDownloadA = document.createElement('a');
-		mapDownloadA.setAttribute('class', 'toolbar-button toolbar-button-blue');
-		mapDownloadA.setAttribute('href', "https://yapms.org/users/.tools/download.php?u=" + Account.id + "&m=" + name);
-		mapDownloadA.setAttribute('title', 'Download');
-		var mapDownloadImg = document.createElement('img');
-		mapDownloadImg.src = "./html/downloadbutton.svg";
-		mapDownloadImg.setAttribute('class', 'toolbar-button-download');
-		mapDownloadA.appendChild(mapDownloadImg);	
-		mapToolbar.appendChild(mapDownloadA);
-
-		/* CREATE OVERWRITE MAP BUTTON */
-		var mapOverwrite = document.createElement('img');
-		mapOverwrite.setAttribute('class', 'toolbar-button toolbar-button-green');
-		mapOverwrite.src = "./html/overwritebutton.svg";
-		mapOverwrite.setAttribute('title', 'Overwrite');
-		mapOverwrite.onclick = (function() {
-			var ref_mapName = nameDecode;
-			return function() {
-				Account.save(ref_mapName);
-			}
-		})();
-		mapToolbar.appendChild(mapOverwrite);
-
-		/* APPEND TOOLBAR */	
-		mapBoxHeader.appendChild(mapToolbar);
-
-		/* CREATE MAP NAME */
-		var mapName = document.createElement('div');
-		mapName.className = "mysaves-mapname";
-		mapName.innerHTML = nameDecode;
-		mapBoxHeader.appendChild(mapName);
-		
-		mapBox.appendChild(mapBoxHeader);
-
-		/* CREATE MAP PREVIEW */	
-		var mapPreview = document.createElement('img');
-		mapPreview.className = "mysaves-mappreview";
-		mapPreview.id = "mappreview-" + name;
-		mapPreview.src = "https://yapms.org/users/"  + Account.id + "/" + name + ".png#" + new Date().getTime();
-		mapPreview.alt = "No Preview";
-		mapPreview.onclick = (function() {
-			var url = "https://www.yapms.com/app/?u=" + Account.id + '&m=' + name;
-			return function() {
-				window.location.href = url;
-			}
-		})();
-		mapBox.appendChild(mapPreview);
-
-		/* CREATE MAP LINK */
-		var mapBoxURL = document.createElement('div');
-		mapBoxURL.className = "mysaves-url";
-		var mapURL = document.createTextNode("https://www.yapms.com/app/?u=" + Account.id + "&m=" + name);
-		mapBoxURL.appendChild(mapURL);
-		mapBox.appendChild(mapBoxURL);
-
-		var maps = document.getElementById("mysaves-maps");
-		if(preappend) {
-			maps.insertBefore(mapBox, maps.firstChild);
-		} else {
-			maps.appendChild(mapBox);
-		}
-	}
-
-	static closeMyMaps() {
-		var page = document.getElementById("application-mysaves");
-		page.style.display = "none";
-		var maps = document.getElementById("mysaves-maps");
-		while(maps.firstChild) {
-			maps.removeChild(maps.firstChild);
-		}
-	}
-
-	static getMaps() {
-		var maps = document.getElementById("mysaves-maps");
-		while(maps.firstChild) {
-			maps.removeChild(maps.firstChild);
-		}
-
-		var current = document.getElementById("mysaves-current-map");
-		if(current) {
-			current.style.display = "none";
-		}
-		
-		var error = document.getElementById("mysaves-current-error");
-		if(error) {
-			error.style.display = 'none';
-		}
-
-		var page = document.getElementById("application-mysaves");
-		if(page) {
-			page.style.display = "inline-flex";
-		}
-
-		html2canvas(document.getElementById("application"), {logging: false, onclone: function(clone) {
-			// remove the custom fonts from the clone
-			var svgtext = clone.getElementById('text');
-			if(svgtext) {
-				svgtext.style.fontFamily = 'arial';
-				svgtext.style.fontSize = '15px';
-			}
-			var svg = clone.getElementById('svgdata');
-			var mapdiv = clone.getElementById('map-div');
-			if(svg && mapdiv) {
-				svg.setAttribute('width', mapdiv.offsetWidth);
-				svg.setAttribute('height', mapdiv.offsetHeight);
-			}
-			var notification = clone.getElementById('legend-tooltip');
-			if(notification) {
-				notification.style.display = 'none';
-			}
-			var editButtons = clone.getElementsByClassName('legend-delete');
-			for(var index = 0, length = editButtons.length; index < length; ++index) {
-				var element = editButtons[index];
-				if(element) {
-					element.style.display = 'none';
-				}
-			}
-			var addCandidate = clone.getElementById('legend-addcandidate-button');
-			if(addCandidate) {
-				addCandidate.style.display = 'none';
-			}
-		}}).then(function(canvas) {
-			canvas.style.width = 0;
-			canvas.style.height = 0;	
-			canvas.style.display = 'none';
-			var img = canvas.toDataURL('image/png');
-			var i = document.getElementById('mysaves-current-mappreview');
-			i.src = img;
-			i.style.width = '40vw';
-			i.style.height = 'auto';
-			var current = document.getElementById("mysaves-current-map");
-			if(current) {
-				current.style.display = "inline-flex";
-			}
-		});
-		
-		$.ajax({
-			url: "https://yapms.org/users/.tools/get_maps.php",
-			type: "POST",
-			processData: false,
-			contentType: false,
-			xhrFields: {
-				withCredentials: true
-			},
-			crossDomain: true,
-			success: function(data) {
-				var arr = data.split(' ');
-				for(var fileIndex = 0; fileIndex < arr.length; ++fileIndex) {
-					/* GET BASE64 DATA */
-					var fileName = arr[fileIndex].split('/');
-					var name = fileName[2].split('.')[0];
-					Account.addMapBox(name, false);
-				}
-			},
-			error: function(a, b, c) {
-				console.log(a);
-				console.log(b);
-				console.log(c);
-			}
-		});
-	}
-
-	static updateHTML() {
-		var loginButton = document.getElementById('login-button');
-		var accountButton = document.getElementById('account-button');
-		var mymapsButton = document.getElementById('mymaps-button');
-		var accountEmail = document.getElementById('account-email');
-
-		if(Account.isLoggedIn) {
-			loginButton.style.display = 'none';
-			accountButton.style.display = '';
-			mymapsButton.style.display = '';
-			accountEmail.innerHTML = Account.email;
-		} else {
-			loginButton.style.display = '';
-			accountButton.style.display = 'none';
-			mymapsButton.style.display = 'none';
-		}
-	}
-}
-
-Account.email = null;
-Account.id = null;
-Account.isLoggedIn = false;
-
-$("#login-form").submit(function(event) {
-	event.preventDefault();
-	Account.login();
-});
 class Candidate {
 	constructor(name, colors) {
 		this.name = name;
@@ -653,7 +38,6 @@ class CandidateManager {
 		countVotes();
 		LegendManager.updateLegend();
 		ChartManager.updateChart();
-		PopularVote.count();
 	}
 
 	static setCandidate() {
@@ -1465,32 +849,6 @@ class CookieManager {
 				CookieManager.cookies['custom' + index + 'tilting'] + ')';
 			
 		}
-		/*
-		var c1 = document.getElementById('custom1button');
-		c1.style.background = 'linear-gradient(to right,' +
-			CookieManager.cookies['custom1solid'] + ',' +
-			CookieManager.cookies['custom1likely'] + ',' +
-			CookieManager.cookies['custom1leaning'] + ',' +
-			CookieManager.cookies['custom1tilting'] + ')';
-		var c2 = document.getElementById('custom2button');
-		c2.style.background = 'linear-gradient(to right,' +
-			CookieManager.cookies['custom2solid'] + ',' +
-			CookieManager.cookies['custom2likely'] + ',' +
-			CookieManager.cookies['custom2leaning'] + ',' +
-			CookieManager.cookies['custom2tilting'] + ')';
-		var c3 = document.getElementById('custom3button');
-		c3.style.background = 'linear-gradient(to right,' +
-			CookieManager.cookies['custom3solid'] + ',' +
-			CookieManager.cookies['custom3likely'] + ',' +
-			CookieManager.cookies['custom3leaning'] + ',' +
-			CookieManager.cookies['custom3tilting'] + ')';
-		var c4 = document.getElementById('custom4button');
-		c4.style.background = 'linear-gradient(to right,' +
-			CookieManager.cookies['custom4solid'] + ',' +
-			CookieManager.cookies['custom4likely'] + ',' +
-			CookieManager.cookies['custom4leaning'] + ',' +
-			CookieManager.cookies['custom4tilting'] + ')';
-			*/
 	}
 
 	static askConsent() {
@@ -1509,18 +867,6 @@ class CookieManager {
 		/* Auto Consent */
 		CookieManager.consent = true;
 		CookieManager.consentGiven();
-
-		/* Only Ask For Consent From EU IP Address */
-/*
-		if(geoplugin_cookieConsent() === false) {
-			CookieManager.consent = true;
-			CookieManager.consentGiven();
-			return;
-		} else {
-			var consentPopup = document.getElementById('consent');
-			consentPopup.style.display = 'inline-block';
-		}
-*/
 	}
 
 	static consentDenied(reload) {
@@ -1552,16 +898,6 @@ class CookieManager {
 
 		/* Load Personalized Adsense */
 		// (adsbygoogle = window.adsbygoogle || []).pauseAdRequests = 0;
-
-		/* Load Google Recaptcha */
-		$.ajax({
-			url: "https://www.google.com/recaptcha/api.js?render=6LeDYbEUAAAAANfuJ4FxWVjoxPgDPsFGsdTLr1Jo",
-			dataType: "script",
-			cache: true,
-			success: function() {
-				console.log("Cookie Manager: Google Recaptcha Loaded");
-			}
-		});
 	}
 }
 
@@ -1648,19 +984,19 @@ class KeyboardManager {
 
 KeyboardManager.keyStates = {};
 
-$("html").keydown(function(event) {
+document.addEventListener("keydown", function(event) {
 	KeyboardManager.keyStates[event.which] = true;
 });
 
-$("html").keyup(function(event) {
+document.addEventListener("keyup", function(event) {
 	KeyboardManager.keyStates[event.which] = false;
 });
 
-$("html").mouseleave(function(event) {
+document.addEventListener("mouseleave", function(event) {
 	KeyboardManager.keyStates = {};
 });
 
-$("html").mouseenter(function(event) {
+document.addEventListener("mouseenter", function(event) {
 	KeyboardManager.keyStates = {};
 });
 class LegendManager {
@@ -1867,44 +1203,37 @@ class MapLoader {
 			enableHouse = true;
 		}
 
-		$.ajax({
-			url: "./res/presets/" + preset,
-			type: "GET",
-			processData: false,
-			contentType: false,
-			success: function(a, b, c) {
-				console.log("Found preset map...");
-				MapLoader.loadSavedMap(a, {enableCongress: enableHouse});
-			},
-			error: function(a, b, c) {
-				console.log("Did not find preset map...");
-				MapLoader.loadMap("../res/usa_presidential.svg", 16, 1, "usa_ec", "presidential", "open");
-			}
+		fetch("./res/presets/" + preset)
+		.then(response => response.json())
+		.then(data => {
+			alert("GOOD");
+			console.log(data);
+			MapLoader.loadSavedMap(data, {enableCongress: enableHouse});
+		}).catch(error => {
+			alert("TEST");
+			console.error(error);	
 		});
 	}
 
 	static loadMapFromURL(URL) {
 		console.log('Map Loader: ' + URL);
-		$.ajax({
-			url: URL,
-			type: "POST",
-			success: function(data) {
-				PresetLoader.loadPreset('none');
-				console.log("Map Load: Found saved map");
-				console.log('Map Loader: Attemping new file load');
-				MapLoader.loadSavedMap(data);
-			},
-			error: function() {
-				console.log("Map Loader: Did not find saved map");
-				MapLoader.loadMap('./res/usa_presidential.svg', 16, 1, 'usa_ec',"presidential", "open");
+		fetch(URL)
+		.then(response => response.json())
+		.then(data => {
+			PresetLoader.loadPreset('none');
+			console.log("Map Load: Found saved map");
+			console.log('Map Loader: Attemping new file load');
+			MapLoader.loadSavedMap(data);
+		}).catch(error => {
+			console.log("Map Loader: Did not find saved map");
+			MapLoader.loadMap('./res/usa_presidential.svg', 16, 1, 'usa_ec',"presidential", "open");
 
-				var notification = document.getElementById('notification');
-				var message = notification.querySelector('#notification-message');
-				var title = notification.querySelector('#notification-title');
-				title.innerHTML = 'Sorry';
-				message.innerHTML = 'The map you are looking for does not exist.<br><br>This feature is still in development and it may have been deleted.';
-				notification.style.display = 'inline';
-			}
+			var notification = document.getElementById('notification');
+			var message = notification.querySelector('#notification-message');
+			var title = notification.querySelector('#notification-title');
+			title.innerHTML = 'Sorry';
+			message.innerHTML = 'The map you are looking for does not exist.<br><br>This feature is still in development and it may have been deleted.';
+			notification.style.display = 'inline';
 		});
 	}
 
@@ -1963,7 +1292,6 @@ class MapLoader {
 			case "USA_1888_presidential":
 			case "USA_1884_presidential":
 			case "USA_1880_presidential":
-			case "USA_1876_presidential":
 			case "USA_1876_presidential":
 			case "USA_1872_presidential":
 			case "USA_1868_presidential":
@@ -2156,7 +1484,7 @@ class MapLoader {
 				break;
 			case "USA_2020_presidential":
 				PresetLoader.loadPreset('classic');
-				MapLoader.loadMap("./res/usa/presidential/usa_presidential.svg", 16, 0.75, "usa_ec", "takeall", "open", {voters: 'usa_voting_pop', enablePopularVote: true});
+				MapLoader.loadMap("./res/usa/presidential/usa_presidential.svg", 16, 0.75, "usa_ec", "takeall", "open");
 				break;
 			case "USA_split_maine":
 				PresetLoader.loadPreset('classic');
@@ -2356,7 +1684,7 @@ class MapLoader {
 				//break;
 			default:
 				PresetLoader.loadPreset('classic');
-				MapLoader.loadMap("./res/usa_presidential.svg", 16, 1, "usa_ec", "takeall", "open", {voters: 'usa_voting_pop', enablePopularVote: true});
+				MapLoader.loadMap("./res/usa_presidential.svg", 16, 1, "usa_ec", "takeall", "open");
 				break;
 		}
 	}
@@ -2420,9 +1748,6 @@ class MapLoader {
 		MapLoader.save_strokewidth = strokewidth;
 
 		if(options) {
-			if(options.enablePopularVote) {
-				PopularVote.showPopularVoteButton();
-			}
 			enableCongress = options.enableCongress;
 			verifyCongress();
 		}
@@ -2437,7 +1762,13 @@ class MapLoader {
 		var dataname = './data/' + type + '_' + year;
 
 		console.log('Loading ' + filename);
-		$('#map-div').load(filename, function(a) {
+
+		fetch(filename)
+		.then(response => response.text())
+		.then(data => {
+			var mapdiv = document.getElementById("map-div");
+			mapdiv.innerHTML = data;
+
 			console.log('Done loading ' + filename);
 			MapLoader.onLoadSVG();
 		
@@ -2470,19 +1801,7 @@ class MapLoader {
 					options.onLoad();
 				}
 
-				setCongressContested();
 				showShortcuts();
-
-				if(options && options.voters) {
-					for(var stateIndex = 0, length = states.length; stateIndex < length; ++stateIndex) {
-						var state = states[stateIndex];
-						state.voters = data[options.voters][state.name];
-						state.popularVote = {};
-						state.popularVote['Tossup'] = state.voters;
-					}
-
-					PopularVote.count();
-				}
 
 				// disable the load screen when the map is finished loading
 				var loadScreen = document.getElementById('application-loading');
@@ -2512,7 +1831,9 @@ class MapLoader {
 		
 		var candidateNames = {};
 
-		$.get(gubernatorialfile, function(data) {
+		fetch(gubernatorialfile)
+		.then(response => response.text())
+		.then(data => {
 			console.log('Done loading ' + gubernatorialfile);
 
 			var loadMode = 'candidate';
@@ -2565,7 +1886,10 @@ class MapLoader {
 
 		var candidateNames = {};
 
-		$.get(senatefile, function(data) {
+		fetch(senatefile)
+		.then(response => response.text())
+		.then(data => {
+			console.log("FETCH SEN");
 			console.log('Done loading ' + senatefile);
 		
 			var loadMode = 'candidate';
@@ -2619,11 +1943,12 @@ class MapLoader {
 			mapHTML.style.visibility = 'visible';
 
 			onLoad();
+
 		});
 	}
 
 	static loadSavedMap(data, options) {
-		var obj = JSON.parse(data);	
+		obj = data;
 
 		if(options) {
 			enableCongress = options.enableCongress;
@@ -2728,7 +2053,7 @@ class MapLoader {
 		var fileReader = new FileReader();
 		fileReader.onload = function(loadEvent) {
 			var a = loadEvent.target.result;
-			MapLoader.loadSavedMap(a);
+			MapLoader.loadSavedMap(JSON.parse(a));
 			closeAllPopups();
 		}
 		fileReader.readAsText(file, 'UTF-8');
@@ -3751,9 +3076,6 @@ class State {
 		this.resetVoteCount();
 		this.disabled = false;
 		this.locked = false;
-		this.voters = 0;
-		this.popularVote = {};
-		this.turnout = 100;
 
 		/* Call This When The State Changes Color */
 		this.onChange = function() {}
@@ -3786,8 +3108,8 @@ class State {
 			this.voteCount_beforeDisable = 2;
 
 		} else {
-			this.setVoteCount(data[this.dataid][this.name]);
-			this.voteCount_beforeDisable = data[this.dataid][this.name];
+			this.setVoteCount(GlobalData[this.dataid][this.name]);
+			this.voteCount_beforeDisable = GlobalData[this.dataid][this.name];
 		}
 	}
 	
@@ -3907,12 +3229,6 @@ class State {
 				button.setAttribute('fill-opacity', '0.2');
 				button.setAttribute('stroke-opacity', '0.2');
 			}
-
-			var stateLandText = document.getElementById(this.name.split("-")[0] + '-text');
-			if(stateLandText !== null) {
-//				stateLandText.setAttribute('fill-opacity', '0.25');
-			}
-
 		} else if(this.locked == true) {
 			this.disabled = false;
 			this.locked = !this.locked;
@@ -3936,11 +3252,6 @@ class State {
 			if(button !== null) {
 				button.setAttribute('fill-opacity', '1.0');
 				button.setAttribute('stroke-opacity', '1.0');
-			}
-			
-			var stateLandText = document.getElementById(this.name.split("-")[0] + '-text');
-			if(stateLandText !== null) {
-//				stateLandText.setAttribute('fill-opacity', '1.0');
 			}
 		}
 	}
@@ -4482,9 +3793,7 @@ function landClick(clickElement) {
 		}
 		districts.forEach(function(district) {
 			district.setColor(AL.candidate, AL.colorValue);
-			PopularVote.view(district, paintIndex)
 		});
-		PopularVote.view(AL, paintIndex)
 	} else if(mode === 'delete') {
 		districts.forEach(function(district) {
 			district.toggleDisable();
@@ -4506,7 +3815,6 @@ function stateClick(clickElement) {
 	switch(mode) {
 		case 'paint':
 		case 'fill':
-			PopularVote.view(state, paintIndex)
 			Simulator.view(state);
 			if(Simulator.ignoreClick === false) {
 				stateClickPaint(state);
@@ -4896,21 +4204,13 @@ function setCongressOnHover() {
 }
 
 function db_getCongress(onLoad) {
-	$.ajax({
-		url: 'req_congress.php',
-		type: 'GET',
-		success : function(data) {
-			var obj = jQuery.parseJSON(data);
-			onLoad(obj);
-		},
-		error : function(a, b, c) {
-			console.log(a);
-			console.log(b);
-			console.log(c);
-		}
+	fetch("req_congress.php")
+	.then(response => response.json())
+	.then(data => {
+		onLoad(data);
 	});
 }
-var data = {
+var GlobalData = {
 'argentina_chamber_of_deputies': {'Buenos Aires': 70, 'Buenos Aires City': 25, 'Catamarca': 5, 'Chaco': 7, 'Chubut': 5, 'Córdoba': 18, 'Corrientes': 7, 'Entre Ríos': 9, 'Formosa': 5, 'Jujuy': 6, 'La Pampa': 5, 'La Rioja': 5, 'Mendoza': 10, 'Misiones': 7, 'Neuquén': 5, 'Río Negro': 5, 'Salta': 7, 'San Juan': 6, 'San Luis': 5, 'Santa Cruz': 5, 'Santa Fe': 19, 'Santiago del Estero': 7, 'Tierra del Fuego': 5, 'Tucumán': 9},
 
 'turkey_national_assembly': {'Adana': 15, 'Adıyaman':5, 'Afyonkarahisar':6, 'Ağrı':4, 'Aksaray':4, 'Amasya':3, 'Ankara':36, 'Antalya':16, 'Ardahan':2, 'Artvin':2, 'Aydın':8, 'Balıkesir':9, 'Bartın':2, 'Batman': 5, 'Bayburt':1, 'Bilecik':2, 'Bingöl':3, 'Bitlis':3, 'Bolu':3, 'Burdur':3, 'Bursa':20, 'Çanakkale':4, 'Çankırı':2, 'Çorum':4, 'Denizli':8, 'Diyarbakır':12, 'Düzce':3, 'Edirne':4, 'Elazığ':5, 'Erzincan':2, 'Erzurum':6, 'Eskişehir':7, 'Gaziantep':14, 'Giresun':4, 'Gümüşhane':2, 'Hakkâri':3, 'Hatay':11, 'Iğdır':2, 'Isparta':4, 'İstanbul':98, 'İzmir':28, 'Kahramanmaraş':8, 'Kars':3, 'Kastamonu':3, 'Karabük':3, 'Karaman':3, 'Kayseri':10, 'Kilis':2, 'Kırklareli':3, 'Kırıkkale':3, 'Kırşehir':2, 'Kocaeli':13, 'Konya':15, 'Kütahya':5, 'Malatya':6, 'Manisa':10, 'Mardin':6, 'Mersin':13, 'Muğla':7, 'Muş':4, 'Nevşehir':3, 'Niğde':3, 'Ordu':6, 'Osmaniye':4, 'Rize':3, 'Sakarya':7, 'Samsun':9, 'Siirt':3, 'Sinop':2, 'Sivas':5, 'Şanlıurfa':14, 'Şırnak':4, 'Tekirdağ':7, 'Tokat':5, 'Trabzon':6, 'Tunceli':2, 'Uşak':3, 'Van':8, 'Yalova':3, 'Yozgat':4, 'Zonguldak':5},
@@ -4919,7 +4219,7 @@ var data = {
 
 'portugal_constituencies': {'Lisbon': 47, 'Porto': 39, 'Braga': 19, 'Setúbal': 18, 'Aveiro': 16, 'Leiria': 10, 'Coimbra': 9, 'Faro': 9, 'Santarém': 9, 'Viseu': 9, 'Madeira': 6, 'Viana do Castelo': 6, 'Azores': 5, 'Vila Real': 5, 'Guarda': 4, 'Castelo Branco': 4, 'Beja': 3, 'Bragança': 3, 'Évora': 3, 'Portalegre': 2, 'Europe': 2, 'Outside Europe': 2},
 
-'ireland_constituencies': {'Donegal': 5, 'Sligo-Leitrim': 4, 'Mayo': 4, 'Galway West': 5, 'Clare': 4, 'Kerry': 5, 'Cork South-West': 3, 'Cork North-West': 3, 'Limerick County': 3, 'Limerick City': 4, 'Cork South-Central': 4, 'Cork North-Central': 4, 'Cork East': 4, 'Waterford': 4, 'Tipperary': 5, 'Carlow-Kilkenny': 5, 'Wexford': 5, 'Wicklow': 5, 'Kildare North': 4, 'Kildare South': 4, 'Laois-Offaly': 5, 'Galway East': 3, 'Roscommon-Galway': 3, 'Longford-Westmeath': 4, 'Meath West': 3, 'Meath East': 3, 'Louth': 5, 'Cavan-Monaghan': 5, 'Sligo-Leitrim': 4, 'Donegal': 5, 'Dublin Fingal': 5, 'Dublin West': 4, 'Dublin North-West': 3, 'Dublin Bay North': 5, 'Dublin Mid-West': 4, 'Dublin South-Central': 4, 'Dublin Central': 4, 'Dublin Bay South': 4, 'Dublin South-West': 5, 'Dublin Rathdown': 3, 'Dún Laoghaire': 4},
+'ireland_constituencies': {'Donegal': 5, 'Sligo-Leitrim': 4, 'Mayo': 4, 'Galway West': 5, 'Clare': 4, 'Kerry': 5, 'Cork South-West': 3, 'Cork North-West': 3, 'Limerick County': 3, 'Limerick City': 4, 'Cork South-Central': 4, 'Cork North-Central': 4, 'Cork East': 4, 'Waterford': 4, 'Tipperary': 5, 'Carlow-Kilkenny': 5, 'Wexford': 5, 'Wicklow': 5, 'Kildare North': 4, 'Kildare South': 4, 'Laois-Offaly': 5, 'Galway East': 3, 'Roscommon-Galway': 3, 'Longford-Westmeath': 4, 'Meath West': 3, 'Meath East': 3, 'Louth': 5, 'Cavan-Monaghan': 5, 'Dublin Fingal': 5, 'Dublin West': 4, 'Dublin North-West': 3, 'Dublin Bay North': 5, 'Dublin Mid-West': 4, 'Dublin South-Central': 4, 'Dublin Central': 4, 'Dublin Bay South': 4, 'Dublin South-West': 5, 'Dublin Rathdown': 3, 'Dún Laoghaire': 4},
 
 'brazil_deputies':{'São Paulo': 70, 'Minas Gerais': 53, 'Rio de Janeiro': 46, 'Bahia': 39, 'Rio Grande do Sul': 31, 'Paraná': 30, 'Pernambuco': 25, 'Ceará': 22, 'Maranhão': 18, 'Goiás': 17, 'Pará': 17, 'Santa Catarina': 16, 'Paraíba': 12, 'Espírito Santo': 10, 'Piauí': 10, 'Alagoas': 9, 'Acre': 8, 'Amazonas': 8, 'Amapá': 8, 'Distrito Federal do Brasil': 8, 'Mato Grosso do Sul': 8, 'Mato Grosso': 8, 'Rio Grande do Norte': 8, 'Rondônia': 8, 'Roraima': 8, 'Sergipe': 8, 'Tocantins': 8},
 
@@ -4932,8 +4232,6 @@ var data = {
 'switzerland_council_of_states': {'Aargau': 2, 'Appenzell Outer Rhodes': 1, 'Appenzell Inner Rhodes': 1, 'Basel-Landschaft': 1, 'Basel-Stadt': 1, 'Bern': 2, 'Fribourg': 2, 'Geneva': 2, 'Glarus': 2, 'Graubünden': 2, 'Jura': 2, 'Lucerne': 2, 'Neuchâtel': 2, 'Nidwalden': 1, 'Obwalden': 1, 'St. Gallen': 2, 'Schaffhausen': 2, 'Schwyz': 2, 'Solothurn': 2, 'Thurgau': 2, 'Ticino': 2, 'Uri': 2, 'Vaud': 2, 'Valais': 2, 'Zurich': 2, 'Zug': 2},
 
 'sweden_riksdag': {'Sweden': 39, 'Stockholms kommun': 29, 'Stockholm': 39, 'Uppsala': 11, 'Södermanland': 9, 'Östergötland': 14, 'Jönköping': 11, 'Kronoberg': 6, 'Kalmar': 8, 'Gotland': 2, 'Blekinge': 5, 'Malmö kommun': 10, 'Skåne läns västra': 9, 'Skåne läns södra': 12, 'Skåne läns norra och östra': 10, 'Värmland': 9, 'Örebro': 9, 'Västmanland': 8, 'Dalarna': 9, 'Gävleborg': 9, 'Västernorrland': 8, 'Jämtland': 4, 'Västerbotten': 9, 'Norrbotten': 8, 'Halland': 10, 'Göteborgs kommun': 17, 'Västra Götalands läns norra': 8, 'Västra Götalands läns östra': 9, 'Västra Götalands läns västra': 11, 'Västra Götalands läns södra': 7},
-
-'usa_voting_pop': {'AL': 3766477, 'AK': 554567, 'AZ': 5299579, 'AR': 2283195, 'CA': 30157154, 'CO': 4279173, 'CT': 2823158, 'DE': 747791, 'FL': 16465727, 'GA': 7798827, 'HI': 1120541, 'ID': 1245967, 'IL': 9875430, 'IN': 5057601, 'IA': 2403962, 'KS': 2192338, 'KY': 3426345, 'LA': 3567717, 'ME': 1081705, 'ME-AL': 1081705, 'ME-D1': 555860, 'ME-D2': 525845, 'MD': 4667719, 'MA': 5433677, 'MI': 7737243, 'MN': 4231619, 'MS': 2267438, 'MO': 4706137, 'MT': 814909, 'NE': 1445479, 'NE-AL': 1445479, 'NE-D1': 493216, 'NE-D2': 493516, 'NE-D3': 458747, 'NV': 2262631, 'NH': 1074207, 'NJ': 6969717, 'NM': 1590352, 'NY': 15564730, 'NC': 7848068, 'ND': 581641, 'OH': 9002201, 'OK': 2961933, 'OR': 3224738, 'PA': 10109422, 'RI': 848045, 'SC': 3863498, 'SD': 652167, 'TN': 5149399, 'TX': 20568009, 'UT': 2129444, 'VT': 506066, 'VA': 6541685, 'WA': 5658502, 'WV': 1456034, 'WI': 4491015, 'WY': 446600, 'DC': 560277},
 
 'usa_territories_ec': {'AL': 9, 'AK': 3, 'AZ': 11, 'AR': 6, 'CA': 55, 'CO': 9, 'CT': 7, 'DE': 3, 'FL': 29, 'GA': 16, 'HI': 4, 'ID': 4, 'IL': 20, 'IN': 11, 'IA': 6, 'KS': 6, 'KY': 8, 'LA': 8, 'ME': 4, 'ME-AL': 2, 'ME-D1': 1, 'ME-D2': 1, 'MD': 10, 'MA': 11, 'MI': 16, 'MN': 10, 'MS': 6, 'MO': 10, 'MT': 3, 'NE': 5, 'NE-AL': 2, 'NE-D1': 1, 'NE-D2': 1, 'NE-D3': 1, 'NV': 6, 'NH': 4, 'NJ': 14, 'NM': 5, 'NY': 29, 'NC': 15, 'ND': 3, 'OH': 18, 'OK': 7, 'OR': 7, 'PA': 20, 'RI': 4, 'SC': 9, 'SD': 3, 'TN': 11, 'TX': 38, 'UT': 6, 'VT': 3, 'VA': 13, 'WA': 12, 'WV': 5, 'WI': 10, 'WY': 3, 'DC': 3, 'AS': 1, 'GU': 1, 'MP': 1, 'PR': 1, 'VI': 1},
 
@@ -4991,8 +4289,6 @@ SimulatorData.USA_2020_Cook = {
 	"NE-D1": {"Republican": 100, "Democrat": 0},
 	"NE-D2": {"Republican": 70, "Democrat": 30},
 	"NE-D3": {"Republican": 100, "Democrat": 0},
-	"NE-AL": {"Republican": 100, "Democrat": 0},
-	"NE-AL": {"Republican": 100, "Democrat": 0},
 	"NV": {"Republican": 30, "Democrat": 70},
 	"NH": {"Republican": 30, "Democrat": 70},
 	"NJ": {"Republican": 0, "Democrat": 100},
@@ -5018,9 +4314,6 @@ SimulatorData.USA_2020_Cook = {
 	"WY": {"Republican": 100, "Democrat": 0},
 	"DC": {"Republican": 0, "Democrat": 100},
 }
-var textOn = true;
-var presentationMode = false;
-
 // when the yapnews div gets resized, center the map
 if(document.getElementById("yapnews")) {
 	document.getElementById("yapnews").addEventListener("transitionend",
@@ -5096,11 +4389,6 @@ function closeAllPopups() {
 		if(popup.style) {
 			popup.style.display = 'none';
 		}
-	}
-
-	var mysaves = document.getElementById("application-mysaves");
-	if(mysaves) {
-		Account.closeMyMaps();
 	}
 
 	// Remove active focus from close button
@@ -6228,539 +5516,136 @@ Simulator.runState = 0;
 Simulator.runTimeout = 100;
 Simulator.ignoreClick = false;
 Simulator.state = null;
-class PopularVote {
-	static showPopularVoteButton() {
-		var element = document.getElementById('sidebar-toggle-popularvote');
-		if(element) {
-			element.style.display = 'block';
-		}
-	}
-
-	static autoMarginsOnClick() {
-		if(PopularVote.enabled === false) {
-			return;
-		}
-
-		var autoMargins = document.getElementById('popularvote-automargins').checked;
-
-		if(autoMargins === false) {
-			return; 
-		}
-
-		// loop through all states and set the margins
-		for(var index in states) {
-			var state = states[index];
-			PopularVote.calculateAutoMargin(state);
-		}
-	}
-
-	static view(state, candidate) {
-		if(PopularVote.enabled === false) {
-			return;
-		}
-
-		var autoPopularVote = document.getElementById('popularvote-clicksetpv').checked;
-		if(autoPopularVote) {
-			for(var key in CandidateManager.candidates) {
-				if(key === candidate) {
-					state.popularVote[key] = state.voters * (state.turnout / 100.0);
-				} else {
-					state.popularVote[key] = 0;
-				}
-			}
-			PopularVote.count();
-		}
-
-		var popularVoteCalc = document.getElementById('sidebar-popularvote');
-		if(state.disabled) {
-			popularVoteCalc.style.display = 'none';	
-		} else {
-			// ONLY DISPLAY IF POPULAR VOTE IS ENABLED
-			if(PopularVote.enabled === true) {
-				popularVoteCalc.style.display = 'block';	
-			}
-		}
-		var title = document.getElementById("popularvote-state-title");
-		title.innerHTML = state.name;
-
-		var message = document.getElementById("popularvote-message");
-		message.innerHTML = "";
-		
-		var ranges = document.getElementById("popularvote-ranges");
-		while(ranges.firstChild) {
-			ranges.removeChild(ranges.firstChild);
-		}
-
-		if(state.name.includes('-AL')) {
-			title.innerHTML = "Select a district to set popular vote";
-			return;
-		}
-
-		var displayTossup = document.createElement('DIV');
-		displayTossup.setAttribute('id', 'popular-display-Tossup');
-
-		var displayTurnout = document.createElement('DIV');
-		displayTurnout.setAttribute('id', 'popularvote-turnout-display');
-		displayTurnout.innerHTML = 'Turnout - ' + state.turnout + '%';
-		var turnoutRange = document.createElement('INPUT');
-		turnoutRange.setAttribute('id', 'popularvote-turnout');
-		turnoutRange.setAttribute('type', 'range');
-		turnoutRange.setAttribute('max', 100);
-		turnoutRange.setAttribute('step', 0.1);
-		turnoutRange.setAttribute('value', state.turnout);
-
-		var max  = state.voters * (state.turnout / 100.0);
-		var total = 0;
-
-		turnoutRange.onchange = (function() {
-			return function() {
-				var turnout = document.getElementById('popularvote-turnout').value;
-				state.turnout = turnout;
-				
-				var autoMargins = document.getElementById('popularvote-automargins').checked;
-
-				if(autoMargins) {
-					state.setColor('Tossup', 0, true);
-				}
-
-				for(var key in CandidateManager.candidates) {
-					if(key === 'Tossup') {
-						continue;
-					}
-					var range = document.getElementById('popular-range-' + key);
-					range.setAttribute('max', (state.voters * (turnout / 100.0)));
-					range.value = 0;
-					// call on input to reset prevValue to 0
-					range.oninput();
-					var rangeDisplay = document.getElementById('popular-display-' + key);
-					rangeDisplay.innerHTML = key + ' - 0 - 0%';
-				}
-
-				var displayTurnout = document.getElementById('popularvote-turnout-display');
-				displayTurnout.innerHTML = 'Turnout - ' + this.value + '%';
-
-				var displayTossup = document.getElementById('popular-display-Tossup');
-				displayTossup.innerHTML = 'Tossup - ' + numberWithCommas((state.voters * (turnout / 100.0)).toFixed(0)) + ' - 100%';
-				
-				total = 0;
-
-				PopularVote.count();
-			}
-		})();
-
-		turnoutRange.oninput = (function() {
-			return function() {
-				var displayTurnout = document.getElementById('popularvote-turnout-display');
-				displayTurnout.innerHTML = 'Turnout - ' + this.value + '%';
-			}
-		})();
-
-		ranges.appendChild(displayTurnout);
-		ranges.appendChild(turnoutRange);
+class SaveMap {
+	static log() {
+		var data = {};
+		data['filename'] = MapLoader.save_filename;
+		data['dataid'] = MapLoader.save_dataid;
+		data['type'] = MapLoader.save_type;
+		data['year'] = MapLoader.save_year;
+		data['fontsize'] = MapLoader.save_fontsize;
+		data['strokewidth'] = MapLoader.save_strokewidth;
+		data['candidates'] = {};
+		data['states'] = {};
+		data['proportional'] = {};
 
 		for(var key in CandidateManager.candidates) {
-			if(key === 'Tossup')
+			if(key === 'Tossup') {
 				continue;
-
-			var range = document.createElement('INPUT');
-			range.setAttribute('id', 'popular-range-' + key);
-			range.setAttribute('type', 'range');
-			range.setAttribute('max', max);
-			range.setAttribute('step', 1);
-			if(typeof state.popularVote[key] === 'undefined') {
-				state.popularVote[key] = 0;
 			}
-			range.value = state.popularVote[key];
-			total += state.popularVote[key];
-			// create display for slider
-			var display = document.createElement('DIV');
-			display.setAttribute('id', 'popular-display-' + key);
-			display.innerHTML = key + ' - ' + numberWithCommas(range.value) + ' - ' +
-				((state.popularVote[key] / max) * 100).toFixed(2) + '%';
-
-			range.onchange = (function() {
-				return function(b) {
-					var totalVotes = 0;
-					for(var candidate in CandidateManager.candidates) {
-						if(candidate === 'Tossup')
-							continue;
-						var range = document.getElementById('popular-range-' + candidate);
-						var rangeValue = 0;
-						if(range) {
-							rangeValue = parseInt(range.value);
-						}
-						state.popularVote[candidate] = rangeValue;
-						totalVotes += rangeValue;
-					}
-					state.popularVote['Tossup'] = state.voters - totalVotes;
-
-					var autoMargins = document.getElementById('popularvote-automargins').checked;
-					if(autoMargins) {
-						PopularVote.calculateAutoMargin(state);
-
-						if(state.name.includes('-D')) {
-							var name = state.name.split('-')[0];
-							PopularVote.calculateAutoMarginAL(name);
-						}
-					}
-
-					PopularVote.count();
-					countVotes();
-					LegendManager.updateLegend();
-					ChartManager.updateChart();
-				}
-			})();
-
-			range.oninput = (function() {
-				var refkey = key;
-				var refdisplay = display;
-				var refdisplayTossup = displayTossup;
-				var prevvalue = parseInt(range.value);
-				var refstate = state;
-				var refcandidate = key;
-				return function(b) {
-					total -= prevvalue;
-					total += parseInt(this.value);
-
-					max = state.voters * (state.turnout / 100.0);
-					if(total > max) {
-						var diff = total - max;
-						total -= diff;
-						this.value -= diff;
-					}
-					
-					prevvalue = parseInt(this.value);
-
-					displayTossup.innerHTML = 'Tossup - ' + numberWithCommas((max - total).toFixed(0)) + ' - ' +
-						(( (max - total) / max) * 100).toFixed(2) + '%';
-					
-					// update the display	
-					refdisplay.innerHTML = refkey + ' - ' + numberWithCommas(this.value) + ' - ' + 
-						((this.value / max) * 100).toFixed(2) + '%';
-		
-					state.popularVote[refkey] = parseInt(this.value);
-				}
-			})();
-			
-			ranges.appendChild(display);
-			ranges.appendChild(range);
+			var candidate = CandidateManager.candidates[key];
+			data['candidates'][candidate.name] = {};
+			data['candidates'][candidate.name]['solid'] = candidate.colors[0];
+			data['candidates'][candidate.name]['likely'] = candidate.colors[1];
+			data['candidates'][candidate.name]['lean'] = candidate.colors[2];
+			data['candidates'][candidate.name]['tilt'] = candidate.colors[3];
 		}
 
-		displayTossup.innerHTML = 'Tossup - ' + numberWithCommas((max - total).toFixed(0)) + ' - ' + (( (max - total) / max) * 100).toFixed(2) + '%';
-		ranges.appendChild(displayTossup);
-	}
-
-	static count() {
-		if(PopularVote.enabled === false) {
-			return;
-		}
-
-		var ranges = document.getElementById("national-popularvote-ranges");
-		while(ranges.firstChild) {
-			ranges.removeChild(ranges.firstChild);
-		}
-
-		var popularVote = {};
-		var splitState = {};
-
-		for(var stateIndex = 0, length = states.length; stateIndex < length; ++stateIndex) {
+		for(var stateIndex = 0; stateIndex < states.length; ++stateIndex) {
 			var state = states[stateIndex];
-
-			// skip at large state portions
-			if(state.name.includes('-AL')) {
-				continue;
-			}
-
-			for(var candidate in state.popularVote) {
-				if(state.popularVote[candidate]) {
-					if(popularVote[candidate]) {
-						popularVote[candidate] += state.popularVote[candidate];
-						
-					} else {
-						popularVote[candidate] = 0;
-						popularVote[candidate] += state.popularVote[candidate];
-					}
-				
-					if(state.name.includes('-') && state.name.includes('AL') === false) {
-						var mainName = state.name.split('-')[0];
-						var district = state.name.split('-')[1];
-						if(typeof splitState[mainName] === 'undefined') {
-							splitState[mainName] = {}; 
-						}
-
-						if(typeof splitState[mainName][district] === 'undefined') {
-							splitState[mainName][district] = {};
-						}
-
-						splitState[mainName][district][candidate] = state.popularVote[candidate];
-					}
-				} else {
-					state.popularVote[candidate] = 0;
+			// Remove zero delegates
+			for(var key in state.delegates) {
+				var count = state.delegates[key];
+				if(count === 0) {
+					delete state.delegates[key];
 				}
 			}
+			data['states'][state.name] = {};
+			data['states'][state.name]['delegates'] = state.delegates;
+			data['states'][state.name]['colorvalue'] = state.colorValue;
+			data['states'][state.name]['disabled'] = state.disabled;
 		}
 
-		for(var candidate in popularVote) {
-			var display = document.createElement('DIV');
-			display.setAttribute('id', 'national-popular-display-' + candidate);
-			display.innerHTML = candidate + ' - ' + numberWithCommas(popularVote[candidate].toFixed(0));
-			ranges.appendChild(display);
-		}
-	}
-
-	static calculateAutoMarginAL(stateName) {
-		var allDistricts = states.filter(obj => {
-			return obj.name.includes(stateName) &&
-				obj.name.includes('-AL') === false;
-		});
-
-		var atLarge = states.filter(obj => {
-			return obj.name.includes(stateName + '-AL');
-		})[0];
-
-		var firstCount = 0;
-		var firstCandidate = "Tossup";
-		var secondCount = 0;
-		var secondCandidate = "Tossup";
-		for(var candidate in CandidateManager.candidates) {
-			if(candidate === 'Tossup')
-				continue;
-
-			var votes = 0;
-			for(var key in allDistricts) {
-				if(allDistricts[key].popularVote[candidate]) {
-					votes += allDistricts[key].popularVote[candidate];
+		for(var stateIndex = 0; stateIndex < proportionalStates.length; ++stateIndex) {
+			var state = proportionalStates[stateIndex];
+			// Remove zero delegates
+			for(var key in state.delegates) {
+				var count = state.delegates[key];
+				if(count === 0) {
+					delete state.delegates[key];
 				}
 			}
-
-			if(votes > firstCount) {
-				secondCount = firstCount;
-				secondCandidate = firstCandidate;
-				firstCount = votes;
-				firstCandidate = candidate;
-			} else if(votes > secondCount) {
-				secondCount = votes;
-				secondCandidate = candidate;
-			}
+			data['proportional'][state.name] = {};
+			data['proportional'][state.name]['delegates'] = state.delegates;
+			data['proportional'][state.name]['colorvalue'] = state.colorValue;
+			data['proportional'][state.name]['disabled'] = state.disabled;
 		}
 
-		var combine = firstCount + secondCount;
-		var margin = (((firstCount - secondCount) / combine) * 100);
-
-		if(firstCandidate === 'Tossup') {
-			atLarge.setColor('Tossup', 0);
-		} else {
-			if(margin < 5.0) {
-				atLarge.setColor(firstCandidate, 3);
-			} else if(margin < 10.0) {
-				atLarge.setColor(firstCandidate, 2);
-			} else if(margin < 15.0) {
-				atLarge.setColor(firstCandidate, 1);
-			} else {
-				atLarge.setColor(firstCandidate, 0);
-			}
-		}
+		console.log(JSON.stringify(data));
 	}
 
-	static calculateAutoMargin(state) {
-		var win = 0;
-		var winCandidate = "Tossup";
-		var secondWin = 0;
-		var secondWinCandidate = "Tossup";
-		for(var candidate in CandidateManager.candidates) {
-			// don't compare margins with the no vote
-			if(candidate === 'Tossup')
+	static upload(img, token) {
+		var formData = new FormData();
+		formData.append("captcha", token);
+		formData.append("img", img);
+		
+		var data = {};
+		data['filename'] = MapLoader.save_filename;
+		data['dataid'] = MapLoader.save_dataid;
+		data['type'] = MapLoader.save_type;
+		data['year'] = MapLoader.save_year;
+		data['fontsize'] = MapLoader.save_fontsize;
+		data['strokewidth'] = MapLoader.save_strokewidth;
+		data['candidates'] = {};
+		data['states'] = {};
+		data['proportional'] = {};
+
+		var formData = new FormData();
+		console.log('token: ' + token);
+		formData.append("captcha", token);
+		formData.append("img", img);
+
+		for(var key in CandidateManager.candidates) {
+			if(key === 'Tossup') {
 				continue;
-			var votes = state.popularVote[candidate];
-			if(votes > win) {
-				secondWin = win;
-				secondWinCandidate = winCandidate;
-				win = votes;
-				winCandidate = candidate;
-			} else if(votes > secondWin) {
-				secondWin = votes;
-				secondWinCandidate = candidate;
 			}
+			var candidate = CandidateManager.candidates[key];
+			data['candidates'][candidate.name] = {};
+			data['candidates'][candidate.name]['solid'] = candidate.colors[0];
+			data['candidates'][candidate.name]['likely'] = candidate.colors[1];
+			data['candidates'][candidate.name]['lean'] = candidate.colors[2];
+			data['candidates'][candidate.name]['tilt'] = candidate.colors[3];
 		}
 
-		var combine = win + secondWin;
-		var margin = (((win - secondWin) / combine) * 100);
-		if(winCandidate === 'Tossup') {
-			state.setColor('Tossup', 0);
-		} else {
-			if(margin < 5.0) {
-				state.setColor(winCandidate, 3, false);
-			} else if(margin < 10.0) {
-				state.setColor(winCandidate, 2, false);
-			} else if(margin < 15.0) {
-				state.setColor(winCandidate, 1, false);
-			} else {
-				state.setColor(winCandidate, 0, false);
+		for(var stateIndex = 0; stateIndex < states.length; ++stateIndex) {
+			var state = states[stateIndex];
+			// Remove zero delegates
+			for(var key in state.delegates) {
+				var count = state.delegates[key];
+				if(count === 0) {
+					delete state.delegates[key];
+				}
 			}
+			data['states'][state.name] = {};
+			data['states'][state.name]['delegates'] = state.delegates;
+			data['states'][state.name]['colorvalue'] = state.colorValue;
+			data['states'][state.name]['disabled'] = state.disabled;
 		}
-	}
 
-	static toggle() {
-		var e1 = document.getElementById('sidebar-popularvote');
-		var e2 = document.getElementById('sidebar-national-popularvote');
-		var e3 = document.getElementById('sidebar-popularvote-settings');
-		var e4 = document.getElementById('sidebar-popularvote-head');
-		if(PopularVote.enabled === false) {
-			e1.style.display = 'block';
-			e2.style.display = 'block';
-			e3.style.display = 'block';
-			e4.innerHTML = 'Disable Popular Vote';
-			PopularVote.enabled = true;
-			gtag('event', currentCache, {
-				'event_category': 'Popular Vote',
-				'event_label': 'Popular Vote Enabled'
-			});
-		} else if(PopularVote.enabled === true) {
-			e1.style.display = 'none';
-			e2.style.display = 'none';
-			e3.style.display = 'none';
-			e4.innerHTML = 'Enable Popular Vote';
-			PopularVote.enabled = false;
-			gtag('event', currentCache, {
-				'event_category': 'Popular Vote',
-				'event_label': 'Popular Vote Disabled'
-			});
-		}
-	}
-}
-
-PopularVote.enabled = false;
-function logData() {
-	var data = {};
-	data['filename'] = MapLoader.save_filename;
-	data['dataid'] = MapLoader.save_dataid;
-	data['type'] = MapLoader.save_type;
-	data['year'] = MapLoader.save_year;
-	data['fontsize'] = MapLoader.save_fontsize;
-	data['strokewidth'] = MapLoader.save_strokewidth;
-	data['candidates'] = {};
-	data['states'] = {};
-	data['proportional'] = {};
-
-	for(var key in CandidateManager.candidates) {
-		if(key === 'Tossup') {
-			continue;
-		}
-		var candidate = CandidateManager.candidates[key];
-		data['candidates'][candidate.name] = {};
-		data['candidates'][candidate.name]['solid'] = candidate.colors[0];
-		data['candidates'][candidate.name]['likely'] = candidate.colors[1];
-		data['candidates'][candidate.name]['lean'] = candidate.colors[2];
-		data['candidates'][candidate.name]['tilt'] = candidate.colors[3];
-	}
-
-	for(var stateIndex = 0; stateIndex < states.length; ++stateIndex) {
-		var state = states[stateIndex];
-		// Remove zero delegates
-		for(var key in state.delegates) {
-			var count = state.delegates[key];
-			if(count === 0) {
-				delete state.delegates[key];
+		for(var stateIndex = 0; stateIndex < proportionalStates.length; ++stateIndex) {
+			var state = proportionalStates[stateIndex];
+			// Remove zero delegates
+			for(var key in state.delegates) {
+				var count = state.delegates[key];
+				if(count === 0) {
+					delete state.delegates[key];
+				}
 			}
+			data['proportional'][state.name] = {};
+			data['proportional'][state.name]['delegates'] = state.delegates;
+			data['proportional'][state.name]['colorvalue'] = state.colorValue;
+			data['proportional'][state.name]['disabled'] = state.disabled;
 		}
-		data['states'][state.name] = {};
-		data['states'][state.name]['delegates'] = state.delegates;
-		data['states'][state.name]['colorvalue'] = state.colorValue;
-		data['states'][state.name]['disabled'] = state.disabled;
-	}
+		
+		formData.append("data", JSON.stringify(data));
 
-	for(var stateIndex = 0; stateIndex < proportionalStates.length; ++stateIndex) {
-		var state = proportionalStates[stateIndex];
-		// Remove zero delegates
-		for(var key in state.delegates) {
-			var count = state.delegates[key];
-			if(count === 0) {
-				delete state.delegates[key];
-			}
-		}
-		data['proportional'][state.name] = {};
-		data['proportional'][state.name]['delegates'] = state.delegates;
-		data['proportional'][state.name]['colorvalue'] = state.colorValue;
-		data['proportional'][state.name]['disabled'] = state.disabled;
-	}
-
-	console.log(JSON.stringify(data));
-}
-
-function saveMap(img, token) {
-	var formData = new FormData();
-	formData.append("captcha", token);
-	formData.append("img", img);
-	
-	var data = {};
-	data['filename'] = MapLoader.save_filename;
-	data['dataid'] = MapLoader.save_dataid;
-	data['type'] = MapLoader.save_type;
-	data['year'] = MapLoader.save_year;
-	data['fontsize'] = MapLoader.save_fontsize;
-	data['strokewidth'] = MapLoader.save_strokewidth;
-	data['candidates'] = {};
-	data['states'] = {};
-	data['proportional'] = {};
-
-	var formData = new FormData();
-	console.log('token: ' + token);
-	formData.append("captcha", token);
-	formData.append("img", img);
-
-	for(var key in CandidateManager.candidates) {
-		if(key === 'Tossup') {
-			continue;
-		}
-		var candidate = CandidateManager.candidates[key];
-		data['candidates'][candidate.name] = {};
-		data['candidates'][candidate.name]['solid'] = candidate.colors[0];
-		data['candidates'][candidate.name]['likely'] = candidate.colors[1];
-		data['candidates'][candidate.name]['lean'] = candidate.colors[2];
-		data['candidates'][candidate.name]['tilt'] = candidate.colors[3];
-	}
-
-	for(var stateIndex = 0; stateIndex < states.length; ++stateIndex) {
-		var state = states[stateIndex];
-		// Remove zero delegates
-		for(var key in state.delegates) {
-			var count = state.delegates[key];
-			if(count === 0) {
-				delete state.delegates[key];
-			}
-		}
-		data['states'][state.name] = {};
-		data['states'][state.name]['delegates'] = state.delegates;
-		data['states'][state.name]['colorvalue'] = state.colorValue;
-		data['states'][state.name]['disabled'] = state.disabled;
-	}
-
-	for(var stateIndex = 0; stateIndex < proportionalStates.length; ++stateIndex) {
-		var state = proportionalStates[stateIndex];
-		// Remove zero delegates
-		for(var key in state.delegates) {
-			var count = state.delegates[key];
-			if(count === 0) {
-				delete state.delegates[key];
-			}
-		}
-		data['proportional'][state.name] = {};
-		data['proportional'][state.name]['delegates'] = state.delegates;
-		data['proportional'][state.name]['colorvalue'] = state.colorValue;
-		data['proportional'][state.name]['disabled'] = state.disabled;
-	}
-	
-	formData.append("data", JSON.stringify(data));
-
-	$.ajax({
-		url: "https://yapms.org/upload.php",
-		type: "POST",
-		data: formData,
-		processData: false,
-		contentType: false,
-		success: function(a,b,c) {
-			console.log(a);
-			var data = a.split(' ');
+		fetch("https://yapms.org/upload.php", {
+			method: "POST",
+			body: formData
+		})
+		.then(response => response.text())
+		.then(data => {
+			var data = data.split(' ');
 			var url = data[0];
 			var filename = data[1];
 
@@ -6822,26 +5707,24 @@ function saveMap(img, token) {
 				redditBtn.setAttribute('target', '_blank');
 			}
 
-			console.log('Map save NEW succeeded');
 			gtag('event', currentCache, {
 				'event_category': 'Map Save',
 				'event_label': 'Map save succeeded'
 			});
-		},
-		error: function(a,b,c) {
-			console.log(a);
-			console.log(b);
-			console.log(c);
+		}).catch(error => {
+			console.log(error);
+
 			var button = document.getElementById('share-button');
 			if(button) {
 				button.setAttribute('onclick', 'share()');
 			}
+
 			gtag('event', currentCache, {
 				'event_category': 'Map Save',
 				'event_label': 'Map save failed'
 			});
-		}
-	});
+		});
+	}
 }
 function numberWithCommas(number) {
 	return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -6898,7 +5781,7 @@ function hideMenu(name) {
 	var menu = document.getElementById(name);
 	menu.style.display = 'none';
 }
-var currentCache = 'v2.20.2';
+var currentCache = 'v2.22.7';
 
 var states = [];
 var lands = [];
@@ -6954,7 +5837,8 @@ function share_afterCenter() {
 		}, 3000);
 	}
 
-	html2canvas(document.getElementById('application'), {/*width: 1200, height: 630,*/ logging: false, onclone: function(clone) {
+	html2canvas(document.getElementById('application'), {
+		logging: false, onclone: function(clone) {
 		// remove the custom fonts from the clone
 		var svgtext = clone.getElementById('text');
 		if(svgtext) {
@@ -7003,7 +5887,7 @@ function share_afterCenter() {
 		if(grecaptcha)
 		grecaptcha.execute('6LeDYbEUAAAAANfuJ4FxWVjoxPgDPsFGsdTLr1Jo', {action: 'share'})
 		.then(function(token) {
-			saveMap(img, token);
+			SaveMap.upload(img, token);
 		});
 	});
 }
@@ -7072,11 +5956,6 @@ function verifyPaintIndex() {
 	if(typeof CandidateManager.candidates[paintIndex] === 'undefined') {
 		paintIndex = 'Tossup';
 	}
-}
-
-// instead of counting all delegates, just count when it changes
-function changeVote(prev, current) {
-
 }
 
 // iterate over each state and delegate votes to the candidate
@@ -7189,50 +6068,36 @@ function forceUpdate() {
 }
 
 function updateArticles() {
-$.ajax({
-	url: 'req_articles.php',
-	type: 'GET',
-	success : function(data) {
-		if(data.includes("req_article Error:")) {
-			console.log(data);
-			return;
-		}
-
-		var obj = jQuery.parseJSON(data);
-
+	fetch("req_articles.php")
+	.then(response => response.json())
+	.then(data => {
 		var articles = document.getElementById("yapnews-articles");
 
 		if(articles === null) {
 			return;
 		}
 
-		for(var index = 0; index < obj.length; ++index) {
+		for(var index = 0; index < data.length; ++index) {
 			var article = document.createElement('div');
 			article.setAttribute('class', 'yapnews-article');
 			var articleTitle = document.createElement('a');
 			articleTitle.setAttribute('class', 'yapnews-article-title');
-			articleTitle.setAttribute('href', 'https://www.yapms.com/news/article.php?a=' + obj[index]['id']);
+			articleTitle.setAttribute('href', 'https://www.yapms.com/news/article.php?a=' + data[index]['id']);
 			articleTitle.setAttribute('target', '_blank');
 			var articleAuthor = document.createElement('div');
 			articleAuthor.setAttribute('class', 'yapnews-article-author');
 			var articleSnippet = document.createElement('div');
 			articleSnippet.setAttribute('class', 'yapnews-article-snippet');
-			articleTitle.innerHTML = obj[index]['title'];
-			articleAuthor.innerHTML = obj[index]['author'];
-			articleSnippet.innerHTML = obj[index]['snippet'];
+			articleTitle.innerHTML = data[index]['title'];
+			articleAuthor.innerHTML = data[index]['author'];
+			articleSnippet.innerHTML = data[index]['snippet'];
 
 			article.appendChild(articleTitle);
 			article.appendChild(articleAuthor);
 			article.appendChild(articleSnippet);
 			articles.appendChild(article);
 		}
-	},
-	error: function(a,b,c) {
-		console.log(a);
-		console.log(b);
-		console.log(c);
-	}
-});
+	});
 }
 
 function updateMobile() {
@@ -7245,6 +6110,16 @@ function updateMobile() {
 	for(var index = 0; index < modeButtons.length; ++index) {
 		modeButtons[index].style.paddingLeft = '12px';
 		modeButtons[index].style.paddingRight = '12px';
+	}
+
+	var sidebarToggle = document.getElementById("sidebar-toggle");
+	if(sidebarToggle) {
+		sidebarToggle.style.display = "none";
+	}
+
+	var lockButton = document.getElementById("lockbutton");
+	if(lockButton) {
+		lockButton.style.display = "none";
 	}
 }
 
@@ -7281,10 +6156,8 @@ function start() {
 		MapLoader.loadMapFromId(php_load_map_id);
 	} else {
 		PresetLoader.loadPreset("classic");
-		MapLoader.loadMap("./res/usa_presidential.svg", 16, 1, "usa_ec", "presidential", "open", {voters: 'usa_voting_pop', enablePopularVote: true});
+		MapLoader.loadMap("./res/usa_presidential.svg", 16, 1, "usa_ec", "presidential", "open");
 	}
-
-	Account.verifyState();
 
 	setTimeout(function() {
 		LogoManager.loadButtons();

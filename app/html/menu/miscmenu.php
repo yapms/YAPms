@@ -12,7 +12,7 @@
 	<i class="fas fa-info"></i>
 	<div class="selectmenu-button-text">Version Info</div>
 </a>
-<a class="selectmenu-button" onclick="logData();">
+<a class="selectmenu-button" onclick="SaveMap.log();">
 	<i class="fas fa-info"></i>
 	<div class="selectmenu-button-text">Debug</div>
 </a>

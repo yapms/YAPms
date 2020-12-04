@@ -42,32 +42,6 @@ class CookieManager {
 				CookieManager.cookies['custom' + index + 'tilting'] + ')';
 			
 		}
-		/*
-		var c1 = document.getElementById('custom1button');
-		c1.style.background = 'linear-gradient(to right,' +
-			CookieManager.cookies['custom1solid'] + ',' +
-			CookieManager.cookies['custom1likely'] + ',' +
-			CookieManager.cookies['custom1leaning'] + ',' +
-			CookieManager.cookies['custom1tilting'] + ')';
-		var c2 = document.getElementById('custom2button');
-		c2.style.background = 'linear-gradient(to right,' +
-			CookieManager.cookies['custom2solid'] + ',' +
-			CookieManager.cookies['custom2likely'] + ',' +
-			CookieManager.cookies['custom2leaning'] + ',' +
-			CookieManager.cookies['custom2tilting'] + ')';
-		var c3 = document.getElementById('custom3button');
-		c3.style.background = 'linear-gradient(to right,' +
-			CookieManager.cookies['custom3solid'] + ',' +
-			CookieManager.cookies['custom3likely'] + ',' +
-			CookieManager.cookies['custom3leaning'] + ',' +
-			CookieManager.cookies['custom3tilting'] + ')';
-		var c4 = document.getElementById('custom4button');
-		c4.style.background = 'linear-gradient(to right,' +
-			CookieManager.cookies['custom4solid'] + ',' +
-			CookieManager.cookies['custom4likely'] + ',' +
-			CookieManager.cookies['custom4leaning'] + ',' +
-			CookieManager.cookies['custom4tilting'] + ')';
-			*/
 	}
 
 	static askConsent() {
@@ -86,18 +60,6 @@ class CookieManager {
 		/* Auto Consent */
 		CookieManager.consent = true;
 		CookieManager.consentGiven();
-
-		/* Only Ask For Consent From EU IP Address */
-/*
-		if(geoplugin_cookieConsent() === false) {
-			CookieManager.consent = true;
-			CookieManager.consentGiven();
-			return;
-		} else {
-			var consentPopup = document.getElementById('consent');
-			consentPopup.style.display = 'inline-block';
-		}
-*/
 	}
 
 	static consentDenied(reload) {
@@ -129,16 +91,6 @@ class CookieManager {
 
 		/* Load Personalized Adsense */
 		// (adsbygoogle = window.adsbygoogle || []).pauseAdRequests = 0;
-
-		/* Load Google Recaptcha */
-		$.ajax({
-			url: "https://www.google.com/recaptcha/api.js?render=6LeDYbEUAAAAANfuJ4FxWVjoxPgDPsFGsdTLr1Jo",
-			dataType: "script",
-			cache: true,
-			success: function() {
-				console.log("Cookie Manager: Google Recaptcha Loaded");
-			}
-		});
 	}
 }
 

@@ -10,18 +10,18 @@ class KeyboardManager {
 
 KeyboardManager.keyStates = {};
 
-$("html").keydown(function(event) {
+document.addEventListener("keydown", function(event) {
 	KeyboardManager.keyStates[event.which] = true;
 });
 
-$("html").keyup(function(event) {
+document.addEventListener("keyup", function(event) {
 	KeyboardManager.keyStates[event.which] = false;
 });
 
-$("html").mouseleave(function(event) {
+document.addEventListener("mouseleave", function(event) {
 	KeyboardManager.keyStates = {};
 });
 
-$("html").mouseenter(function(event) {
+document.addEventListener("mouseenter", function(event) {
 	KeyboardManager.keyStates = {};
 });

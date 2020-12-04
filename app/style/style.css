@@ -1,29 +1,13 @@
-html {
-	background-color: black;
-	font-family: 'Roboto';
-	height: 100%;
-	width: 100%;
-	padding: 0px;
-	margin: 0px;
-	overflow: hidden;
-}
-
-canvas {
-
-}
-
-body {
-	overflow: hidden;
+html, body {
 	background: white;
 	text-align: center;
-	margin: 0px;
-	padding: 0px;
+	font-family: 'Roboto';
+	font-size: 18px;
 	height: 100%;
 	width: 100%;
-	
-	font-size: 18px;
-	display: flex;
-	flex-flow: row;
+	padding: 0px;
+	margin: 0px;
+	overflow: hidden;
 }
 
 button {

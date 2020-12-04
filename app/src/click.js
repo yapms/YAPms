@@ -58,9 +58,7 @@ function landClick(clickElement) {
 		}
 		districts.forEach(function(district) {
 			district.setColor(AL.candidate, AL.colorValue);
-			PopularVote.view(district, paintIndex)
 		});
-		PopularVote.view(AL, paintIndex)
 	} else if(mode === 'delete') {
 		districts.forEach(function(district) {
 			district.toggleDisable();
@@ -82,7 +80,6 @@ function stateClick(clickElement) {
 	switch(mode) {
 		case 'paint':
 		case 'fill':
-			PopularVote.view(state, paintIndex)
 			Simulator.view(state);
 			if(Simulator.ignoreClick === false) {
 				stateClickPaint(state);

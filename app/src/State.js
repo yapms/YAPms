@@ -16,9 +16,6 @@ class State {
 		this.resetVoteCount();
 		this.disabled = false;
 		this.locked = false;
-		this.voters = 0;
-		this.popularVote = {};
-		this.turnout = 100;
 
 		/* Call This When The State Changes Color */
 		this.onChange = function() {}
@@ -51,8 +48,8 @@ class State {
 			this.voteCount_beforeDisable = 2;
 
 		} else {
-			this.setVoteCount(data[this.dataid][this.name]);
-			this.voteCount_beforeDisable = data[this.dataid][this.name];
+			this.setVoteCount(GlobalData[this.dataid][this.name]);
+			this.voteCount_beforeDisable = GlobalData[this.dataid][this.name];
 		}
 	}
 	
@@ -172,12 +169,6 @@ class State {
 				button.setAttribute('fill-opacity', '0.2');
 				button.setAttribute('stroke-opacity', '0.2');
 			}
-
-			var stateLandText = document.getElementById(this.name.split("-")[0] + '-text');
-			if(stateLandText !== null) {
-//				stateLandText.setAttribute('fill-opacity', '0.25');
-			}
-
 		} else if(this.locked == true) {
 			this.disabled = false;
 			this.locked = !this.locked;
@@ -201,11 +192,6 @@ class State {
 			if(button !== null) {
 				button.setAttribute('fill-opacity', '1.0');
 				button.setAttribute('stroke-opacity', '1.0');
-			}
-			
-			var stateLandText = document.getElementById(this.name.split("-")[0] + '-text');
-			if(stateLandText !== null) {
-//				stateLandText.setAttribute('fill-opacity', '1.0');
 			}
 		}
 	}

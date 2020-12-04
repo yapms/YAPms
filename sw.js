@@ -1,5 +1,5 @@
-var indexCache = 'i2.20.2';
-var staticCache = 's2.20.2';
+var indexCache = 'i2.22.7';
+var staticCache = 's2.22.7';
 
 var _indexCache = [
 	'./',
@@ -22,7 +22,8 @@ var _indexCache = [
 	'./app/html/downloadbutton.svg',
 	'./app/html/overwritebutton.svg',
 
-	'./app/bin/yapms.js',
+	'./app/bin/yapms.min.js',
+	'./app/bin/yapms.css',
 
 	'./app/?t=USA_current_house',
 	'./app/?t=USA_current_senate',
@@ -36,9 +37,7 @@ var _indexCache = [
 	'./app/?t=USA_2020_governors',
 	'./app/?t=USA_2020_house',
 	'./app/?t=USA_2020_democratic_primary',
-	'./app/?t=USA_2016_democratic_primary',
 	'./app/?t=USA_2020_republican_primary',
-	'./app/?t=USA_2016_republican_primary',
 	'./app/?t=USA_county',
 	'./app/?t=USA_governors',
 	'./app/?t=USA_senate',
@@ -61,10 +60,7 @@ var _indexCache = [
 	'./app/?t=Switzerland_council_of_states',
 	'./app/?t=Switzerland_national_council',
 	'./app/?t=UnitedKingdom_house_of_commons',
-	'./app/?t=UnitedKingdom_current_parliament',
-
-	'./app/bin/yapms.css',
-	'./app/style/mobile.css'
+	'./app/?t=UnitedKingdom_current_parliament'
 ];
 
 var _staticCache = [
@@ -142,13 +138,11 @@ var _staticCache = [
 	'./app/res/fonts/roboto/roboto-v20-latin-regular.woff',
 
 	'./app/res/fontawesome/js/all.min.js',
-	'https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.5/dist/html2canvas.min.js',
+	'https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.7/dist/html2canvas.min.js',
 	'https://cdn.jsdelivr.net/npm/svg-pan-zoom@3.6.1/dist/svg-pan-zoom.min.js',
-	'https://cdn.jsdelivr.net/npm/chart.js@2.9.2/dist/Chart.min.js',
+	'https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js',
 	'https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0/dist/chartjs-plugin-datalabels.min.js',
-	'https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js',
 	'https://cdn.jsdelivr.net/npm/hammerjs@2.0.8/hammer.min.js',
-	'https://cdn.jsdelivr.net/npm/cookie-bar/cookiebar-latest.min.js?tracking=1&thirdparty=1&always=1&refreshPage=1&showNoConsent=1',
 
 	'./manifest.json'
 ];

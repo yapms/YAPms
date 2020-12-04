@@ -151,17 +151,9 @@ function setCongressOnHover() {
 }
 
 function db_getCongress(onLoad) {
-	$.ajax({
-		url: 'req_congress.php',
-		type: 'GET',
-		success : function(data) {
-			var obj = jQuery.parseJSON(data);
-			onLoad(obj);
-		},
-		error : function(a, b, c) {
-			console.log(a);
-			console.log(b);
-			console.log(c);
-		}
+	fetch("req_congress.php")
+	.then(response => response.json())
+	.then(data => {
+		onLoad(data);
 	});
 }

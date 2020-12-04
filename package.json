@@ -1,0 +1,25 @@
+{
+	"name": "YAPms",
+	"description": "Interactive Political Maps",
+	"watch": {
+		"bundle": {
+			"patterns": [
+				"app/src",
+				"app/style"
+			],
+			"extensions": "js,css",
+			"runOnChangeOnly": true
+		}
+	},
+	"scripts": {
+		"dev": "npm-watch & php -S localhost:8000",
+		"bundle": "./compile & npm run minify",
+		"minify": "google-closure-compiler --js=./app/bin/yapms.js --js_output_file=./app/bin/yapms.min.js",
+		"uglify": "uglifyjs -- ./app/bin/yapms.js"
+	},
+	"dependencies": {
+		"google-closure-compiler": "^20201102.0.1",
+		"npm-watch": "^0.7.0",
+		"uglify-js": "^3.12.0"
+	}
+}

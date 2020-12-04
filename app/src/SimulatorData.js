@@ -34,8 +34,6 @@ SimulatorData.USA_2020_Cook = {
 	"NE-D1": {"Republican": 100, "Democrat": 0},
 	"NE-D2": {"Republican": 70, "Democrat": 30},
 	"NE-D3": {"Republican": 100, "Democrat": 0},
-	"NE-AL": {"Republican": 100, "Democrat": 0},
-	"NE-AL": {"Republican": 100, "Democrat": 0},
 	"NV": {"Republican": 30, "Democrat": 70},
 	"NH": {"Republican": 30, "Democrat": 70},
 	"NJ": {"Republican": 0, "Democrat": 100},
