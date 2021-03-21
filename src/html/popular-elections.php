@@ -13,11 +13,14 @@
 			</h3>
 		</div>
 		<div class="link-list-2">
-		<a class="link" href="./app/?t=USA_2020_presidential">
+		<a class="link" href="./app/?t=USA_2024_presidential">
 			Presidential
 		</a>
 		<a class="link" href="./app/?t=USA_2022_senate">
-			2022 Senate
+			Senate
+		</a>
+		<a class="link" href="./app/?t=USA_2022_governors">
+			Governors
 		</a>
 		</div>
 	</div>
