@@ -17,7 +17,7 @@ class Candidate {
 
 class CandidateManager {
 	static initCandidates() {
-		CandidateManager.candidates = {};
+		CandidateManager.candidates = [];
 		CandidateManager.candidates['Tossup'] = CandidateManager.TOSSUP;
 	}
 
@@ -101,7 +101,7 @@ class CandidateManager {
 	static addCandidate(name, solid, likely, leaning, tilting) {
 
 		if(name === undefined) {
-			var nameHTML = document.getElementById('name');
+			const nameHTML = document.getElementById('name');
 			if(nameHTML !== null) {
 				name = nameHTML.value;
 			} else {
@@ -115,7 +115,7 @@ class CandidateManager {
 		}
 
 		if(solid === undefined) {
-			var solidHTML = document.getElementById('solid');
+			const solidHTML = document.getElementById('solid');
 			if(solidHTML !== null) {
 				solid = solidHTML.value;
 			} else {
@@ -124,7 +124,7 @@ class CandidateManager {
 		}
 
 		if(likely === undefined) {
-			var likelyHTML = document.getElementById('likely');
+			const likelyHTML = document.getElementById('likely');
 			if(likelyHTML !== null) {
 				likely = likelyHTML.value;
 			} else {
@@ -133,7 +133,7 @@ class CandidateManager {
 		}
 
 		if(leaning === undefined) {
-			var leaningHTML = document.getElementById('leaning');
+			const leaningHTML = document.getElementById('leaning');
 			if(leaningHTML !== null) {
 				leaning = leaningHTML.value;
 			} else {
@@ -142,7 +142,7 @@ class CandidateManager {
 		}
 
 		if(tilting === undefined) {
-			var tiltingHTML = document.getElementById('tilting');
+			const tiltingHTML = document.getElementById('tilting');
 			if(tiltingHTML !== null) {
 				tilting = tiltingHTML.value;
 			} else {
@@ -150,7 +150,7 @@ class CandidateManager {
 			}
 		}
 		
-		var candidate = new Candidate(name, [solid, likely, leaning, tilting]);
+		const candidate = new Candidate(name, [solid, likely, leaning, tilting]);
 		CandidateManager.candidates[name] = candidate;
 
 		verifyPaintIndex();
@@ -228,7 +228,7 @@ class CandidateManager {
 	}
 }
 
-CandidateManager.candidates = {};
+CandidateManager.candidates = [];
 CandidateManager.tossupColor = 2;
 CandidateManager.TOSSUP = new Candidate('Tossup', ['#000000', '#ffffff', '#696969', '#000000']);
 class ChartManager {
@@ -1482,6 +1482,10 @@ class MapLoader {
 				PresetLoader.loadPreset("classic");
 				MapLoader.loadMap("./res/usa/usa_presidential_territories.svg", 16, 0.75, "usa_territories_ec", "takeall", "open");
 				break;
+			case "USA_2024_presidential":
+				PresetLoader.loadPreset('classic');
+				MapLoader.loadMap("./res/usa/presidential/usa_presidential.svg", 16, 0.75, "usa_2024_ec", "takeall", "open");
+				break;
 			case "USA_2020_presidential":
 				PresetLoader.loadPreset('classic');
 				MapLoader.loadMap("./res/usa/presidential/usa_presidential.svg", 16, 0.75, "usa_ec", "takeall", "open");
@@ -1490,13 +1494,17 @@ class MapLoader {
 				PresetLoader.loadPreset('classic');
 				MapLoader.loadMap("./res/usa/presidential/usa_1972_presidential.svg", 16, 0.75, "usa_1972_ec", "takeall", "open");
 				break;
+			case "USA_2022_senate":
+				PresetLoader.loadPreset('classic');
+				MapLoader.loadMap("./res/usa/senate/usa_senate.svg", 16, 1, "1", "senatorial", "2022");
+				break;
 			case "USA_2020_senate":
 				PresetLoader.loadPreset('classic');
 				MapLoader.loadMap("./res/usa/senate/usa_senate.svg", 16, 1, "1", "senatorial", "2020");
 				break;
-			case "USA_2022_senate":
+			case "USA_2022_governors":
 				PresetLoader.loadPreset('classic');
-				MapLoader.loadMap("./res/usa/senate/usa_senate.svg", 16, 1, "1", "senatorial", "2022");
+				MapLoader.loadMap("./res/usa/governors/usa_gubernatorial.svg", 16, 0.75, "1", "gubernatorial", "2022");
 				break;
 			case "USA_2020_governors":
 				PresetLoader.loadPreset('classic');
@@ -1514,6 +1522,7 @@ class MapLoader {
 				PresetLoader.loadPreset('classic');
 				MapLoader.loadMap("./res/usa/county/usa_county.svg", 16, 0.075, "1", "takeall_noedit", "open");
 				break;
+			case "USA_2022_house":
 			case "USA_2020_house":
 				PresetLoader.loadPreset('classic');
 				MapLoader.loadMap("./res/usa/house/12-2-2019-house.svg", 16, 0.075, "1", "takeall_noedit", "open", {enableCongress: true, enableEraser: true});
@@ -1961,22 +1970,22 @@ class MapLoader {
 		{	
 			enableCongress: enableCongress,
 			onLoad: function() {
-			for(var candidateName in obj.candidates) {
+			for(let candidateName in obj.candidates) {
 				if(candidateName === 'Tossup') {
 					continue;
 				}
-				var candidate = obj.candidates[candidateName];
+				let candidate = obj.candidates[candidateName];
 				CandidateManager.addCandidate(candidateName, candidate['solid'], candidate['likely'], candidate['lean'], candidate['tilt']);
 			}
 
-			for(var stateName in obj.states) {
-				var stateData = obj.states[stateName];
-				var state = states.filter(state => state.name === stateName)[0];
-				var voteCount = 0;
-				var maxCandidateName = 'Tossup';
-				var maxCandidateCount = 0;
-				for(var key in stateData['delegates']) {
-					var count = stateData['delegates'][key];
+			for(let stateName in obj.states) {
+				let stateData = obj.states[stateName];
+				let state = states.filter(state => state.name === stateName)[0];
+				let voteCount = 0;
+				let maxCandidateName = 'Tossup';
+				let maxCandidateCount = 0;
+				for(let key in stateData['delegates']) {
+					let count = stateData['delegates'][key];
 					voteCount += count;
 					if(count > maxCandidateCount) {
 						maxCandidateName = key;
@@ -2008,14 +2017,14 @@ class MapLoader {
 				}
 			}
 
-			for(var stateName in obj.proportional) {
-				var stateData = obj.proportional[stateName];
-				var state = proportionalStates.filter(state => state.name === stateName)[0];
-				var voteCount = 0;
-				var maxCandidateName = 'Tossup';
-				var maxCandidateCount = 0;
-				for(var key in stateData['delegates']) {
-					var count = stateData['delegates'][key];
+			for(let stateName in obj.proportional) {
+				let stateData = obj.proportional[stateName];
+				let state = proportionalStates.filter(state => state.name === stateName)[0];
+				let voteCount = 0;
+				let maxCandidateName = 'Tossup';
+				let maxCandidateCount = 0;
+				for(let key in stateData['delegates']) {
+					let count = stateData['delegates'][key];
 					voteCount += count;
 					if(count > maxCandidateCount) {
 						maxCandidateName = key;
@@ -3146,7 +3155,7 @@ class State {
 	}
 
 	setVoteCount(value) {
-		var diff = value - this.voteCount;
+		let diff = value - this.voteCount;
 		this.voteCount = value;
 		this.delegates = {};
 		this.setDelegates("Tossup", value);
@@ -3157,14 +3166,15 @@ class State {
 		totalVotes += diff;
 
 		// update the html text display
-		var stateText = document.getElementById(this.name + '-text');
+		const stateText = document.getElementById(this.name + '-text');
 		if(stateText !== null && 
-			(MapLoader.save_dataid === 'usa_ec' ||
-			MapLoader.save_dataid === 'usa_1972_ec' ||
-			MapLoader.save_dataid === 'usa_no_districts_ec' ||
-			MapLoader.save_dataid === 'usa_pre_civilwar_ec' ||
-			MapLoader.save_dataid === 'usa_territories_ec')) {
-			var text = this.name + ' ' + value;
+			(MapLoader.save_dataid === "usa_ec" ||
+			MapLoader.save_dataid === "usa_1972_ec" ||
+			MapLoader.save_dataid === "usa_no_districts_ec" ||
+			MapLoader.save_dataid === "usa_pre_civilwar_ec" ||
+			MapLoader.save_dataid === "usa_territories_ec" ||
+			MapLoader.save_dataid === "usa_2024_ec")) {
+			const text = this.name + ' ' + value;
 			// the text elements in an svg are inside spans
 			if(typeof stateText.childNodes[1] !== 'undefined') {
 				stateText.childNodes[1].innerHTML = ' ' + value;
@@ -4236,6 +4246,8 @@ var GlobalData = {
 'usa_territories_ec': {'AL': 9, 'AK': 3, 'AZ': 11, 'AR': 6, 'CA': 55, 'CO': 9, 'CT': 7, 'DE': 3, 'FL': 29, 'GA': 16, 'HI': 4, 'ID': 4, 'IL': 20, 'IN': 11, 'IA': 6, 'KS': 6, 'KY': 8, 'LA': 8, 'ME': 4, 'ME-AL': 2, 'ME-D1': 1, 'ME-D2': 1, 'MD': 10, 'MA': 11, 'MI': 16, 'MN': 10, 'MS': 6, 'MO': 10, 'MT': 3, 'NE': 5, 'NE-AL': 2, 'NE-D1': 1, 'NE-D2': 1, 'NE-D3': 1, 'NV': 6, 'NH': 4, 'NJ': 14, 'NM': 5, 'NY': 29, 'NC': 15, 'ND': 3, 'OH': 18, 'OK': 7, 'OR': 7, 'PA': 20, 'RI': 4, 'SC': 9, 'SD': 3, 'TN': 11, 'TX': 38, 'UT': 6, 'VT': 3, 'VA': 13, 'WA': 12, 'WV': 5, 'WI': 10, 'WY': 3, 'DC': 3, 'AS': 1, 'GU': 1, 'MP': 1, 'PR': 1, 'VI': 1},
 
 'usa_ec': {'AL': 9, 'AK': 3, 'AZ': 11, 'AR': 6, 'CA': 55, 'CO': 9, 'CT': 7, 'DE': 3, 'FL': 29, 'GA': 16, 'HI': 4, 'ID': 4, 'IL': 20, 'IN': 11, 'IA': 6, 'KS': 6, 'KY': 8, 'LA': 8, 'ME': 4, 'ME-AL': 2, 'ME-D1': 1, 'ME-D2': 1, 'MD': 10, 'MA': 11, 'MI': 16, 'MN': 10, 'MS': 6, 'MO': 10, 'MT': 3, 'NE': 5, 'NE-AL': 2, 'NE-D1': 1, 'NE-D2': 1, 'NE-D3': 1, 'NV': 6, 'NH': 4, 'NJ': 14, 'NM': 5, 'NY': 29, 'NC': 15, 'ND': 3, 'OH': 18, 'OK': 7, 'OR': 7, 'PA': 20, 'RI': 4, 'SC': 9, 'SD': 3, 'TN': 11, 'TX': 38, 'UT': 6, 'VT': 3, 'VA': 13, 'WA': 12, 'WV': 5, 'WI': 10, 'WY': 3, 'DC': 3},
+
+'usa_2024_ec': {'AL': 8, 'AK': 3, 'AZ': 12, 'AR': 6, 'CA': 54, 'CO': 10, 'CT': 7, 'DE': 3, 'FL': 31, 'GA': 16, 'HI': 4, 'ID': 4, 'IL': 19, 'IN': 11, 'IA': 6, 'KS': 6, 'KY': 8, 'LA': 8, 'ME': 4, 'ME-AL': 2, 'ME-D1': 1, 'ME-D2': 1, 'MD': 10, 'MA': 11, 'MI': 15, 'MN': 9, 'MS': 6, 'MO': 10, 'MT': 4, 'NE': 5, 'NE-AL': 2, 'NE-D1': 1, 'NE-D2': 1, 'NE-D3': 1, 'NV': 6, 'NH': 4, 'NJ': 14, 'NM': 5, 'NY': 28, 'NC': 16, 'ND': 3, 'OH': 17, 'OK': 7, 'OR': 8, 'PA': 19, 'RI': 3, 'SC': 9, 'SD': 3, 'TN': 11, 'TX': 41, 'UT': 6, 'VT': 3, 'VA': 13, 'WA': 12, 'WV': 4, 'WI': 10, 'WY': 3, 'DC': 3},
 
 'usa_1972_ec': {'AL': 9, 'AK': 3, 'AZ': 6, 'AR': 6, 'CA': 45, 'CO': 7, 'CT': 8, 'DE': 3, 'FL': 17, 'GA': 12, 'HI': 4, 'ID': 4, 'IL': 26, 'IN': 13, 'IA': 8, 'KS': 7, 'KY': 9, 'LA': 10, 'ME': 4, 'ME-AL': 2, 'ME-D1': 1, 'ME-D2': 1, 'MD': 10, 'MA': 14, 'MI': 21, 'MN': 10, 'MS': 7, 'MO': 12, 'MT': 4, 'NE': 5, 'NV': 3, 'NH': 4, 'NJ': 17, 'NM': 4, 'NY': 41, 'NC': 13, 'ND': 3, 'OH': 25, 'OK': 8, 'OR': 6, 'PA': 27, 'RI': 4, 'SC': 8, 'SD': 4, 'TN': 10, 'TX': 26, 'UT': 4, 'VT': 3, 'VA': 11, 'WA': 9, 'WV': 6, 'WI': 11, 'WY': 3, 'DC': 3},
 
@@ -5781,29 +5793,27 @@ function hideMenu(name) {
 	var menu = document.getElementById(name);
 	menu.style.display = 'none';
 }
-var currentCache = 'v2.22.8';
+const currentCache = 'v2.50.0';
 
-var states = [];
-var lands = [];
-var buttons = [];
-var proportionalStates = [];
+let states = [];
+let lands = [];
+let buttons = [];
+let proportionalStates = [];
 
-// paint data
-var paintIndex = 'Tossup';
-var maxColorValue = 2;
+let paintIndex = 'Tossup';
+let maxColorValue = 2;
 
-var mode = 'paint';
+let mode = 'paint';
 
-var maxColorValues = 4;
+let maxColorValues = 4;
 
-var mapOptions = {
-}
+let mapOptions = {}
 
-var strokeMultiplier = 1;
+let strokeMultiplier = 1;
 
-var previousPalette = function() {
+let previousPalette = function() {
 	toWinPalette();	
-};
+}
 
 function share(autoCenter) {
 	closeAllPopups();
@@ -5827,7 +5837,7 @@ function share(autoCenter) {
 
 function share_afterCenter() {
 	// disable button to prevent spam
-	var button = document.getElementById('share-button');
+	const button = document.getElementById('share-button');
 	if(button) {
 		button.disabled = true;
 		button.style.opacity = '0.5';
@@ -5840,35 +5850,35 @@ function share_afterCenter() {
 	html2canvas(document.getElementById('application'), {
 		logging: false, onclone: function(clone) {
 		// remove the custom fonts from the clone
-		var svgtext = clone.getElementById('text');
+		const svgtext = clone.getElementById('text');
 		if(svgtext) {
 			svgtext.style.fontFamily = 'arial';
 			svgtext.style.fontSize = '15px';
 		}
 
-		var svg = clone.getElementById("svgdata");
-		var mapdiv = clone.getElementById('map-div');
+		const svg = clone.getElementById("svgdata");
+		const mapdiv = clone.getElementById('map-div');
 		if(svg && mapdiv) {
-			var width = mapdiv.offsetWidth + (mapdiv.offsetWidth * 0);
-			var height = mapdiv.offsetHeight + (mapdiv.offsetHeight * 0);
+			const width = mapdiv.offsetWidth + (mapdiv.offsetWidth * 0);
+			const height = mapdiv.offsetHeight + (mapdiv.offsetHeight * 0);
 			svg.setAttribute('width', width);
 			svg.setAttribute('height', height);
 		}
 
-		var notification = clone.getElementById('legend-tooltip');
+		const notification = clone.getElementById('legend-tooltip');
 		if(notification) {
 			notification.style.display = 'none';
 		}
 
-		var editButtons = clone.getElementsByClassName('legend-delete');
-		for(var index = 0, length = editButtons.length; index < length; ++index) {
-			var element = editButtons[index];
+		const editButtons = clone.getElementsByClassName('legend-delete');
+		for(let index = 0, length = editButtons.length; index < length; ++index) {
+			const element = editButtons[index];
 			if(element) {
 				element.style.display = 'none';
 			}
 		}
 
-		var addCandidate = clone.getElementById('legend-addcandidate-button');
+		const addCandidate = clone.getElementById('legend-addcandidate-button');
 		if(addCandidate) {
 			addCandidate.style.display = 'none';
 		}
@@ -5877,13 +5887,12 @@ function share_afterCenter() {
 		canvas.style.width = 0;
 		canvas.style.height = 0;	
 		canvas.style.display = 'none';
-		var img = canvas.toDataURL('image/png');
+		const img = canvas.toDataURL('image/png');
 		notification.removeChild(canvas);
-		var i = document.getElementById('screenshotimg');
+		const i = document.getElementById('screenshotimg');
 		i.src = img;
 		i.style.width = '40vw';
 		i.style.height = 'auto';
-		//i.style.display = '';
 		if(grecaptcha)
 		grecaptcha.execute('6LeDYbEUAAAAANfuJ4FxWVjoxPgDPsFGsdTLr1Jo', {action: 'share'})
 		.then(function(token) {
@@ -5894,8 +5903,8 @@ function share_afterCenter() {
 
 /* CATCH ERRORS AND LOG THEM */
 window.onerror = function(message, source, lineno, colno, error) {
-	if(message.includes('a[b].target.className.indexOf') ||
-		message.includes('Script error.')) {
+	if(message.includes('a[b].target.className.indexOf')
+	|| message.includes('Script error.')) {
 		return;
 	}
 	
@@ -5911,8 +5920,6 @@ function setMode(set) {
 		' | mapType ' + MapLoader.save_type + ' | mapYear ' + MapLoader.save_year);
 
 	LogoManager.loadButtons();
-
-	console.log('allowed');
 
 	mode = set;
 
@@ -5960,17 +5967,16 @@ function verifyPaintIndex() {
 
 // iterate over each state and delegate votes to the candidate
 function countVotes() {
-	var mid = document.getElementById("battlechartmid");
+	const mid = document.getElementById("battlechartmid");
 	if(mid) {
 		mid.setAttribute("fill", CandidateManager.TOSSUP.colors[2]);
 	}
 
-	for(var key in CandidateManager.candidates) {
-		var candidate = CandidateManager.candidates[key];
+	for(let key in CandidateManager.candidates) {
+		const candidate = CandidateManager.candidates[key];
 		candidate.voteCount = 0;
 		candidate.probVoteCounts = [0,0,0,0];
-		for(var stateIndex = 0, length = states.length; stateIndex < length; ++stateIndex) {
-			var state = states[stateIndex];
+		for(const state of states) {	
 			if(typeof state.delegates === 'undefined') {
 				state.delegates = {};
 			}
@@ -5986,8 +5992,7 @@ function countVotes() {
 			}
 		}
 
-		for(var stateIndex = 0, length = proportionalStates.length; stateIndex < length; ++stateIndex) {
-			var state = proportionalStates[stateIndex];
+		for(const state of proportionalStates) {
 			if(typeof state.delegates === 'undefined') {
 				state.delegates = {};
 			}
@@ -6005,6 +6010,7 @@ function countVotes() {
 				candidate.probVoteCounts[state.colorValue] += state.delegates[key];
 			}
 		}
+
 		if(mid) {
 			if(candidate.voteCount > Math.ceil(totalVotes / 2)) {
 				if(key === 'Tossup') {
@@ -6139,7 +6145,7 @@ function start() {
 	}
 
 	if(php_load_map === true) {
-		var url = null;
+		let url = null;
 		if(php_load_user === true) {
 			url = 'https://yapms.org/users/' + php_load_user_id + '/' + php_load_map_id + '.txt'; 	
 		} else {

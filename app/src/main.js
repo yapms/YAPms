@@ -1,26 +1,24 @@
-var currentCache = 'v2.22.8';
+const currentCache = 'v2.50.0';
 
-var states = [];
-var lands = [];
-var buttons = [];
-var proportionalStates = [];
+let states = [];
+let lands = [];
+let buttons = [];
+let proportionalStates = [];
 
-// paint data
-var paintIndex = 'Tossup';
-var maxColorValue = 2;
+let paintIndex = 'Tossup';
+let maxColorValue = 2;
 
-var mode = 'paint';
+let mode = 'paint';
 
-var maxColorValues = 4;
+let maxColorValues = 4;
 
-var mapOptions = {
-}
+let mapOptions = {}
 
-var strokeMultiplier = 1;
+let strokeMultiplier = 1;
 
-var previousPalette = function() {
+let previousPalette = function() {
 	toWinPalette();	
-};
+}
 
 function share(autoCenter) {
 	closeAllPopups();
@@ -44,7 +42,7 @@ function share(autoCenter) {
 
 function share_afterCenter() {
 	// disable button to prevent spam
-	var button = document.getElementById('share-button');
+	const button = document.getElementById('share-button');
 	if(button) {
 		button.disabled = true;
 		button.style.opacity = '0.5';
@@ -57,35 +55,35 @@ function share_afterCenter() {
 	html2canvas(document.getElementById('application'), {
 		logging: false, onclone: function(clone) {
 		// remove the custom fonts from the clone
-		var svgtext = clone.getElementById('text');
+		const svgtext = clone.getElementById('text');
 		if(svgtext) {
 			svgtext.style.fontFamily = 'arial';
 			svgtext.style.fontSize = '15px';
 		}
 
-		var svg = clone.getElementById("svgdata");
-		var mapdiv = clone.getElementById('map-div');
+		const svg = clone.getElementById("svgdata");
+		const mapdiv = clone.getElementById('map-div');
 		if(svg && mapdiv) {
-			var width = mapdiv.offsetWidth + (mapdiv.offsetWidth * 0);
-			var height = mapdiv.offsetHeight + (mapdiv.offsetHeight * 0);
+			const width = mapdiv.offsetWidth + (mapdiv.offsetWidth * 0);
+			const height = mapdiv.offsetHeight + (mapdiv.offsetHeight * 0);
 			svg.setAttribute('width', width);
 			svg.setAttribute('height', height);
 		}
 
-		var notification = clone.getElementById('legend-tooltip');
+		const notification = clone.getElementById('legend-tooltip');
 		if(notification) {
 			notification.style.display = 'none';
 		}
 
-		var editButtons = clone.getElementsByClassName('legend-delete');
-		for(var index = 0, length = editButtons.length; index < length; ++index) {
-			var element = editButtons[index];
+		const editButtons = clone.getElementsByClassName('legend-delete');
+		for(let index = 0, length = editButtons.length; index < length; ++index) {
+			const element = editButtons[index];
 			if(element) {
 				element.style.display = 'none';
 			}
 		}
 
-		var addCandidate = clone.getElementById('legend-addcandidate-button');
+		const addCandidate = clone.getElementById('legend-addcandidate-button');
 		if(addCandidate) {
 			addCandidate.style.display = 'none';
 		}
@@ -94,13 +92,12 @@ function share_afterCenter() {
 		canvas.style.width = 0;
 		canvas.style.height = 0;	
 		canvas.style.display = 'none';
-		var img = canvas.toDataURL('image/png');
+		const img = canvas.toDataURL('image/png');
 		notification.removeChild(canvas);
-		var i = document.getElementById('screenshotimg');
+		const i = document.getElementById('screenshotimg');
 		i.src = img;
 		i.style.width = '40vw';
 		i.style.height = 'auto';
-		//i.style.display = '';
 		if(grecaptcha)
 		grecaptcha.execute('6LeDYbEUAAAAANfuJ4FxWVjoxPgDPsFGsdTLr1Jo', {action: 'share'})
 		.then(function(token) {
@@ -111,8 +108,8 @@ function share_afterCenter() {
 
 /* CATCH ERRORS AND LOG THEM */
 window.onerror = function(message, source, lineno, colno, error) {
-	if(message.includes('a[b].target.className.indexOf') ||
-		message.includes('Script error.')) {
+	if(message.includes('a[b].target.className.indexOf')
+	|| message.includes('Script error.')) {
 		return;
 	}
 	
@@ -128,8 +125,6 @@ function setMode(set) {
 		' | mapType ' + MapLoader.save_type + ' | mapYear ' + MapLoader.save_year);
 
 	LogoManager.loadButtons();
-
-	console.log('allowed');
 
 	mode = set;
 
@@ -177,17 +172,16 @@ function verifyPaintIndex() {
 
 // iterate over each state and delegate votes to the candidate
 function countVotes() {
-	var mid = document.getElementById("battlechartmid");
+	const mid = document.getElementById("battlechartmid");
 	if(mid) {
 		mid.setAttribute("fill", CandidateManager.TOSSUP.colors[2]);
 	}
 
-	for(var key in CandidateManager.candidates) {
-		var candidate = CandidateManager.candidates[key];
+	for(let key in CandidateManager.candidates) {
+		const candidate = CandidateManager.candidates[key];
 		candidate.voteCount = 0;
 		candidate.probVoteCounts = [0,0,0,0];
-		for(var stateIndex = 0, length = states.length; stateIndex < length; ++stateIndex) {
-			var state = states[stateIndex];
+		for(const state of states) {	
 			if(typeof state.delegates === 'undefined') {
 				state.delegates = {};
 			}
@@ -203,8 +197,7 @@ function countVotes() {
 			}
 		}
 
-		for(var stateIndex = 0, length = proportionalStates.length; stateIndex < length; ++stateIndex) {
-			var state = proportionalStates[stateIndex];
+		for(const state of proportionalStates) {
 			if(typeof state.delegates === 'undefined') {
 				state.delegates = {};
 			}
@@ -222,6 +215,7 @@ function countVotes() {
 				candidate.probVoteCounts[state.colorValue] += state.delegates[key];
 			}
 		}
+
 		if(mid) {
 			if(candidate.voteCount > Math.ceil(totalVotes / 2)) {
 				if(key === 'Tossup') {
@@ -356,7 +350,7 @@ function start() {
 	}
 
 	if(php_load_map === true) {
-		var url = null;
+		let url = null;
 		if(php_load_user === true) {
 			url = 'https://yapms.org/users/' + php_load_user_id + '/' + php_load_map_id + '.txt'; 	
 		} else {

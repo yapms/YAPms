@@ -9,10 +9,9 @@
 </div>
 <div class="selectmenu-content">
 <div class="selectmenu-section" style="word-wrap: break-word; max-width: 20em;">
-	<!--<small>This login system is currently in beta. All accounts may be subject to deletion during this phase.</small>-->
-	<p>The login system is currently being reworked</p>
+	<small>This login system is currently in beta. All accounts may be subject to deletion during this phase.</small>
+	<!--<p>The login system is currently being reworked</p>-->
 </div>
-<!--
 <div class="selectmenu-section" id="login-info">
 	Please enter your credentials
 </div>
@@ -27,6 +26,5 @@
 <a class="selectmenu-button" onclick='displayMenu("forgotpasswordmenu");'>
 	<div class="selectmenu-button-text">Forgot Password</div>
 </a>
--->
 </div>
 </div>

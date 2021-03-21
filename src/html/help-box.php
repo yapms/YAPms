@@ -19,10 +19,4 @@
 	<a class="social twitter" href="https://twitter.com/YAPmsOfficial" target="_blank">
 		<i class="fab fa-twitter"></i> Twitter
 	</a>
-	<a class="social minecraft" href="https://docs.google.com/forms/d/e/1FAIpQLSfI6LnQNgEDbzjQ1sdQ0cJRTv-mOTRovhmDKlnDXdE2uGdgLg/viewform?usp=sf_link" target="_blank">
-		<i class="fas fa-gamepad"></i> Minecraft
-	</a>
-	<a class="social discord" href="https://discord.gg/jndm6qW" target="_blank">
-		<i class="fas fa-landmark"></i> Mock Government
-	</a>
 </div>

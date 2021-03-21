@@ -295,6 +295,10 @@ class MapLoader {
 				PresetLoader.loadPreset("classic");
 				MapLoader.loadMap("./res/usa/usa_presidential_territories.svg", 16, 0.75, "usa_territories_ec", "takeall", "open");
 				break;
+			case "USA_2024_presidential":
+				PresetLoader.loadPreset('classic');
+				MapLoader.loadMap("./res/usa/presidential/usa_presidential.svg", 16, 0.75, "usa_2024_ec", "takeall", "open");
+				break;
 			case "USA_2020_presidential":
 				PresetLoader.loadPreset('classic');
 				MapLoader.loadMap("./res/usa/presidential/usa_presidential.svg", 16, 0.75, "usa_ec", "takeall", "open");
@@ -303,13 +307,17 @@ class MapLoader {
 				PresetLoader.loadPreset('classic');
 				MapLoader.loadMap("./res/usa/presidential/usa_1972_presidential.svg", 16, 0.75, "usa_1972_ec", "takeall", "open");
 				break;
+			case "USA_2022_senate":
+				PresetLoader.loadPreset('classic');
+				MapLoader.loadMap("./res/usa/senate/usa_senate.svg", 16, 1, "1", "senatorial", "2022");
+				break;
 			case "USA_2020_senate":
 				PresetLoader.loadPreset('classic');
 				MapLoader.loadMap("./res/usa/senate/usa_senate.svg", 16, 1, "1", "senatorial", "2020");
 				break;
-			case "USA_2022_senate":
+			case "USA_2022_governors":
 				PresetLoader.loadPreset('classic');
-				MapLoader.loadMap("./res/usa/senate/usa_senate.svg", 16, 1, "1", "senatorial", "2022");
+				MapLoader.loadMap("./res/usa/governors/usa_gubernatorial.svg", 16, 0.75, "1", "gubernatorial", "2022");
 				break;
 			case "USA_2020_governors":
 				PresetLoader.loadPreset('classic');
@@ -327,6 +335,7 @@ class MapLoader {
 				PresetLoader.loadPreset('classic');
 				MapLoader.loadMap("./res/usa/county/usa_county.svg", 16, 0.075, "1", "takeall_noedit", "open");
 				break;
+			case "USA_2022_house":
 			case "USA_2020_house":
 				PresetLoader.loadPreset('classic');
 				MapLoader.loadMap("./res/usa/house/12-2-2019-house.svg", 16, 0.075, "1", "takeall_noedit", "open", {enableCongress: true, enableEraser: true});
@@ -774,22 +783,22 @@ class MapLoader {
 		{	
 			enableCongress: enableCongress,
 			onLoad: function() {
-			for(var candidateName in obj.candidates) {
+			for(let candidateName in obj.candidates) {
 				if(candidateName === 'Tossup') {
 					continue;
 				}
-				var candidate = obj.candidates[candidateName];
+				let candidate = obj.candidates[candidateName];
 				CandidateManager.addCandidate(candidateName, candidate['solid'], candidate['likely'], candidate['lean'], candidate['tilt']);
 			}
 
-			for(var stateName in obj.states) {
-				var stateData = obj.states[stateName];
-				var state = states.filter(state => state.name === stateName)[0];
-				var voteCount = 0;
-				var maxCandidateName = 'Tossup';
-				var maxCandidateCount = 0;
-				for(var key in stateData['delegates']) {
-					var count = stateData['delegates'][key];
+			for(let stateName in obj.states) {
+				let stateData = obj.states[stateName];
+				let state = states.filter(state => state.name === stateName)[0];
+				let voteCount = 0;
+				let maxCandidateName = 'Tossup';
+				let maxCandidateCount = 0;
+				for(let key in stateData['delegates']) {
+					let count = stateData['delegates'][key];
 					voteCount += count;
 					if(count > maxCandidateCount) {
 						maxCandidateName = key;
@@ -821,14 +830,14 @@ class MapLoader {
 				}
 			}
 
-			for(var stateName in obj.proportional) {
-				var stateData = obj.proportional[stateName];
-				var state = proportionalStates.filter(state => state.name === stateName)[0];
-				var voteCount = 0;
-				var maxCandidateName = 'Tossup';
-				var maxCandidateCount = 0;
-				for(var key in stateData['delegates']) {
-					var count = stateData['delegates'][key];
+			for(let stateName in obj.proportional) {
+				let stateData = obj.proportional[stateName];
+				let state = proportionalStates.filter(state => state.name === stateName)[0];
+				let voteCount = 0;
+				let maxCandidateName = 'Tossup';
+				let maxCandidateCount = 0;
+				for(let key in stateData['delegates']) {
+					let count = stateData['delegates'][key];
 					voteCount += count;
 					if(count > maxCandidateCount) {
 						maxCandidateName = key;

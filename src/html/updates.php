@@ -80,29 +80,5 @@
 		<a class="link" href="./app/?t=Washington_2020_state_upper">Washington</a>
 		</div>
 	</div>
-	<div class="info-box">
-		<div class="info-box-header" style="background: #7289da">
-			<h3 style="font-weight: bold; color: white; letter-spacing: 2px;">
-				YAPms Poll
-			</h3>
-		</div>
-		<div class="link-list">
-		<a class="link" href="https://forms.gle/4cukTxbm5JPXKfpE7" target="_blank">
-			Take our presidential poll!
-		</a>
-		</div>
-	</div>
-	<div class="info-box">
-		<div class="info-box-header" style="background: #7289da">
-			<h3 style="font-weight: bold; color: white; letter-spacing: 2px;">
-				Mock Government
-			</h3>
-		</div>
-		<div class="link-list">
-		<a class="link" href="https://discord.gg/jndm6qW" target="_blank">
-			Join Our Mock Government!
-		</a>
-		</div>
-	</div>
 </div>
 </div>

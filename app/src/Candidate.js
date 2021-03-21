@@ -17,7 +17,7 @@ class Candidate {
 
 class CandidateManager {
 	static initCandidates() {
-		CandidateManager.candidates = {};
+		CandidateManager.candidates = [];
 		CandidateManager.candidates['Tossup'] = CandidateManager.TOSSUP;
 	}
 
@@ -101,7 +101,7 @@ class CandidateManager {
 	static addCandidate(name, solid, likely, leaning, tilting) {
 
 		if(name === undefined) {
-			var nameHTML = document.getElementById('name');
+			const nameHTML = document.getElementById('name');
 			if(nameHTML !== null) {
 				name = nameHTML.value;
 			} else {
@@ -115,7 +115,7 @@ class CandidateManager {
 		}
 
 		if(solid === undefined) {
-			var solidHTML = document.getElementById('solid');
+			const solidHTML = document.getElementById('solid');
 			if(solidHTML !== null) {
 				solid = solidHTML.value;
 			} else {
@@ -124,7 +124,7 @@ class CandidateManager {
 		}
 
 		if(likely === undefined) {
-			var likelyHTML = document.getElementById('likely');
+			const likelyHTML = document.getElementById('likely');
 			if(likelyHTML !== null) {
 				likely = likelyHTML.value;
 			} else {
@@ -133,7 +133,7 @@ class CandidateManager {
 		}
 
 		if(leaning === undefined) {
-			var leaningHTML = document.getElementById('leaning');
+			const leaningHTML = document.getElementById('leaning');
 			if(leaningHTML !== null) {
 				leaning = leaningHTML.value;
 			} else {
@@ -142,7 +142,7 @@ class CandidateManager {
 		}
 
 		if(tilting === undefined) {
-			var tiltingHTML = document.getElementById('tilting');
+			const tiltingHTML = document.getElementById('tilting');
 			if(tiltingHTML !== null) {
 				tilting = tiltingHTML.value;
 			} else {
@@ -150,7 +150,7 @@ class CandidateManager {
 			}
 		}
 		
-		var candidate = new Candidate(name, [solid, likely, leaning, tilting]);
+		const candidate = new Candidate(name, [solid, likely, leaning, tilting]);
 		CandidateManager.candidates[name] = candidate;
 
 		verifyPaintIndex();
@@ -228,6 +228,6 @@ class CandidateManager {
 	}
 }
 
-CandidateManager.candidates = {};
+CandidateManager.candidates = [];
 CandidateManager.tossupColor = 2;
 CandidateManager.TOSSUP = new Candidate('Tossup', ['#000000', '#ffffff', '#696969', '#000000']);

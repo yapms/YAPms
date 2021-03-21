@@ -86,7 +86,7 @@ class State {
 	}
 
 	setVoteCount(value) {
-		var diff = value - this.voteCount;
+		let diff = value - this.voteCount;
 		this.voteCount = value;
 		this.delegates = {};
 		this.setDelegates("Tossup", value);
@@ -97,14 +97,15 @@ class State {
 		totalVotes += diff;
 
 		// update the html text display
-		var stateText = document.getElementById(this.name + '-text');
+		const stateText = document.getElementById(this.name + '-text');
 		if(stateText !== null && 
-			(MapLoader.save_dataid === 'usa_ec' ||
-			MapLoader.save_dataid === 'usa_1972_ec' ||
-			MapLoader.save_dataid === 'usa_no_districts_ec' ||
-			MapLoader.save_dataid === 'usa_pre_civilwar_ec' ||
-			MapLoader.save_dataid === 'usa_territories_ec')) {
-			var text = this.name + ' ' + value;
+			(MapLoader.save_dataid === "usa_ec" ||
+			MapLoader.save_dataid === "usa_1972_ec" ||
+			MapLoader.save_dataid === "usa_no_districts_ec" ||
+			MapLoader.save_dataid === "usa_pre_civilwar_ec" ||
+			MapLoader.save_dataid === "usa_territories_ec" ||
+			MapLoader.save_dataid === "usa_2024_ec")) {
+			const text = this.name + ' ' + value;
 			// the text elements in an svg are inside spans
 			if(typeof stateText.childNodes[1] !== 'undefined') {
 				stateText.childNodes[1].innerHTML = ' ' + value;
