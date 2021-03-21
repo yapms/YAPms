@@ -1,7 +1,7 @@
-var indexCache = 'i2.50.2';
-var staticCache = 's2.50.2';
+const indexCache = 'i2.50.5';
+const staticCache = 's2.50.5';
 
-var _indexCache = [
+const _indexCache = [
 	'./',
 	'./index.php',
 	'./offline.php',
@@ -63,7 +63,7 @@ var _indexCache = [
 	'./app/?t=UnitedKingdom_current_parliament'
 ];
 
-var _staticCache = [
+const _staticCache = [
 	'./app/res/usa/presidential/usa_presidential.svg',
 	'./app/res/usa/presidential/usa_pre_civilwar.svg',
 	'./app/res/usa/presidential/usa_1972_presidential.svg',
@@ -142,6 +142,7 @@ var _staticCache = [
 	'https://cdn.jsdelivr.net/npm/svg-pan-zoom@3.6.1/dist/svg-pan-zoom.min.js',
 	'https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js',
 	'https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0/dist/chartjs-plugin-datalabels.min.js',
+	'https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js',
 	'https://cdn.jsdelivr.net/npm/hammerjs@2.0.8/hammer.min.js',
 
 	'./manifest.json'
@@ -152,7 +153,7 @@ function swLog(cache, message) {
 }
 
 self.addEventListener('message', function(event) {
-	var clientID = event.source.id;
+	const clientID = event.source.id;
 	swLog('Message', event.data);
 	if(event.data === 'loaded') {
 		self.skipWaiting();
@@ -173,7 +174,7 @@ self.addEventListener('install', function(event) {
 				swLog(staticCache, 'installing');
 				return cache.addAll(_staticCache).then(function() {
 					cache.add('./app/res/presets/usa/USA_1789_presidential');
-					for(var i = 1792; i < 2016; i += 4) {
+					for(let i = 1792; i < 2016; i += 4) {
 						cache.add('./app/res/presets/usa/USA_' + i + '_presidential');
 					}
 					return cache;
@@ -186,7 +187,7 @@ self.addEventListener('install', function(event) {
 				swLog(indexCache, 'installing');
 				return cache.addAll(_indexCache).then(function() {
 					cache.add('./app/?t=USA_1789_presidential');
-					for(var i = 1792; i < 2016; i += 4) {
+					for(let i = 1792; i < 2016; i += 4) {
 						cache.add('./app/?t=USA_' + i + '_presidential');
 					}
 					return cache;

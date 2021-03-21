@@ -1,8 +1,9 @@
 class Account {
 	static register() {
-		var formData = new FormData();
-		var email = document.getElementById('email-input').value;
+		const formData = new FormData();
+		const email = document.getElementById('email-input').value;
 		formData.append('email', email);
+		/*
 		fetch("https://yapms.org/auth.register.php")
 		.then(response => response.text())
 		.then(data => {
@@ -10,6 +11,7 @@ class Account {
 		}).catch(error => {
 			
 		});
+		*/
 		$.ajax({
 			url: "https://yapms.org/auth/register.php",
 			type: "POST",
@@ -23,8 +25,8 @@ class Account {
 			success: function(data) {
 				console.log('Register: ' + data);
 				//alert(data);
-				var arr = data.split(' ');
-				var registerInfo = document.getElementById('register-info');
+				const arr = data.split(' ');
+				const registerInfo = document.getElementById('register-info');
 				closeAllPopups();
 				if(arr[0] === 'good') {
 					displayNotification('Account Registered',
@@ -54,9 +56,9 @@ class Account {
 	}
 
 	static login() {
-		var formData = new FormData();
-		var email = document.getElementById('email-login').value;
-		var pass = document.getElementById('password-login').value;
+		const formData = new FormData();
+		const email = document.getElementById('email-login').value;
+		const pass = document.getElementById('password-login').value;
 		formData.append('email', email);
 		formData.append('password', pass);
 		$.ajax({
@@ -97,7 +99,7 @@ class Account {
 	}
 
 	static verifyState() {
-		var formData = new FormData();
+		const formData = new FormData();
 		formData.append('email', Account.email);
 		$.ajax({
 			url: "https://yapms.org/auth/verify_login.php",
@@ -111,7 +113,7 @@ class Account {
 			crossDomain: true,
 			success: function(data) {
 				console.log('Verify Login: ' + data);
-				var arr = data.split(' ');
+				const arr = data.split(' ');
 				Account.isLoggedIn = (arr[0] === 'good');
 				if(Account.isLoggedIn) {
 					Account.email = arr[1];
