@@ -1830,11 +1830,9 @@ class MapLoader {
 		fetch("./res/presets/" + preset)
 		.then(response => response.json())
 		.then(data => {
-			alert("GOOD");
 			console.log(data);
 			MapLoader.loadSavedMap(data, {enableCongress: enableHouse});
 		}).catch(error => {
-			alert("TEST");
 			console.error(error);	
 		});
 	}
@@ -6417,7 +6415,7 @@ function hideMenu(name) {
 	var menu = document.getElementById(name);
 	menu.style.display = 'none';
 }
-const currentCache = 'v2.51.1';
+const currentCache = 'v2.51.5';
 
 let states = [];
 let lands = [];

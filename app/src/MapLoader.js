@@ -19,11 +19,9 @@ class MapLoader {
 		fetch("./res/presets/" + preset)
 		.then(response => response.json())
 		.then(data => {
-			alert("GOOD");
 			console.log(data);
 			MapLoader.loadSavedMap(data, {enableCongress: enableHouse});
 		}).catch(error => {
-			alert("TEST");
 			console.error(error);	
 		});
 	}

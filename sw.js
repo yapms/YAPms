@@ -1,5 +1,5 @@
-const indexCache = 'i2.51.1';
-const staticCache = 's2.51.1';
+const indexCache = 'i2.51.5';
+const staticCache = 's2.51.5';
 
 const _indexCache = [
 	'./',
