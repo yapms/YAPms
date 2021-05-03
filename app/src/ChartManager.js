@@ -8,39 +8,39 @@ class ChartManager {
 				var legendDiv = document.getElementById('legend-div');
 				legendDiv.innerHTML = '';
 				var index = -1;
-				for(var key in CandidateManager.candidates) {
-					var candidate = CandidateManager.candidates[key];
+				for(const key in CandidateManager.candidates) {
+					const candidate = CandidateManager.candidates[key];
 					++index;
-					var legendElement = document.createElement('div');
+					const legendElement = document.createElement('div');
 					legendElement.setAttribute('id', candidate.name);
 					legendElement.setAttribute('class', 'legend-button');
-					legendElement.onclick = (function() {
-						var ref_key = key;
-						return function() {	
+					legendElement.addEventListener("click", (function() {
+						const ref_key = key;
+						return function() {
 							legendClick(ref_key, this);
 						}
-					})();
+					})());
 					legendElement.style.background = 'none';
 					legendDiv.appendChild(legendElement);
 				
-					var legendText = document.createElement('div');
+					const legendText = document.createElement('div');
 					legendText.setAttribute('id', candidate.name + '-text');	
 					legendText.setAttribute('class', 'legend-button-text');	
 					legendText.style.backgroundColor = candidate.colors[0];
 					if(index == 0) {
-						var color = candidate.colors[CandidateManager.tossupColor];
+						const color = candidate.colors[CandidateManager.tossupColor];
 						legendText.style.backgroundColor = color;
 					}
 					legendText.style.padding = '0px';
 					legendText.innerHTML = candidate.name;
 					legendElement.appendChild(legendText);
 		
-					var legendDelete = document.createElement('div');
+					const legendDelete = document.createElement('div');
 					legendDelete.setAttribute('class', 'legend-delete');
 					legendDelete.style.backgroundColor = 'black';
 					legendText.appendChild(legendDelete);
 
-					var legendColorDiv = document.createElement('div');
+					const legendColorDiv = document.createElement('div');
 					legendColorDiv.setAttribute('class', 'legend-color-div');
 					legendElement.appendChild(legendColorDiv);
 				
@@ -48,38 +48,39 @@ class ChartManager {
 						legendColorDiv.style.display = 'none';
 					}
 					
-					if(key !== 'Tossup') {
+					if(key !== "Tossup") {
 						// after adding all the candidates, add the add candidate button
-						var legendDelete = document.createElement('div');
-						legendDelete.setAttribute('class', 'legend-delete');
-						legendDelete.onclick = (function() {
-							var ref_name = candidate.name;
+						const legendEdit = document.createElement('div');
+						legendEdit.setAttribute('class', 'legend-delete');
+						legendEdit.addEventListener("click", (function() {
+							const ref_name = candidate.name;
 							return function() {
 								displayCandidateEditMenu(ref_name);
-							};
-						})();
-						legendDelete.style.background = 'none';
+							}
+						})());
+						legendEdit.style.background = 'none';
 
 						/* ONLY ADD IF CANDIDATE EDIT IS ENABLED */
 						if(php_candidate_edit) {
-							legendDiv.appendChild(legendDelete);
+							legendDiv.appendChild(legendEdit);
 						}
 
-						var legendDeleteText = document.createElement('div');
-						legendDeleteText.setAttribute('class', 'legend-delete-text');	
-						legendDeleteText.style.backgroundColor = candidate.colors[0];
-						
-						legendDeleteText.style.padding = '0px';
-						legendDeleteText.style.fontSize = '14px';
-						legendDeleteText.innerHTML = '<i class="fas fa-cog"></i>';
-						legendDelete.appendChild(legendDeleteText);
+						const legendEditText = document.createElement('div');
+						legendEditText.setAttribute('class', 'legend-delete-text');	
+						legendEditText.style.backgroundColor = candidate.colors[0];
+						legendEditText.style.padding = '0px';
+						legendEditText.style.fontSize = '14px';
+						const legendEditIcon = document.createElement('i');
+						legendEditIcon.classList.add('fas', 'fa-cog');
+						legendEditText.appendChild(legendEditIcon);
+						legendEdit.appendChild(legendEditText);
 					}
 
 					if(key !== 'Tossup' && LegendManager.legendLeans) {
-						var amts = ['solid', 'likely', 'lean', 'tilt'];
-						for(var index = 0; index < amts.length; ++index) {
-							var legendColor = document.createElement('div');
-							legendColor.setAttribute('class', 'legend-color');
+						const amts = ['solid', 'likely', 'lean', 'tilt'];
+						for(let index = 0; index < amts.length; ++index) {
+							const legendColor = document.createElement('div');
+							legendColor.classList.add('legend-color');
 							legendColor.setAttribute('id', candidate.name + amts[index]);
 							legendColor.style.backgroundColor = candidate.colors[index];
 							legendColorDiv.appendChild(legendColor);
@@ -88,10 +89,10 @@ class ChartManager {
 				}
 			
 				// after adding all the candidates, add the add candidate button
-				var legendElement = document.createElement('div');
-				legendElement.setAttribute('id', 'legend-addcandidate-button');
-				legendElement.setAttribute('class', 'legend-button');
-				legendElement.onclick = displayAddCandidateMenu;
+				const legendElement = document.createElement('div');
+				legendElement.id = 'legend-addcandidate-button';
+				legendElement.classList.add('legend-button');
+				legendElement.addEventListener('click', displayAddCandidateMenu);
 				legendElement.style.background = 'none';
 
 				/* ONLY ADD IF CANDIDATE EDIT IS ENABLED */

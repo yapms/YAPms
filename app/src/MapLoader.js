@@ -904,15 +904,29 @@ class MapLoader {
 				htmlElement.onclick = function() {
 					buttonClick(this);
 				}
+				/*
 				htmlElement.setAttribute('onmouseover', 
 				'if(KeyboardManager.keyStates[70]){buttonClick(this, {setSolid: true});}');
+				*/
+				htmlElement.addEventListener("mouseover", function() {
+					if(KeyboardManager.keyStates[70]) {
+						buttonClick(this, {setSolid: true});
+					}
+				});
 				buttons.push(htmlElement);
 			} else if(name.includes('-land')) {
 				htmlElement.onclick = function() {
 					landClick(this);
 				}
+				/*
 				htmlElement.setAttribute('onmouseover', 
 				'if(KeyboardManager.keyStates[70]){landClick(this, {setSolid: true});}');
+				*/
+				htmlElement.addEventListener("mouseover", function() {
+					if(KeyboardManager.keyStates[70]) {
+						landClick(this, {setSolid: true});
+					}
+				});
 				lands.push(htmlElement);
 			} else {
 				htmlElement.onclick = function() {
@@ -920,8 +934,15 @@ class MapLoader {
 				}
 				states.push(new State(name, htmlElement, dataid));
 				var stateIndex = states.length - 1;
+				/*
 				htmlElement.setAttribute('onmouseover', 
 				"if(KeyboardManager.keyStates[70]){stateClick(this, {setSolid: true});}");
+				*/
+				htmlElement.addEventListener("mouseover", function() {
+					if(KeyboardManager.keyStates[70]) {
+						stateClick(this, {setSolid: true});
+					}
+				});
 			}
 		}
 

@@ -558,12 +558,12 @@ class Account {
 			canvas.style.width = 0;
 			canvas.style.height = 0;	
 			canvas.style.display = 'none';
-			var img = canvas.toDataURL('image/png');
-			var i = document.getElementById('mysaves-current-mappreview');
+			const img = canvas.toDataURL('image/png');
+			const i = document.getElementById('mysaves-current-mappreview');
 			i.src = img;
 			i.style.width = '40vw';
 			i.style.height = 'auto';
-			var current = document.getElementById("mysaves-current-map");
+			const current = document.getElementById("mysaves-current-map");
 			if(current) {
 				current.style.display = "inline-flex";
 			}
@@ -579,11 +579,11 @@ class Account {
 			},
 			crossDomain: true,
 			success: function(data) {
-				var arr = data.split(' ');
-				for(var fileIndex = 0; fileIndex < arr.length; ++fileIndex) {
+				const arr = data.split(' ');
+				for(let fileIndex = 0; fileIndex < arr.length; ++fileIndex) {
 					/* GET BASE64 DATA */
-					var fileName = arr[fileIndex].split('/');
-					var name = fileName[2].split('.')[0];
+					const fileName = arr[fileIndex].split('/');
+					const name = fileName[2].split('.')[0];
 					Account.addMapBox(name, false);
 				}
 			},
@@ -596,10 +596,10 @@ class Account {
 	}
 
 	static updateHTML() {
-		var loginButton = document.getElementById('login-button');
-		var accountButton = document.getElementById('account-button');
-		var mymapsButton = document.getElementById('mymaps-button');
-		var accountEmail = document.getElementById('account-email');
+		const loginButton = document.getElementById('login-button');
+		const accountButton = document.getElementById('account-button');
+		const mymapsButton = document.getElementById('mymaps-button');
+		const accountEmail = document.getElementById('account-email');
 
 		if(Account.isLoggedIn) {
 			loginButton.style.display = 'none';
@@ -784,24 +784,23 @@ class CandidateManager {
 	}
 	
 	static saveCustomColors() {
-		var customColorName = document.getElementById('custom-color-name');
-		var name = customColorName.value;
-		var solid = document.getElementById("solidcustom").value;
+		const name = document.getElementById('custom-color-name').value;
+		const solid = document.getElementById("solidcustom").value;
 		CookieManager.appendCookie(name + "solid", solid);	
-		var likely = document.getElementById("likelycustom").value;
+		const likely = document.getElementById("likelycustom").value;
 		CookieManager.appendCookie(name + "likely", likely);	
-		var leaning = document.getElementById("leaningcustom").value;
+		const leaning = document.getElementById("leaningcustom").value;
 		CookieManager.appendCookie(name + "leaning", leaning);	
-		var tilting = document.getElementById("tiltingcustom").value;
+		const tilting = document.getElementById("tiltingcustom").value;
 		CookieManager.appendCookie(name + "tilting", tilting);
 		CandidateManager.setColors(name);
 	}
 
 	static setColors(palette) {
-		var solid = document.getElementById('solid');
-		var likely = document.getElementById('likely');
-		var leaning =  document.getElementById('leaning');
-		var tilting = document.getElementById('tilting');
+		const solid = document.getElementById('solid');
+		const likely = document.getElementById('likely');
+		const leaning =  document.getElementById('leaning');
+		const tilting = document.getElementById('tilting');
 
 		if(palette === 'red') {
 			solid.value = '#bf1d29';
@@ -865,39 +864,39 @@ class ChartManager {
 				var legendDiv = document.getElementById('legend-div');
 				legendDiv.innerHTML = '';
 				var index = -1;
-				for(var key in CandidateManager.candidates) {
-					var candidate = CandidateManager.candidates[key];
+				for(const key in CandidateManager.candidates) {
+					const candidate = CandidateManager.candidates[key];
 					++index;
-					var legendElement = document.createElement('div');
+					const legendElement = document.createElement('div');
 					legendElement.setAttribute('id', candidate.name);
 					legendElement.setAttribute('class', 'legend-button');
-					legendElement.onclick = (function() {
-						var ref_key = key;
-						return function() {	
+					legendElement.addEventListener("click", (function() {
+						const ref_key = key;
+						return function() {
 							legendClick(ref_key, this);
 						}
-					})();
+					})());
 					legendElement.style.background = 'none';
 					legendDiv.appendChild(legendElement);
 				
-					var legendText = document.createElement('div');
+					const legendText = document.createElement('div');
 					legendText.setAttribute('id', candidate.name + '-text');	
 					legendText.setAttribute('class', 'legend-button-text');	
 					legendText.style.backgroundColor = candidate.colors[0];
 					if(index == 0) {
-						var color = candidate.colors[CandidateManager.tossupColor];
+						const color = candidate.colors[CandidateManager.tossupColor];
 						legendText.style.backgroundColor = color;
 					}
 					legendText.style.padding = '0px';
 					legendText.innerHTML = candidate.name;
 					legendElement.appendChild(legendText);
 		
-					var legendDelete = document.createElement('div');
+					const legendDelete = document.createElement('div');
 					legendDelete.setAttribute('class', 'legend-delete');
 					legendDelete.style.backgroundColor = 'black';
 					legendText.appendChild(legendDelete);
 
-					var legendColorDiv = document.createElement('div');
+					const legendColorDiv = document.createElement('div');
 					legendColorDiv.setAttribute('class', 'legend-color-div');
 					legendElement.appendChild(legendColorDiv);
 				
@@ -905,38 +904,39 @@ class ChartManager {
 						legendColorDiv.style.display = 'none';
 					}
 					
-					if(key !== 'Tossup') {
+					if(key !== "Tossup") {
 						// after adding all the candidates, add the add candidate button
-						var legendDelete = document.createElement('div');
-						legendDelete.setAttribute('class', 'legend-delete');
-						legendDelete.onclick = (function() {
-							var ref_name = candidate.name;
+						const legendEdit = document.createElement('div');
+						legendEdit.setAttribute('class', 'legend-delete');
+						legendEdit.addEventListener("click", (function() {
+							const ref_name = candidate.name;
 							return function() {
 								displayCandidateEditMenu(ref_name);
-							};
-						})();
-						legendDelete.style.background = 'none';
+							}
+						})());
+						legendEdit.style.background = 'none';
 
 						/* ONLY ADD IF CANDIDATE EDIT IS ENABLED */
 						if(php_candidate_edit) {
-							legendDiv.appendChild(legendDelete);
+							legendDiv.appendChild(legendEdit);
 						}
 
-						var legendDeleteText = document.createElement('div');
-						legendDeleteText.setAttribute('class', 'legend-delete-text');	
-						legendDeleteText.style.backgroundColor = candidate.colors[0];
-						
-						legendDeleteText.style.padding = '0px';
-						legendDeleteText.style.fontSize = '14px';
-						legendDeleteText.innerHTML = '<i class="fas fa-cog"></i>';
-						legendDelete.appendChild(legendDeleteText);
+						const legendEditText = document.createElement('div');
+						legendEditText.setAttribute('class', 'legend-delete-text');	
+						legendEditText.style.backgroundColor = candidate.colors[0];
+						legendEditText.style.padding = '0px';
+						legendEditText.style.fontSize = '14px';
+						const legendEditIcon = document.createElement('i');
+						legendEditIcon.classList.add('fas', 'fa-cog');
+						legendEditText.appendChild(legendEditIcon);
+						legendEdit.appendChild(legendEditText);
 					}
 
 					if(key !== 'Tossup' && LegendManager.legendLeans) {
-						var amts = ['solid', 'likely', 'lean', 'tilt'];
-						for(var index = 0; index < amts.length; ++index) {
-							var legendColor = document.createElement('div');
-							legendColor.setAttribute('class', 'legend-color');
+						const amts = ['solid', 'likely', 'lean', 'tilt'];
+						for(let index = 0; index < amts.length; ++index) {
+							const legendColor = document.createElement('div');
+							legendColor.classList.add('legend-color');
 							legendColor.setAttribute('id', candidate.name + amts[index]);
 							legendColor.style.backgroundColor = candidate.colors[index];
 							legendColorDiv.appendChild(legendColor);
@@ -945,10 +945,10 @@ class ChartManager {
 				}
 			
 				// after adding all the candidates, add the add candidate button
-				var legendElement = document.createElement('div');
-				legendElement.setAttribute('id', 'legend-addcandidate-button');
-				legendElement.setAttribute('class', 'legend-button');
-				legendElement.onclick = displayAddCandidateMenu;
+				const legendElement = document.createElement('div');
+				legendElement.id = 'legend-addcandidate-button';
+				legendElement.classList.add('legend-button');
+				legendElement.addEventListener('click', displayAddCandidateMenu);
 				legendElement.style.background = 'none';
 
 				/* ONLY ADD IF CANDIDATE EDIT IS ENABLED */
@@ -2715,15 +2715,29 @@ class MapLoader {
 				htmlElement.onclick = function() {
 					buttonClick(this);
 				}
+				/*
 				htmlElement.setAttribute('onmouseover', 
 				'if(KeyboardManager.keyStates[70]){buttonClick(this, {setSolid: true});}');
+				*/
+				htmlElement.addEventListener("mouseover", function() {
+					if(KeyboardManager.keyStates[70]) {
+						buttonClick(this, {setSolid: true});
+					}
+				});
 				buttons.push(htmlElement);
 			} else if(name.includes('-land')) {
 				htmlElement.onclick = function() {
 					landClick(this);
 				}
+				/*
 				htmlElement.setAttribute('onmouseover', 
 				'if(KeyboardManager.keyStates[70]){landClick(this, {setSolid: true});}');
+				*/
+				htmlElement.addEventListener("mouseover", function() {
+					if(KeyboardManager.keyStates[70]) {
+						landClick(this, {setSolid: true});
+					}
+				});
 				lands.push(htmlElement);
 			} else {
 				htmlElement.onclick = function() {
@@ -2731,8 +2745,15 @@ class MapLoader {
 				}
 				states.push(new State(name, htmlElement, dataid));
 				var stateIndex = states.length - 1;
+				/*
 				htmlElement.setAttribute('onmouseover', 
 				"if(KeyboardManager.keyStates[70]){stateClick(this, {setSolid: true});}");
+				*/
+				htmlElement.addEventListener("mouseover", function() {
+					if(KeyboardManager.keyStates[70]) {
+						stateClick(this, {setSolid: true});
+					}
+				});
 			}
 		}
 
@@ -4869,7 +4890,7 @@ var GlobalData = {
 
 'usa_ec': {'AL': 9, 'AK': 3, 'AZ': 11, 'AR': 6, 'CA': 55, 'CO': 9, 'CT': 7, 'DE': 3, 'FL': 29, 'GA': 16, 'HI': 4, 'ID': 4, 'IL': 20, 'IN': 11, 'IA': 6, 'KS': 6, 'KY': 8, 'LA': 8, 'ME': 4, 'ME-AL': 2, 'ME-D1': 1, 'ME-D2': 1, 'MD': 10, 'MA': 11, 'MI': 16, 'MN': 10, 'MS': 6, 'MO': 10, 'MT': 3, 'NE': 5, 'NE-AL': 2, 'NE-D1': 1, 'NE-D2': 1, 'NE-D3': 1, 'NV': 6, 'NH': 4, 'NJ': 14, 'NM': 5, 'NY': 29, 'NC': 15, 'ND': 3, 'OH': 18, 'OK': 7, 'OR': 7, 'PA': 20, 'RI': 4, 'SC': 9, 'SD': 3, 'TN': 11, 'TX': 38, 'UT': 6, 'VT': 3, 'VA': 13, 'WA': 12, 'WV': 5, 'WI': 10, 'WY': 3, 'DC': 3},
 
-'usa_2024_ec': {'AL': 8, 'AK': 3, 'AZ': 12, 'AR': 6, 'CA': 54, 'CO': 10, 'CT': 7, 'DE': 3, 'FL': 31, 'GA': 16, 'HI': 4, 'ID': 4, 'IL': 19, 'IN': 11, 'IA': 6, 'KS': 6, 'KY': 8, 'LA': 8, 'ME': 4, 'ME-AL': 2, 'ME-D1': 1, 'ME-D2': 1, 'MD': 10, 'MA': 11, 'MI': 15, 'MN': 9, 'MS': 6, 'MO': 10, 'MT': 4, 'NE': 5, 'NE-AL': 2, 'NE-D1': 1, 'NE-D2': 1, 'NE-D3': 1, 'NV': 6, 'NH': 4, 'NJ': 14, 'NM': 5, 'NY': 28, 'NC': 16, 'ND': 3, 'OH': 17, 'OK': 7, 'OR': 8, 'PA': 19, 'RI': 3, 'SC': 9, 'SD': 3, 'TN': 11, 'TX': 41, 'UT': 6, 'VT': 3, 'VA': 13, 'WA': 12, 'WV': 4, 'WI': 10, 'WY': 3, 'DC': 3},
+'usa_2024_ec': {'AL': 9, 'AK': 3, 'AZ': 11, 'AR': 6, 'CA': 54, 'CO': 10, 'CT': 7, 'DE': 3, 'FL': 30, 'GA': 16, 'HI': 4, 'ID': 4, 'IL': 19, 'IN': 11, 'IA': 6, 'KS': 6, 'KY': 8, 'LA': 8, 'ME': 4, 'ME-AL': 2, 'ME-D1': 1, 'ME-D2': 1, 'MD': 10, 'MA': 11, 'MI': 15, 'MN': 10, 'MS': 6, 'MO': 10, 'MT': 4, 'NE': 5, 'NE-AL': 2, 'NE-D1': 1, 'NE-D2': 1, 'NE-D3': 1, 'NV': 6, 'NH': 4, 'NJ': 14, 'NM': 5, 'NY': 28, 'NC': 16, 'ND': 3, 'OH': 17, 'OK': 7, 'OR': 8, 'PA': 19, 'RI': 4, 'SC': 9, 'SD': 3, 'TN': 11, 'TX': 40, 'UT': 6, 'VT': 3, 'VA': 13, 'WA': 12, 'WV': 4, 'WI': 10, 'WY': 3, 'DC': 3},
 
 'usa_1972_ec': {'AL': 9, 'AK': 3, 'AZ': 6, 'AR': 6, 'CA': 45, 'CO': 7, 'CT': 8, 'DE': 3, 'FL': 17, 'GA': 12, 'HI': 4, 'ID': 4, 'IL': 26, 'IN': 13, 'IA': 8, 'KS': 7, 'KY': 9, 'LA': 10, 'ME': 4, 'ME-AL': 2, 'ME-D1': 1, 'ME-D2': 1, 'MD': 10, 'MA': 14, 'MI': 21, 'MN': 10, 'MS': 7, 'MO': 12, 'MT': 4, 'NE': 5, 'NV': 3, 'NH': 4, 'NJ': 17, 'NM': 4, 'NY': 41, 'NC': 13, 'ND': 3, 'OH': 25, 'OK': 8, 'OR': 6, 'PA': 27, 'RI': 4, 'SC': 8, 'SD': 4, 'TN': 10, 'TX': 26, 'UT': 4, 'VT': 3, 'VA': 11, 'WA': 9, 'WV': 6, 'WI': 11, 'WY': 3, 'DC': 3},
 

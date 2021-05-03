@@ -160,24 +160,23 @@ class CandidateManager {
 	}
 	
 	static saveCustomColors() {
-		var customColorName = document.getElementById('custom-color-name');
-		var name = customColorName.value;
-		var solid = document.getElementById("solidcustom").value;
+		const name = document.getElementById('custom-color-name').value;
+		const solid = document.getElementById("solidcustom").value;
 		CookieManager.appendCookie(name + "solid", solid);	
-		var likely = document.getElementById("likelycustom").value;
+		const likely = document.getElementById("likelycustom").value;
 		CookieManager.appendCookie(name + "likely", likely);	
-		var leaning = document.getElementById("leaningcustom").value;
+		const leaning = document.getElementById("leaningcustom").value;
 		CookieManager.appendCookie(name + "leaning", leaning);	
-		var tilting = document.getElementById("tiltingcustom").value;
+		const tilting = document.getElementById("tiltingcustom").value;
 		CookieManager.appendCookie(name + "tilting", tilting);
 		CandidateManager.setColors(name);
 	}
 
 	static setColors(palette) {
-		var solid = document.getElementById('solid');
-		var likely = document.getElementById('likely');
-		var leaning =  document.getElementById('leaning');
-		var tilting = document.getElementById('tilting');
+		const solid = document.getElementById('solid');
+		const likely = document.getElementById('likely');
+		const leaning =  document.getElementById('leaning');
+		const tilting = document.getElementById('tilting');
 
 		if(palette === 'red') {
 			solid.value = '#bf1d29';

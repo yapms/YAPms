@@ -558,12 +558,12 @@ class Account {
 			canvas.style.width = 0;
 			canvas.style.height = 0;	
 			canvas.style.display = 'none';
-			var img = canvas.toDataURL('image/png');
-			var i = document.getElementById('mysaves-current-mappreview');
+			const img = canvas.toDataURL('image/png');
+			const i = document.getElementById('mysaves-current-mappreview');
 			i.src = img;
 			i.style.width = '40vw';
 			i.style.height = 'auto';
-			var current = document.getElementById("mysaves-current-map");
+			const current = document.getElementById("mysaves-current-map");
 			if(current) {
 				current.style.display = "inline-flex";
 			}
@@ -579,11 +579,11 @@ class Account {
 			},
 			crossDomain: true,
 			success: function(data) {
-				var arr = data.split(' ');
-				for(var fileIndex = 0; fileIndex < arr.length; ++fileIndex) {
+				const arr = data.split(' ');
+				for(let fileIndex = 0; fileIndex < arr.length; ++fileIndex) {
 					/* GET BASE64 DATA */
-					var fileName = arr[fileIndex].split('/');
-					var name = fileName[2].split('.')[0];
+					const fileName = arr[fileIndex].split('/');
+					const name = fileName[2].split('.')[0];
 					Account.addMapBox(name, false);
 				}
 			},
@@ -596,10 +596,10 @@ class Account {
 	}
 
 	static updateHTML() {
-		var loginButton = document.getElementById('login-button');
-		var accountButton = document.getElementById('account-button');
-		var mymapsButton = document.getElementById('mymaps-button');
-		var accountEmail = document.getElementById('account-email');
+		const loginButton = document.getElementById('login-button');
+		const accountButton = document.getElementById('account-button');
+		const mymapsButton = document.getElementById('mymaps-button');
+		const accountEmail = document.getElementById('account-email');
 
 		if(Account.isLoggedIn) {
 			loginButton.style.display = 'none';
