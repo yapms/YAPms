@@ -6436,7 +6436,7 @@ function hideMenu(name) {
 	var menu = document.getElementById(name);
 	menu.style.display = 'none';
 }
-const currentCache = 'v2.51.5';
+const currentCache = 'v2.51.6';
 
 let states = [];
 let lands = [];
