@@ -769,7 +769,7 @@ class MapLoader {
 	}
 
 	static loadSavedMap(data, options) {
-		obj = data;
+		let obj = data;
 
 		if(options) {
 			enableCongress = options.enableCongress;
