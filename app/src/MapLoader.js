@@ -37,6 +37,7 @@ class MapLoader {
 			MapLoader.loadSavedMap(data);
 		}).catch(error => {
 			console.log("Map Loader: Did not find saved map");
+			console.log(error);
 			MapLoader.loadMap('./res/usa_presidential.svg', 16, 1, 'usa_ec',"presidential", "open");
 
 			var notification = document.getElementById('notification');
