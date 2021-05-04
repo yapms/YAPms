@@ -1848,7 +1848,6 @@ class MapLoader {
 			MapLoader.loadSavedMap(data);
 		}).catch(error => {
 			console.log("Map Loader: Did not find saved map");
-			console.log(error);
 			MapLoader.loadMap('./res/usa_presidential.svg', 16, 1, 'usa_ec',"presidential", "open");
 
 			var notification = document.getElementById('notification');
@@ -6437,7 +6436,7 @@ function hideMenu(name) {
 	var menu = document.getElementById(name);
 	menu.style.display = 'none';
 }
-const currentCache = 'v2.51.6';
+const currentCache = 'v2.51.7';
 
 let states = [];
 let lands = [];
