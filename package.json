@@ -23,8 +23,8 @@
 		"bundleCSS": "cat ./app/style/mysaves.css ./app/style/input.css ./app/style/menu.css ./app/style/selectmenu.css ./app/style/popup.css ./app/style/legend.css ./app/style/style.css ./app/style/battlechart.css ./app/style/yapnews.css ./app/style/sidebar.css ./app/style/consent.css > ./app/bin/yapms.css"
 	},
 	"devDependencies": {
+		"eslint": "^7.23.0",
 		"npm-watch": "^0.7.0",
-		"uglify-js": "^3.13.2",
-		"eslint": "^7.23.0"
+		"uglify-js": "^3.13.2"
 	}
 }
