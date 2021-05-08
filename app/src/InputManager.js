@@ -20,6 +20,16 @@ class InputManager {
 	}
 
 	static enableInputMobile() {
+		MapManager.panObject = svgPanZoom('#svgdata', {
+			fit: true,
+			center: true,
+			contain: false,
+			maxZoom: 100,
+			zoomScaleSensitivity: 0.1,
+			dblClickZoomEnabled: false
+			//customEventsHandler: eventHandler
+		});
+		/*
 		var eventHandler = {
 			haltEventListeners: ['touchstart', 'touchend', 'touchmove', 'touchleave', 'touchcancel'],
 			init: function(options) {
@@ -65,5 +75,6 @@ class InputManager {
 			dblClickZoomEnabled: false,
 			customEventsHandler: eventHandler
 		});
+		*/
 	}
 }
