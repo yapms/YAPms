@@ -1,7 +1,8 @@
 class InputManager {
 	static enableInputDesktop() {
-		var enablePan = false;
-		var enableZoom = false;
+		/*
+		let enablePan = false;
+		let enableZoom = false;
 		if(MapManager.panObject != null) {
 			enablePan = MapManager.panObject.isPanEnabled();
 			enableZoom = MapManager.panObject.isZoomEnabled();
@@ -17,19 +18,28 @@ class InputManager {
 			maxZoom: 100,
 			zoomScaleSensitivity: 0.1
 		});
+		*/
+		const area = document.getElementById("svgdata");
+		MapManager.panObject = panzoom(area, {
+			autocenter: true,
+			bounds: false,
+			smoothScroll: false,
+			onDoubleClick: function(e) {
+				return false;
+			}
+		}); 
 	}
 
 	static enableInputMobile() {
-		MapManager.panObject = svgPanZoom('#svgdata', {
-			fit: true,
-			center: true,
-			contain: false,
-			panEnabled: true,
-			zoomEnabled: true,
-			dblClickZoomEnabled: false,
-			maxZoom: 100,
-			zoomScaleSensitivity: 0.1
-		});
+		const area = document.getElementById("svgdata");
+		MapManager.panObject = panzoom(area, {
+			autocenter: true,
+			bounds: false,
+			smoothScroll: false,
+			onDoubleClick: function(e) {
+				return false;
+			}
+		}); 
 		/*
 		var eventHandler = {
 			haltEventListeners: ['touchstart', 'touchend', 'touchmove', 'touchleave', 'touchcancel'],
