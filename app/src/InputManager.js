@@ -35,12 +35,12 @@ class InputManager {
 	}
 
 	static enableInputMobile() {
-		const area = document.getElementById("svgdata");
+		const svg = document.getElementById("svgdata");
 		const bb = svg.getBBox();
 		svg.setAttribute("viewBox", "0 0 " + 
 			(bb.x + bb.width + bb.x) + " " + 
 			(bb.y + bb.height + bb.y));
-		MapManager.panObject = panzoom(area, {
+		MapManager.panObject = panzoom(svg, {
 			autocenter: true,
 			bounds: false,
 			smoothScroll: false,

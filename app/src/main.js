@@ -1,4 +1,4 @@
-const currentCache = 'v2.53.1';
+const currentCache = 'v2.53.2';
 
 let states = [];
 let lands = [];
