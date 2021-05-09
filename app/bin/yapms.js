@@ -1548,8 +1548,12 @@ class InputManager {
 			zoomScaleSensitivity: 0.1
 		});
 		*/
-		const area = document.getElementById("svgdata");
-		MapManager.panObject = panzoom(area, {
+		const svg = document.getElementById("svgdata");
+		const bb = svg.getBBox();
+		svg.setAttribute("viewBox", "0 0 " + 
+			(bb.x + bb.width + bb.x) + " " + 
+			(bb.y + bb.height + bb.y));
+		MapManager.panObject = panzoom(svg, {
 			autocenter: true,
 			bounds: false,
 			smoothScroll: false,
@@ -1561,6 +1565,10 @@ class InputManager {
 
 	static enableInputMobile() {
 		const area = document.getElementById("svgdata");
+		const bb = svg.getBBox();
+		svg.setAttribute("viewBox", "0 0 " + 
+			(bb.x + bb.width + bb.x) + " " + 
+			(bb.y + bb.height + bb.y));
 		MapManager.panObject = panzoom(area, {
 			autocenter: true,
 			bounds: false,
@@ -6467,7 +6475,7 @@ function hideMenu(name) {
 	var menu = document.getElementById(name);
 	menu.style.display = 'none';
 }
-const currentCache = 'v2.53.0';
+const currentCache = 'v2.53.1';
 
 let states = [];
 let lands = [];
