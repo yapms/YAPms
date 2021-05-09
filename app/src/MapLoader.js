@@ -591,12 +591,23 @@ class MapLoader {
 
 			console.log('Done loading ' + filename);
 			MapLoader.onLoadSVG();
-		
-			if(mobile === true) {
-				InputManager.enableInputMobile();
-			} else if(mobile === false) {
-				InputManager.enableInputDesktop();
-			}
+			const svg = document.getElementById("svgdata");
+			const bb = svg.getBBox();
+			svg.setAttribute("viewBox", "0 0 " + 
+				(bb.x + bb.width + bb.x) + " " + 
+				(bb.y + bb.height + bb.y));
+			MapManager.panObject = panzoom(svg, {
+				transformOrigin: {x: 0.5, y: 0.5},
+				autocenter: true,
+				zoomDoubleClickSpeed: 1,
+				smoothScroll: false,
+				initialX: mapdiv.offsetWidth / 2,
+				initialY: mapdiv.offsetHeight / 2,
+				initialZoom: 0.85,
+				onTouch: function(e) {
+					return false;
+				}
+			});
 
 			MapManager.centerMap();
 			onResize();

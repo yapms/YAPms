@@ -1527,107 +1527,6 @@ class CookieManager {
 
 CookieManager.cookies = {};
 CookieManager.consent = false;
-class InputManager {
-	static enableInputDesktop() {
-		/*
-		let enablePan = false;
-		let enableZoom = false;
-		if(MapManager.panObject != null) {
-			enablePan = MapManager.panObject.isPanEnabled();
-			enableZoom = MapManager.panObject.isZoomEnabled();
-		}
-
-		MapManager.panObject = svgPanZoom('#svgdata', {
-			fit: true,
-			center: true,
-			contain: false,
-			panEnabled: true,
-			zoomEnabled: true,
-			dblClickZoomEnabled: false,
-			maxZoom: 100,
-			zoomScaleSensitivity: 0.1
-		});
-		*/
-		const svg = document.getElementById("svgdata");
-		const bb = svg.getBBox();
-		svg.setAttribute("viewBox", "0 0 " + 
-			(bb.x + bb.width + bb.x) + " " + 
-			(bb.y + bb.height + bb.y));
-		MapManager.panObject = panzoom(svg, {
-			autocenter: true,
-			bounds: false,
-			zoomDoubleClickSpeed: 1,
-			smoothScroll: false,
-			onTouch: function(e) {
-				return false;
-			}
-		}); 
-	}
-
-	static enableInputMobile() {
-		const svg = document.getElementById("svgdata");
-		const bb = svg.getBBox();
-		svg.setAttribute("viewBox", "0 0 " + 
-			(bb.x + bb.width + bb.x) + " " + 
-			(bb.y + bb.height + bb.y));
-		MapManager.panObject = panzoom(svg, {
-			autocenter: true,
-			bounds: false,
-			smoothScroll: false,
-			zoomDoubleClickSpeed: 1,
-			onTouch: function(e) {
-				return false;	
-			}
-		}); 
-		/*
-		var eventHandler = {
-			haltEventListeners: ['touchstart', 'touchend', 'touchmove', 'touchleave', 'touchcancel'],
-			init: function(options) {
-				var instance = options.instance;
-				var initialScale = 1;
-				var pannedX = 0;
-				var pannedY = 0;
-
-				this.hammer = Hammer(options.svgElement, {
-					inputClass: Hammer.SUPPORT_POINTER_EVENTS ? Hammer.PointerEventInput : Hammer.TouchInput
-				});
-			
-				this.hammer.get('pinch').set({enable: true});
-
-				this.hammer.on('panstart panmove', function(ev) {
-					if(ev.type === 'panstart') {
-						pannedX = 0;
-						pannedY = 0;
-					}
-					instance.panBy({x: ev.deltaX - pannedX, y: ev.deltaY - pannedY});
-					pannedX = ev.deltaX;
-					pannedY = ev.deltaY;			
-				});
-
-				this.hammer.on('pinchstart pinchmove', function(ev) {
-					if(ev.type === 'pinchstart') {
-						initialScale = instance.getZoom();
-						instance.zoomAtPoint(initialScale * ev.scale, {x: ev.center.x, y: ev.center.y});
-					}
-					
-					instance.zoomAtPoint(initialScale * ev.scale, {x: ev.center.x, y: ev.center.y});
-				});
-			}
-		
-		}
-
-		MapManager.panObject = svgPanZoom('#svgdata', {
-			fit: true,
-			center: true,
-			contain: false,
-			maxZoom: 100,
-			zoomScaleSensitivity: 0.1,
-			dblClickZoomEnabled: false,
-			customEventsHandler: eventHandler
-		});
-		*/
-	}
-}
 class KeyboardManager {
 	static quickFill() {
 		return KeyboardManager.keyStates[70] === true;
@@ -1791,58 +1690,59 @@ LogoManager.buttonsLoaded = false;
 LogoManager.flagsLoaded = false;
 class MapManager {
 	static centerMap() {
-		if(MapManager.panObject === null)
-			return;
-		/*
-		MapManager.panObject.resize();
-		MapManager.panObject.fit();
-		MapManager.panObject.center();
-		MapManager.panObject.zoomBy(0.85);
-		*/
+		if(MapManager.panObject) {
+			MapManager.panObject.dispose();
+			const mapdiv = document.getElementById("map-div");
+			const svg = document.getElementById("svgdata");
+			const bb = svg.getBBox();
+			svg.setAttribute("viewBox", "0 0 " + 
+				(bb.x + bb.width + bb.x) + " " + 
+				(bb.y + bb.height + bb.y));
+			MapManager.panObject = panzoom(svg, {
+				transformOrigin: {x: 0.5, y: 0.5},
+				autocenter: true,
+				zoomDoubleClickSpeed: 1,
+				smoothScroll: false,
+				initialX: mapdiv.offsetWidth / 2,
+				initialY: mapdiv.offsetHeight / 2,
+				initialZoom: 0.85,
+				onTouch: function(e) {
+					return false;
+				}
+			});
+		}
 	}
 
 	static setLockMap(set) {
-		var lockButton = document.getElementById('lockbutton');
+		const lockButton = document.getElementById('lockbutton');
 		if(set === true) {
 			if(lockButton) {
 				lockButton.style.opacity = '0.5';
 			}
-			/*
-			MapManager.panObject.disablePan();
-			MapManager.panObject.disableZoom();
-			*/
+			MapManager.panObject.pause();
 			MapManager.lockedMap = true;
 		} else {
 			if(lockButton) {
 				lockButton.style.opacity = '1';
 			}
-			/*
-			MapManager.panObject.enablePan();
-			MapManager.panObject.enableZoom();
-			*/
+			MapManager.panObject.resume();
 			MapManager.lockedMap = false;
 		}
 	}
 
 	static toggleLockMap() {
-		var lockButton = document.getElementById('lockbutton');
+		const lockButton = document.getElementById('lockbutton');
 		if(MapManager.lockedMap) {
 			if(lockButton) {
 				lockButton.style.opacity = '1';
 			}
-			/*
-			MapManager.panObject.enablePan();
-			MapManager.panObject.enableZoom();
-			*/
+			MapManager.panObject.resume();
 			MapManager.lockedMap = false;
 		} else {
 			if(lockButton) {
 				lockButton.style.opacity = '0.5';
 			}
-			/*
-			MapManager.panObject.disablePan();
-			MapManager.panObject.disableZoom();
-			*/
+			MapManager.panObject.pause();
 			MapManager.lockedMap = true;
 		}
 	}
@@ -2443,12 +2343,23 @@ class MapLoader {
 
 			console.log('Done loading ' + filename);
 			MapLoader.onLoadSVG();
-		
-			if(mobile === true) {
-				InputManager.enableInputMobile();
-			} else if(mobile === false) {
-				InputManager.enableInputDesktop();
-			}
+			const svg = document.getElementById("svgdata");
+			const bb = svg.getBBox();
+			svg.setAttribute("viewBox", "0 0 " + 
+				(bb.x + bb.width + bb.x) + " " + 
+				(bb.y + bb.height + bb.y));
+			MapManager.panObject = panzoom(svg, {
+				transformOrigin: {x: 0.5, y: 0.5},
+				autocenter: true,
+				zoomDoubleClickSpeed: 1,
+				smoothScroll: false,
+				initialX: mapdiv.offsetWidth / 2,
+				initialY: mapdiv.offsetHeight / 2,
+				initialZoom: 0.85,
+				onTouch: function(e) {
+					return false;
+				}
+			});
 
 			MapManager.centerMap();
 			onResize();
@@ -6477,7 +6388,7 @@ function hideMenu(name) {
 	var menu = document.getElementById(name);
 	menu.style.display = 'none';
 }
-const currentCache = 'v2.53.3';
+const currentCache = 'v2.53.4';
 
 let states = [];
 let lands = [];

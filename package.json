@@ -18,7 +18,7 @@
 	},
 	"scripts": {
 		"dev": "npm-watch & php -S localhost:8000",
-		"bundleJS": "cat ./app/src/Account.js ./app/src/Candidate.js ./app/src/ChartManager.js ./app/src/CookieManager.js ./app/src/InputManager.js ./app/src/KeyboardManager.js ./app/src/LegendManager.js ./app/src/LogoManager.js ./app/src/MapManager.js ./app/src/MapLoader.js ./app/src/PresetLoader.js ./app/src/State.js ./app/src/battlechart.js ./app/src/click.js ./app/src/congress.js ./app/src/data.js ./app/src/SimulatorData.js ./app/src/htmlControl.js ./app/src/Simulator.js ./app/src/SaveMap.js ./app/src/Tools.js ./app/src/main.js > ./app/bin/yapms.js & npm run compressJS",
+		"bundleJS": "cat ./app/src/Account.js ./app/src/Candidate.js ./app/src/ChartManager.js ./app/src/CookieManager.js ./app/src/KeyboardManager.js ./app/src/LegendManager.js ./app/src/LogoManager.js ./app/src/MapManager.js ./app/src/MapLoader.js ./app/src/PresetLoader.js ./app/src/State.js ./app/src/battlechart.js ./app/src/click.js ./app/src/congress.js ./app/src/data.js ./app/src/SimulatorData.js ./app/src/htmlControl.js ./app/src/Simulator.js ./app/src/SaveMap.js ./app/src/Tools.js ./app/src/main.js > ./app/bin/yapms.js & npm run compressJS",
 		"compressJS": "uglifyjs --compress --mangle -- ./app/bin/yapms.js > ./app/bin/yapms.min.js & npm run bundleCSS",
 		"bundleCSS": "cat ./app/style/mysaves.css ./app/style/input.css ./app/style/menu.css ./app/style/selectmenu.css ./app/style/popup.css ./app/style/legend.css ./app/style/style.css ./app/style/battlechart.css ./app/style/yapnews.css ./app/style/sidebar.css ./app/style/consent.css > ./app/bin/yapms.css"
 	},
