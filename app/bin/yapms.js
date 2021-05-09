@@ -1556,8 +1556,9 @@ class InputManager {
 		MapManager.panObject = panzoom(svg, {
 			autocenter: true,
 			bounds: false,
+			zoomDoubleClickSpeed: 1,
 			smoothScroll: false,
-			onDoubleClick: function(e) {
+			onTouch: function(e) {
 				return false;
 			}
 		}); 
@@ -1573,8 +1574,9 @@ class InputManager {
 			autocenter: true,
 			bounds: false,
 			smoothScroll: false,
-			onDoubleClick: function(e) {
-				return false;
+			zoomDoubleClickSpeed: 1,
+			onTouch: function(e) {
+				return false;	
 			}
 		}); 
 		/*
@@ -6475,7 +6477,7 @@ function hideMenu(name) {
 	var menu = document.getElementById(name);
 	menu.style.display = 'none';
 }
-const currentCache = 'v2.53.2';
+const currentCache = 'v2.53.3';
 
 let states = [];
 let lands = [];

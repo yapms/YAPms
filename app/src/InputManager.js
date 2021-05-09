@@ -27,8 +27,9 @@ class InputManager {
 		MapManager.panObject = panzoom(svg, {
 			autocenter: true,
 			bounds: false,
+			zoomDoubleClickSpeed: 1,
 			smoothScroll: false,
-			onDoubleClick: function(e) {
+			onTouch: function(e) {
 				return false;
 			}
 		}); 
@@ -44,8 +45,9 @@ class InputManager {
 			autocenter: true,
 			bounds: false,
 			smoothScroll: false,
-			onDoubleClick: function(e) {
-				return false;
+			zoomDoubleClickSpeed: 1,
+			onTouch: function(e) {
+				return false;	
 			}
 		}); 
 		/*
