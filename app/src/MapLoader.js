@@ -601,29 +601,11 @@ class MapLoader {
 				initialX: mapdiv.offsetWidth / 2,
 				initialY: mapdiv.offsetHeight / 2,
 				initialZoom: 0.85,
+				zoomSpeed: 0.05,
 				onTouch: function(e) {
 					return false;
 				}
 			});
-
-			/*
-			for(const child of svg.children) {
-				console.log(child);
-				const svg = document.getElementById("outlines");
-				MapManager.panObject.push(panzoom(child, {
-					transformOrigin: {x: 0.5, y: 0.5},
-					autocenter: true,
-					zoomDoubleClickSpeed: 1,
-					smoothScroll: false,
-					initialX: svg.offsetWidth / 2,
-					initialY: svg.offsetHeight / 2,
-					initialZoom: 0.85,
-					onTouch: function(e) {
-						return false;
-					}
-				}))
-			}
-			*/
 
 			MapManager.centerMap();
 			onResize();

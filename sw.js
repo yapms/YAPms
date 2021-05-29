@@ -1,5 +1,5 @@
-const indexCache = 'i3.0.0';
-const staticCache = 's3.0.0';
+const indexCache = 'i3.0.1';
+const staticCache = 's3.0.1';
 
 const _indexCache = [
 	'./',

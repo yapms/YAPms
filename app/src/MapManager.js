@@ -17,35 +17,11 @@ class MapManager {
 				initialX: mapdiv.offsetWidth / 2,
 				initialY: mapdiv.offsetHeight / 2,
 				initialZoom: 0.85,
+				zoomSpeed: 0.05,
 				onTouch: function(e) {
 					return false;
 				}
 			});
-
-			/*
-			const bb = svg.getBBox();
-			svg.setAttribute("viewBox", "0 0 " + 
-				(bb.x + bb.width + bb.x) + " " + 
-				(bb.y + bb.height + bb.y));
-				*/
-			/*
-			for(const child of svg.children) {
-				console.log("A");
-				MapManager.panObject.push(panzoom(child, {
-					transformOrigin: {x: 0.5, y: 0.5},
-					autocenter: true,
-					zoomDoubleClickSpeed: 1,
-					smoothScroll: false,
-					initialX: svg.offsetWidth / 2,
-					initialY: svg.offsetHeight / 2,
-					initialZoom: 0.85,
-					onTouch: function(e) {
-						return false;
-					}
-				}));
-				console.log("B");
-			}
-			*/
 		}
 	}
 
