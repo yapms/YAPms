@@ -6430,7 +6430,7 @@ function hideMenu(name) {
 	var menu = document.getElementById(name);
 	menu.style.display = 'none';
 }
-const currentCache = 'v2.53.6';
+const currentCache = 'v2.55.0';
 
 let states = [];
 let lands = [];
@@ -6499,9 +6499,15 @@ function share_afterCenter() {
 		if(loadingAnimation) {
 			loadingAnimation.style.display = 'none';
 		}
+		if(grecaptcha) {
+			grecaptcha.execute('6LeDYbEUAAAAANfuJ4FxWVjoxPgDPsFGsdTLr1Jo', {action: 'share'})
+			.then(function(token) {
+				SaveMap.upload(img, token);
+			});
+		}
 	})
 	.catch(function(error) {
-		console.log('Error: ', error);
+		console.log('dom-to-image: ', error);
 	});
 
 	/*
