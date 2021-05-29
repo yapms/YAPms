@@ -6430,7 +6430,7 @@ function hideMenu(name) {
 	var menu = document.getElementById(name);
 	menu.style.display = 'none';
 }
-const currentCache = 'v2.55.0';
+const currentCache = 'v2.55.1';
 
 let states = [];
 let lands = [];
@@ -6490,19 +6490,17 @@ function share_afterCenter() {
 		height: application.offsetHeight
 	})
 	.then(function(data) {
-		const i = document.getElementById('screenshotimg');
-		i.src = data;
-		i.style.width = '40vw';
-		i.style.height = 'auto';
-		i.style.display = '';
+		const image = document.getElementById('screenshotimg');
+		image.src = data;
+		image.style.width = '40vw';
+		image.style.height = 'auto';
+		image.style.display = '';
 		const loadingAnimation = document.getElementById('loading-animation');
-		if(loadingAnimation) {
-			loadingAnimation.style.display = 'none';
-		}
+		loadingAnimation.style.display = 'none';
 		if(grecaptcha) {
 			grecaptcha.execute('6LeDYbEUAAAAANfuJ4FxWVjoxPgDPsFGsdTLr1Jo', {action: 'share'})
 			.then(function(token) {
-				SaveMap.upload(img, token);
+				SaveMap.upload(data, token);
 			});
 		}
 	})
