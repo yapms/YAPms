@@ -586,16 +586,13 @@ class MapLoader {
 		fetch(filename)
 		.then(response => response.text())
 		.then(data => {
-			var mapdiv = document.getElementById("map-div");
+			let mapdiv = document.getElementById("map-div");
 			mapdiv.innerHTML = data;
 
 			console.log('Done loading ' + filename);
 			MapLoader.onLoadSVG();
+
 			const svg = document.getElementById("svgdata");
-			const bb = svg.getBBox();
-			svg.setAttribute("viewBox", "0 0 " + 
-				(bb.x + bb.width + bb.x) + " " + 
-				(bb.y + bb.height + bb.y));
 			MapManager.panObject = panzoom(svg, {
 				transformOrigin: {x: 0.5, y: 0.5},
 				autocenter: true,
@@ -608,6 +605,25 @@ class MapLoader {
 					return false;
 				}
 			});
+
+			/*
+			for(const child of svg.children) {
+				console.log(child);
+				const svg = document.getElementById("outlines");
+				MapManager.panObject.push(panzoom(child, {
+					transformOrigin: {x: 0.5, y: 0.5},
+					autocenter: true,
+					zoomDoubleClickSpeed: 1,
+					smoothScroll: false,
+					initialX: svg.offsetWidth / 2,
+					initialY: svg.offsetHeight / 2,
+					initialZoom: 0.85,
+					onTouch: function(e) {
+						return false;
+					}
+				}))
+			}
+			*/
 
 			MapManager.centerMap();
 			onResize();

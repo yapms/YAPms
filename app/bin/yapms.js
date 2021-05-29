@@ -1692,6 +1692,7 @@ class MapManager {
 	static centerMap() {
 		if(MapManager.panObject) {
 			MapManager.panObject.dispose();
+
 			const mapdiv = document.getElementById("map-div");
 			const svg = document.getElementById("svgdata");
 			const bb = svg.getBBox();
@@ -1710,6 +1711,31 @@ class MapManager {
 					return false;
 				}
 			});
+
+			/*
+			const bb = svg.getBBox();
+			svg.setAttribute("viewBox", "0 0 " + 
+				(bb.x + bb.width + bb.x) + " " + 
+				(bb.y + bb.height + bb.y));
+				*/
+			/*
+			for(const child of svg.children) {
+				console.log("A");
+				MapManager.panObject.push(panzoom(child, {
+					transformOrigin: {x: 0.5, y: 0.5},
+					autocenter: true,
+					zoomDoubleClickSpeed: 1,
+					smoothScroll: false,
+					initialX: svg.offsetWidth / 2,
+					initialY: svg.offsetHeight / 2,
+					initialZoom: 0.85,
+					onTouch: function(e) {
+						return false;
+					}
+				}));
+				console.log("B");
+			}
+			*/
 		}
 	}
 
@@ -2338,16 +2364,13 @@ class MapLoader {
 		fetch(filename)
 		.then(response => response.text())
 		.then(data => {
-			var mapdiv = document.getElementById("map-div");
+			let mapdiv = document.getElementById("map-div");
 			mapdiv.innerHTML = data;
 
 			console.log('Done loading ' + filename);
 			MapLoader.onLoadSVG();
+
 			const svg = document.getElementById("svgdata");
-			const bb = svg.getBBox();
-			svg.setAttribute("viewBox", "0 0 " + 
-				(bb.x + bb.width + bb.x) + " " + 
-				(bb.y + bb.height + bb.y));
 			MapManager.panObject = panzoom(svg, {
 				transformOrigin: {x: 0.5, y: 0.5},
 				autocenter: true,
@@ -2360,6 +2383,25 @@ class MapLoader {
 					return false;
 				}
 			});
+
+			/*
+			for(const child of svg.children) {
+				console.log(child);
+				const svg = document.getElementById("outlines");
+				MapManager.panObject.push(panzoom(child, {
+					transformOrigin: {x: 0.5, y: 0.5},
+					autocenter: true,
+					zoomDoubleClickSpeed: 1,
+					smoothScroll: false,
+					initialX: svg.offsetWidth / 2,
+					initialY: svg.offsetHeight / 2,
+					initialZoom: 0.85,
+					onTouch: function(e) {
+						return false;
+					}
+				}))
+			}
+			*/
 
 			MapManager.centerMap();
 			onResize();
@@ -6388,7 +6430,7 @@ function hideMenu(name) {
 	var menu = document.getElementById(name);
 	menu.style.display = 'none';
 }
-const currentCache = 'v2.53.4';
+const currentCache = 'v2.53.6';
 
 let states = [];
 let lands = [];
@@ -6442,9 +6484,30 @@ function share_afterCenter() {
 		}, 3000);
 	}
 
+	const application = document.getElementById('application');
+	domtoimage.toPng(application, {
+		width: application.offsetWidth,
+		height: application.offsetHeight
+	})
+	.then(function(data) {
+		const i = document.getElementById('screenshotimg');
+		i.src = data;
+		i.style.width = '40vw';
+		i.style.height = 'auto';
+		i.style.display = '';
+		const loadingAnimation = document.getElementById('loading-animation');
+		if(loadingAnimation) {
+			loadingAnimation.style.display = 'none';
+		}
+	})
+	.catch(function(error) {
+		console.log('Error: ', error);
+	});
+
+	/*
 	html2canvas(document.getElementById('application'), {
-		logging: false, onclone: function(clone) {
-		// remove the custom fonts from the clone
+		logging: true, onclone: function(clone) {
+		console.log(clone.getElementById("svgdata"));
 		const svgtext = clone.getElementById('text');
 		if(svgtext) {
 			svgtext.style.fontFamily = 'arial';
@@ -6452,7 +6515,7 @@ function share_afterCenter() {
 		}
 
 		const svg = clone.getElementById("svgdata");
-		const mapdiv = clone.getElementById('map-div');
+		const mapdiv = clone.getElementById("map-div");
 		if(svg && mapdiv) {
 			const width = mapdiv.offsetWidth + (mapdiv.offsetWidth * 0);
 			const height = mapdiv.offsetHeight + (mapdiv.offsetHeight * 0);
@@ -6466,11 +6529,8 @@ function share_afterCenter() {
 		}
 
 		const editButtons = clone.getElementsByClassName('legend-delete');
-		for(let index = 0, length = editButtons.length; index < length; ++index) {
-			const element = editButtons[index];
-			if(element) {
-				element.style.display = 'none';
-			}
+		for(const element of editButtons) {
+			element.style.display = 'none';
 		}
 
 		const addCandidate = clone.getElementById('legend-addcandidate-button');
@@ -6488,12 +6548,18 @@ function share_afterCenter() {
 		i.src = img;
 		i.style.width = '40vw';
 		i.style.height = 'auto';
+		i.style.display = '';
+		var loadingAnimation = document.getElementById('loading-animation');
+		if(loadingAnimation) {
+			loadingAnimation.style.display = 'none';
+		}
 		if(grecaptcha)
 		grecaptcha.execute('6LeDYbEUAAAAANfuJ4FxWVjoxPgDPsFGsdTLr1Jo', {action: 'share'})
 		.then(function(token) {
 			SaveMap.upload(img, token);
 		});
 	});
+	*/
 }
 
 /* CATCH ERRORS AND LOG THEM */
