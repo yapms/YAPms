@@ -227,28 +227,6 @@ class Account {
 		}).catch(error => {
 			console.log(error);
 		});
-
-		/*
-		$.ajax({
-			url: "https://yapms.org/auth/logout.php",
-			type: "POST",
-			processData: false,
-			contentType: false,
-			xhrFields: {
-				withCredentials: true
-			},
-			crossDomain: true,
-			success: function(data) {
-				console.log('Logout: ' + data);
-				Account.verifyState();
-			},
-			error: function(a, b, c) {
-				console.log(a);
-				console.log(b);
-				console.log(c);
-			}	
-		});
-		*/
 	}
 
 	static unlink(mapName) {
@@ -624,6 +602,27 @@ class Account {
 			page.style.display = "inline-flex";
 		}
 
+		const application = document.getElementById('application');
+		domtoimage.toPng(application, {
+			width: application.offsetWidth,
+			height: application.offsetHeight
+		})
+		.then(function(data) {
+			canvas.style.width = 0;
+			canvas.style.height = 0;	
+			canvas.style.display = 'none';
+			const image = document.getElementById('mysaves-current-mappreview');
+			image.src = data;
+			image.style.width = '40vw';
+			image.style.height = 'auto';
+			const current = document.getElementById('mysaves-current-map');
+			current.style.display = "inline-flex";
+		})
+		.catch(function(error) {
+			console.log('dom-to-image: ', error);
+		});
+
+		/*
 		html2canvas(document.getElementById("application"), {logging: false, onclone: function(clone) {
 			// remove the custom fonts from the clone
 			var svgtext = clone.getElementById('text');
@@ -666,7 +665,27 @@ class Account {
 				current.style.display = "inline-flex";
 			}
 		});
-		
+		*/
+
+		fetch('https://yapms.org/users/.tools/get_maps.php', {
+			method: 'POST',
+			credentials: 'include'
+		})
+		.then(response => response.text())
+		.then(data => {
+			data = data.split(' ');
+			for(let fileIndex = 0; fileIndex < data.length; ++fileIndex) {
+				/* GET BASE64 DATA */
+				const fileName = data[fileIndex].split('/');
+				const name = fileName[2].split('.')[0];
+				Account.addMapBox(name, false);
+			}
+		})
+		.catch(error => {
+			console.log(error);
+		});
+
+		/*
 		$.ajax({
 			url: "https://yapms.org/users/.tools/get_maps.php",
 			type: "POST",
@@ -679,7 +698,6 @@ class Account {
 			success: function(data) {
 				const arr = data.split(' ');
 				for(let fileIndex = 0; fileIndex < arr.length; ++fileIndex) {
-					/* GET BASE64 DATA */
 					const fileName = arr[fileIndex].split('/');
 					const name = fileName[2].split('.')[0];
 					Account.addMapBox(name, false);
@@ -691,6 +709,7 @@ class Account {
 				console.log(c);
 			}
 		});
+		*/
 	}
 
 	static updateHTML() {
