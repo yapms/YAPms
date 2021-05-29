@@ -1,5 +1,5 @@
-const indexCache = 'i3.0.5';
-const staticCache = 's3.0.5';
+const indexCache = 'i3.0.6';
+const staticCache = 's3.0.6';
 
 const _indexCache = [
 	'./',
@@ -136,6 +136,7 @@ const _staticCache = [
 	'./app/data/senatorial_current',
 	
 	'./app/res/fonts/roboto/roboto-v20-latin-regular.woff',
+	'./app/res/fonts/roboto/roboto-v20-latin-regular.woff2',
 
 	'./app/res/fontawesome/js/all.min.js',
 	'https://cdn.jsdelivr.net/npm/dom-to-image@2.6.0/dist/dom-to-image.min.js',
