@@ -61,8 +61,28 @@ if (isset($_GET["t"]) && !empty($_GET["t"])) {
 			<meta property=\"og:description\" content=\"Interactive {$state} {$year} Upper State Legislature Map\">";
 		$h1title = "{$state} Upper Legislature";
 	} else {
-
 	switch($_GET['t']) {
+		case 'USA_2022_senate':
+		echo '<meta name="description" content="United States interactive 2022 senate election map">
+			<title>USA - 2022 Senate Election Map</title>
+			<meta property="og:title" content="YAPms - USA 2022 Senate">
+			<meta property="og:description" content="Interactive USA 2022 Senate Map">';
+			$h1title = "USA 2022 Senate Election";
+			break;
+		case 'USA_2022_governors':
+		echo '<meta name="description" content="United States interactive 2022 governors election map">
+			<title>USA - 2022 Governors Election Map</title>
+			<meta property="og:title" content="YAPms - USA 2022 Governors Map">
+			<meta property="og:description" content="Interactive USA 2022 Governors Election Map">';
+			$h1title = "USA 2022 Governors Election";
+		break;
+		case 'USA_2022_house':
+		echo '<meta name="description" content="United States interactive 2022 interactive house election map">
+			<title>USA - 2022 House Election Map</title>
+			<meta property="og:title" content="YAPms - USA 2022 House">
+			<meta property="og:description" content="Interactive USA 2022 House Map">';
+			$h1title = "USA 2022 House Election";
+		break;
 		case 'USA_2020_senate':
 		echo '<meta name="description" content="United States interactive 2020 senate election map">
 			<title>USA - 2020 Senate Election Map</title>

@@ -175,6 +175,7 @@
 		include './html/info/usa_info_electoral_college.php';
 	} else {
 		switch($_GET["t"]) {
+		case "USA_2022_senate":
 		case "USA_2020_senate":
 		case "USA_current_senate":
 		case "USA_senate":
