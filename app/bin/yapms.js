@@ -4,7 +4,11 @@ class Account {
 		const email = document.getElementById('email-input').value;
 		formData.append('email', email);
 		/*
-		fetch("https://yapms.org/auth.register.php")
+		fetch("https://yapms.org/auth.register.php" {
+			method: 'POST',
+			body: formData,
+			credentials: 'include'
+		})
 		.then(response => response.text())
 		.then(data => {
 
@@ -61,6 +65,34 @@ class Account {
 		const pass = document.getElementById('password-login').value;
 		formData.append('email', email);
 		formData.append('password', pass);
+
+		fetch("https://yapms.org/auth.register.php" {
+			method: 'POST',
+			body: formData,
+			credentials: 'include'
+		})
+		.then(response => response.text())
+		.then(data => {
+			console.log('Login: ' + data);
+			var arr = data.split(' ');
+			Account.verifyState();
+			document.getElementById('password-login').value = "";
+			var loginInfo = document.getElementById('login-info');
+			if(arr[0] === 'good') {
+				loginInfo.innerHTML = 'Please enter your credentials';
+				closeAllPopups();
+			} else if(arr[0] === 'bad') {
+				if(arr[1] === 'account_innactive') {
+					loginInfo.innerHTML = 'Inactive Account';
+				} else if(arr[1] === 'incorrect_login') {
+					loginInfo.innerHTML = 'Incorrect Login';
+				}
+			}
+		}).catch(error => {
+			console.log(error);	
+		});
+
+		/*
 		$.ajax({
 			url: "https://yapms.org/auth/login.php",
 			type: "POST",
@@ -96,6 +128,7 @@ class Account {
 				loginInfo.innerHTML = 'Connection Error';
 			}	
 		});
+		*/
 	}
 
 	static verifyState() {
