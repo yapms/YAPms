@@ -66,7 +66,7 @@ class Account {
 		formData.append('email', email);
 		formData.append('password', pass);
 
-		fetch("https://yapms.org/auth.register.php" {
+		fetch("https://yapms.org/auth.register.php", {
 			method: 'POST',
 			body: formData,
 			credentials: 'include'
@@ -89,7 +89,7 @@ class Account {
 				}
 			}
 		}).catch(error => {
-			console.log(error);	
+			console.log(error);
 		});
 
 		/*

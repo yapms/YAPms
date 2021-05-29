@@ -66,7 +66,7 @@ class Account {
 		formData.append('email', email);
 		formData.append('password', pass);
 
-		fetch("https://yapms.org/auth.register.php" {
+		fetch("https://yapms.org/auth.register.php", {
 			method: 'POST',
 			body: formData,
 			credentials: 'include'
@@ -89,7 +89,7 @@ class Account {
 				}
 			}
 		}).catch(error => {
-			console.log(error);	
+			console.log(error);
 		});
 
 		/*
@@ -6463,7 +6463,7 @@ function hideMenu(name) {
 	var menu = document.getElementById(name);
 	menu.style.display = 'none';
 }
-const currentCache = 'v2.55.1';
+const currentCache = 'v2.55.2';
 
 let states = [];
 let lands = [];
