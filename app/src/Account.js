@@ -115,44 +115,6 @@ class Account {
 			const loginInfo = document.getElementById('login-info');
 			loginInfo.innerHTML = 'Connection Error';
 		});
-
-		/*
-		$.ajax({
-			url: "https://yapms.org/auth/login.php",
-			type: "POST",
-			data: formData,
-			processData: false,
-			contentType: false,
-			xhrFields: {
-				withCredentials: true
-			},
-			crossDomain: true,
-			success: function(data) {
-				console.log('Login: ' + data);
-				var arr = data.split(' ');
-				Account.verifyState();
-				document.getElementById('password-login').value = "";
-				var loginInfo = document.getElementById('login-info');
-				if(arr[0] === 'good') {
-					loginInfo.innerHTML = 'Please enter your credentials';
-					closeAllPopups();
-				} else if(arr[0] === 'bad') {
-					if(arr[1] === 'account_innactive') {
-						loginInfo.innerHTML = 'Inactive Account';
-					} else if(arr[1] === 'incorrect_login') {
-						loginInfo.innerHTML = 'Incorrect Login';
-					}
-				}
-			},
-			error: function(a, b, c) {
-				console.log(a);
-				console.log(b);
-				console.log(c);
-				var loginInfo = document.getElementById('login-info');
-				loginInfo.innerHTML = 'Connection Error';
-			}	
-		});
-		*/
 	}
 
 	static verifyState() {
@@ -181,36 +143,6 @@ class Account {
 			console.log(error);
 			console.log("Account: Could not login");
 		});
-
-		/*
-		$.ajax({
-			url: "https://yapms.org/auth/verify_login.php",
-			type: "POST",
-			data: formData,
-			processData: false,
-			contentType: false,
-			xhrFields: {
-				withCredentials: true
-			},
-			crossDomain: true,
-			success: function(data) {
-				console.log('Verify Login: ' + data);
-				const arr = data.split(' ');
-				Account.isLoggedIn = (arr[0] === 'good');
-				if(Account.isLoggedIn) {
-					Account.email = arr[1];
-					Account.id = arr[2];
-				} else {
-					Account.id = null;
-					Account.email = null;	
-				}
-				Account.updateHTML();
-			},
-			error: function(a, b, c) {
-				console.log("Account: Could not login");
-			}	
-		});
-		*/
 	}
 
 	static logout() {
@@ -224,7 +156,8 @@ class Account {
 		.then(data => {
 			console.log('Logout: ' + data);
 			Account.verifyState();
-		}).catch(error => {
+		})
+		.catch(error => {
 			console.log(error);
 		});
 	}
@@ -232,6 +165,24 @@ class Account {
 	static unlink(mapName) {
 		var formData = new FormData();
 		formData.append("mapName", mapName);
+
+		fetch('https://yapms.org/users/.tools/unlink.php', {
+			method: 'POST',
+			body: formData,
+			credentials: 'include'
+		})
+		.then(response => response.text())
+		.then(data => {
+			gtag('event', currentCache, {
+				'event_category': 'Account',
+				'event_label': 'Map Deleted From Account'
+			});
+		})
+		.catch(error => {
+			console.log(error);
+		});
+
+		/*
 		$.ajax({
 			url: "https://yapms.org/users/.tools/unlink.php",
 			type: "POST",
@@ -254,6 +205,7 @@ class Account {
 				console.log(c);
 			}	
 		});
+		*/
 	}
 
 	static save(mapName) {
@@ -608,9 +560,6 @@ class Account {
 			height: application.offsetHeight
 		})
 		.then(function(data) {
-			canvas.style.width = 0;
-			canvas.style.height = 0;	
-			canvas.style.display = 'none';
 			const image = document.getElementById('mysaves-current-mappreview');
 			image.src = data;
 			image.style.width = '40vw';
