@@ -1,3 +1,5 @@
+@media (any-hover: none), (any-hover: on-demand) {
+
 #layout {
 	flex-direction: column-reverse;
 }
@@ -97,4 +99,10 @@
 	border-radius: 4px;
 	margin: 0.1em;
 	padding: 0.1em;
+}
+
+.featured-grid {
+	display: none;
+}
+
 }

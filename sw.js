@@ -1,5 +1,5 @@
-const indexCache = 'i3.0.6';
-const staticCache = 's3.0.6';
+const indexCache = 'i3.0.7';
+const staticCache = 's3.0.7';
 
 const _indexCache = [
 	'./',
@@ -134,11 +134,9 @@ const _staticCache = [
 	'./app/data/senatorial_2020',
 	'./app/data/senatorial_2022',
 	'./app/data/senatorial_current',
-	
-	'./app/res/fonts/roboto/roboto-v20-latin-regular.woff',
-	'./app/res/fonts/roboto/roboto-v20-latin-regular.woff2',
 
-	'./app/res/fontawesome/js/all.min.js',
+	'https://fonts.googleapis.com/css?family=Roboto&display=swap',
+	'https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/js/all.min.js',
 	'https://cdn.jsdelivr.net/npm/dom-to-image@2.6.0/dist/dom-to-image.min.js',
 	'https://cdn.jsdelivr.net/npm/panzoom@9.4.2/dist/panzoom.min.js',
 	'https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js',

@@ -31,7 +31,7 @@
 
 	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-132710089-1"></script>
 	<script>
-		var host = window.location.hostname;
+		const host = window.location.hostname;
 		if(host !== "localhost") {
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -42,108 +42,91 @@
 
 	<script data-ad-client="ca-pub-1660456925957249" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
-	<script async src="./app/res/fontawesome/js/all.min.js"></script>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto&display=swap">
+	<script defer src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/js/all.min.js"></script>
+	<script defer src="./src/script/navigation.js"></script>
+	<script defer src="./src/script/bookmark.js"></script>
+	<script defer src="./src/script/cookies.js"></script>
 
-	<link rel="prerender" href="https://www.yapms.com/app/?t=USA_2020_presidential">
-	
-	<?php
-		$mobile = false;
-		if(strpos($_SERVER['HTTP_USER_AGENT'], 'Mobi')) {
-			$mobile = true;	
-		} else {
-			$mobile = false;	
-		}
-
-		echo '<link rel="stylesheet" type="text/css" href="./src/style/style.css">';
-		if($mobile) {
-			echo '<link rel="stylesheet" type="text/css" href="./src/style/mobile-navigation.css">';
-		} else {
-			echo '<link rel="stylesheet" type="text/css" href="./src/style/desktop-navigation.css">';
-		}
-	?>
+	<link rel="stylesheet" type="text/css" href="./src/style/style.css">
+	<link rel="stylesheet" type="text/css" href="./src/style/navigation.css">
 </head>
 
 <body>
 <?php
-		require './src/html/body.php';
-		echo '<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
-			<script src="./src/script/mobile-navigation.js"></script>
-			<script src="./src/script/bookmark.js"></script>
-			<script src="./src/script/cookies.js"></script>';
+	require './src/html/body.php';
 ?>
-
-	<script>
-	if('serviceWorker' in navigator) {
-		navigator.serviceWorker
-		.register('./sw.js')
-		.then(function(a) {
-			console.log('SW: registered');
-			if(a.waiting && a.active) {
-				console.log('SW: update found');
-			}
-		}, function(err) {
-			console.log('SW: register error ', err);
-		});
-	} else {
-		console.log('No service worker detected');
-	}
-
-	var deferredPrompt = null;
-	window.addEventListener('beforeinstallprompt', (e) => {
-		deferredPrompt = e;
-		var install = document.getElementById('installbutton');
-		if(install) {
-			console.log('Display Install Button');
-			install.style.display = 'inline-block';
-			install.onclick = function() {
-				install.style.display = 'none';
-				deferredPrompt.prompt();
-				deferredPrompt.userChoice.then((result) => {
-					deferredPrompt = null;
-				});
-			}
-		}	
+<script>
+if('serviceWorker' in navigator) {
+	navigator.serviceWorker
+	.register('./sw.js')
+	.then(function(a) {
+		console.log('SW: registered');
+		if(a.waiting && a.active) {
+			console.log('SW: update found');
+		}
+	}, function(err) {
+		console.log('SW: register error ', err);
 	});
+} else {
+	console.log('No service worker detected');
+}
 
-	window.addEventListener('appinstalled', (evt) => {
+let deferredPrompt = null;
+window.addEventListener('beforeinstallprompt', (e) => {
+	deferredPrompt = e;
+	const install = document.getElementById('installbutton');
+	if(install) {
+		console.log('Display Install Button');
+		install.style.display = 'inline-block';
+		install.onclick = function() {
+			install.style.display = 'none';
+			deferredPrompt.prompt();
+			deferredPrompt.userChoice.then((result) => {
+				deferredPrompt = null;
+			});
+		}
+	}	
+});
+
+window.addEventListener('appinstalled', (evt) => {
+	if(gtag) {
+		gtag('event', 'Home Page', {
+			'event_category': 'Install',
+			'event_label': 'User installed to homescreen',
+			'non_interaction': false
+		});
+	}
+});
+
+const ref = document.referrer;
+if(ref.includes('android-app')) {
+	const warning = document.getElementById('warning');
+	if(warning) {
+		warning.style.display = 'inline-block';
 		if(gtag) {
 			gtag('event', 'Home Page', {
-				'event_category': 'Install',
-				'event_label': 'User installed to homescreen',
-				'non_interaction': false
+				'event_category': 'Warning',
+				'event_label': 'Warning displayed',
+				'non_interaction': true
 			});
 		}
-	});
-
-	var ref = document.referrer;
-	if(ref.includes('android-app')) {
-		var warning = document.getElementById('warning');
-		if(warning) {
-			warning.style.display = 'inline-block';
-			if(gtag) {
-				gtag('event', 'Home Page', {
-					'event_category': 'Warning',
-					'event_label': 'Warning displayed',
-					'non_interaction': true
-				});
-			}
-		}
 	}
+}
 
-	function refetchHome() {
-		if('serviceWorker' in navigator) {
-			navigator.serviceWorker.register('../sw.js')
-			.then(function(reg) {
-				reg.active.postMessage("refetch-home");
-				setTimeout(function() {
-					location.reload();
-				}, 150);
-			});
-		} else {
-			location.reload();
-		}
+function refetchHome() {
+	if('serviceWorker' in navigator) {
+		navigator.serviceWorker.register('../sw.js')
+		.then(function(reg) {
+			reg.active.postMessage("refetch-home");
+			setTimeout(function() {
+				location.reload();
+			}, 150);
+		});
+	} else {
+		location.reload();
 	}
-	</script>
+}
+</script>
 </body>
 </html>

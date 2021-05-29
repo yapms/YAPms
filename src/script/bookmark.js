@@ -1,4 +1,4 @@
-var maplist = [];
+const maplist = [];
 maplist['USA Presidential'] = './app/?t=USA_2020_presidential';
 maplist['USA Senate'] = './app/?t=USA_2020_senate';
 maplist['USA House'] = './app/?t=USA_2020_house';
@@ -21,7 +21,7 @@ maplist['USA Proportional'] = './app/?t=USA_proportional';
 maplist['USA Impeachment Support'] = './app/?t=USA_trump_impeachment_support';
 maplist['USA 2016 Democratic Primary'] = './app/?t=USA_2016_democratic_primary';
 maplist['USA 2016 Republican Primary'] = './app/?t=USA_2016_republican_primary';
-for(var index = 2016; index > 1792; index -= 4) {
+for(let index = 2016; index > 1792; index -= 4) {
 	maplist['USA ' + index + ' Presidential'] = './app/?t=USA_' + index + '_presidential';
 }
 
@@ -87,44 +87,44 @@ maplist['USA / Canada'] = './app/?t=USA_Canada';
 
 class BookmarkManager {
 	static appendBookmark(name, href) {
-		var link = document.createElement("a");
+		const link = document.createElement("a");
 		link.setAttribute("class", "link");
 		link.setAttribute("href", href);
 		link.setAttribute("id", "bookmark-" + name);
 		link.innerHTML = '<div>' + name + '</div>';
-		var bookmarkList = document.getElementById("bookmark-list");
+		const bookmarkList = document.getElementById("bookmark-list");
 		bookmarkList.appendChild(link);
 	}
 
 	static deleteBookmark(name) {
-		var bookmarkList = document.getElementById("bookmark-list");
-		var bookmark = document.getElementById("bookmark-" + name);
+		const bookmarkList = document.getElementById("bookmark-list");
+		const bookmark = document.getElementById("bookmark-" + name);
 		bookmarkList.removeChild(bookmark);
 		CookieManager.deleteCookie("bookmark-" + name.replace(/ /g, "_"));
 	}
 }
 
-$("#bookmark-form").submit(function(event) {
+document.getElementById('bookmark-form').onsubmit = function(event) {
 	event.preventDefault();
 
-	var name = event.currentTarget[0].value;
-	var nameUnderscore = name.replace(/ /g, "_");
+	const name = event.currentTarget[0].value;
+	const nameUnderscore = name.replace(/ /g, "_");
 
 	if(CookieManager.cookies["bookmark-" + nameUnderscore] === "true") {
 		BookmarkManager.deleteBookmark(name);
 		return;
 	}
 
-	var href = maplist[name];
+	const href = maplist[name];
 	if(href) {
 		BookmarkManager.appendBookmark(name, href);		
 		CookieManager.appendCookie("bookmark-" + nameUnderscore, "true");
 	}
-});
+}
 
-$("#search-form").submit(function(event) {
+document.getElementById('search-form').onsubmit = function(event) {
 	event.preventDefault();
-	var value = maplist[event.currentTarget[0].value];
-	var newURL = window.parent.location.href + value.substring(2);
+	const value = maplist[event.currentTarget[0].value];
+	const newURL = window.parent.location.href + value.substring(2);
 	window.location = newURL;
-});
+}

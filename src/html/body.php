@@ -46,15 +46,11 @@
 	<div id="featured">
 	<?php
 		require './src/html/help-box.php';
-		if($mobile === false) {
-			require './src/html/featured.php';
-		}
+		require './src/html/featured.php';
 	?>
 	</div>
 </div>
 
 <?php
-if($mobile === false) {
 	require './src/html/footer.php';
-}
 ?>
