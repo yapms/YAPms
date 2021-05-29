@@ -66,7 +66,7 @@ class Account {
 		formData.append('email', email);
 		formData.append('password', pass);
 
-		fetch("https://yapms.org/auth.register.php", {
+		fetch("https://yapms.org/auth/login.php", {
 			method: 'POST',
 			body: formData,
 			credentials: 'include'
@@ -6463,7 +6463,7 @@ function hideMenu(name) {
 	var menu = document.getElementById(name);
 	menu.style.display = 'none';
 }
-const currentCache = 'v2.55.2';
+const currentCache = 'v2.55.3';
 
 let states = [];
 let lands = [];

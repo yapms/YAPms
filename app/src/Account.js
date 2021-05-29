@@ -66,7 +66,7 @@ class Account {
 		formData.append('email', email);
 		formData.append('password', pass);
 
-		fetch("https://yapms.org/auth.register.php", {
+		fetch("https://yapms.org/auth/login.php", {
 			method: 'POST',
 			body: formData,
 			credentials: 'include'
