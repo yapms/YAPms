@@ -579,13 +579,6 @@ Account.email = null;
 Account.id = null;
 Account.isLoggedIn = false;
 
-/*
-$("#login-form").submit(function(event) {
-	event.preventDefault();
-	Account.login();
-});
-*/
-
 document.getElementById('login-form').onsubmit = function(e) {
 	e.preventDefault();
 	Account.login();

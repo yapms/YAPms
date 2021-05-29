@@ -579,13 +579,6 @@ Account.email = null;
 Account.id = null;
 Account.isLoggedIn = false;
 
-/*
-$("#login-form").submit(function(event) {
-	event.preventDefault();
-	Account.login();
-});
-*/
-
 document.getElementById('login-form').onsubmit = function(e) {
 	e.preventDefault();
 	Account.login();
@@ -6398,7 +6391,7 @@ function hideMenu(name) {
 	var menu = document.getElementById(name);
 	menu.style.display = 'none';
 }
-const currentCache = 'v2.55.7';
+const currentCache = 'v3.0.0';
 
 let states = [];
 let lands = [];

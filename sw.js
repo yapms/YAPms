@@ -1,5 +1,5 @@
-const indexCache = 'i2.55.7';
-const staticCache = 's2.55.7';
+const indexCache = 'i3.0.0';
+const staticCache = 's3.0.0';
 
 const _indexCache = [
 	'./',
@@ -138,13 +138,10 @@ const _staticCache = [
 	'./app/res/fonts/roboto/roboto-v20-latin-regular.woff',
 
 	'./app/res/fontawesome/js/all.min.js',
-	'https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.7/dist/html2canvas.min.js',
-	'https://cdn.jsdelivr.net/npm/svg-pan-zoom@3.6.1/dist/svg-pan-zoom.min.js',
+	'https://cdn.jsdelivr.net/npm/dom-to-image@2.6.0/dist/dom-to-image.min.js',
 	'https://cdn.jsdelivr.net/npm/panzoom@9.4.2/dist/panzoom.min.js',
 	'https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js',
 	'https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0/dist/chartjs-plugin-datalabels.min.js',
-	'https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js',
-	'https://cdn.jsdelivr.net/npm/hammerjs@2.0.8/hammer.min.js',
 
 	'./manifest.json'
 ];

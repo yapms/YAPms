@@ -118,7 +118,6 @@
 	<link rel="stylesheet" type="text/css" href="./bin/yapms.css">
 	<script defer src="./res/fontawesome/js/all.min.js"></script>
 	<script defer src="https://www.google.com/recaptcha/api.js?render=6LeDYbEUAAAAANfuJ4FxWVjoxPgDPsFGsdTLr1Jo"></script>
-	<script defer src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
 	<script defer src="https://cdn.jsdelivr.net/npm/dom-to-image@2.6.0/dist/dom-to-image.min.js"></script>
 	<script defer src="https://cdn.jsdelivr.net/npm/panzoom@9.4.2/dist/panzoom.min.js"></script>
 	<script defer src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
