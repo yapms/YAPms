@@ -3,19 +3,41 @@ class Account {
 		const formData = new FormData();
 		const email = document.getElementById('email-input').value;
 		formData.append('email', email);
-		/*
-		fetch("https://yapms.org/auth.register.php" {
+
+		fetch('https://yapms.org/auth/register.php', {
 			method: 'POST',
 			body: formData,
 			credentials: 'include'
 		})
 		.then(response => response.text())
 		.then(data => {
-
+			console.log('Register: ' + data);
+			const arr = data.split(' ');
+			const registerInfo = document.getElementById('register-info');
+			closeAllPopups();
+			if(arr[0] === 'good') {
+				displayNotification('Account Registered',
+					'Please check your email, and click the verification link. (check your spam)');	
+			} else if(arr[1] === 'inuse') {
+				displayNotification('Register Error',
+					'Account Already Registered');	
+			} else if(arr[1] === 'inactive') {
+				displayNotification('Register Error',
+					'Verification Email Already Sent (check your spam)');	
+			} else if(arr[1] === 'resent') {
+				displayNotification('Account Registered',
+					'Please check your email, and click the verification link. (check your spam)');	
+			} else if(arr[1] === 'invalid_email') {
+				displayNotification('Register Error',
+					email + ' is not a valid email');	
+			}
 		}).catch(error => {
-			
+			console.log(error);	
+			const registerInfo = document.getElementById('register-info');
+			registerInfo.innerHTML = 'Connection Error';	
 		});
-		*/
+
+		/*
 		$.ajax({
 			url: "https://yapms.org/auth/register.php",
 			type: "POST",
@@ -28,7 +50,6 @@ class Account {
 			crossDomain: true,
 			success: function(data) {
 				console.log('Register: ' + data);
-				//alert(data);
 				const arr = data.split(' ');
 				const registerInfo = document.getElementById('register-info');
 				closeAllPopups();
@@ -57,6 +78,7 @@ class Account {
 				registerInfo.innerHTML = 'Connection Error';	
 			}	
 		});
+		*/
 	}
 
 	static login() {
@@ -66,7 +88,7 @@ class Account {
 		formData.append('email', email);
 		formData.append('password', pass);
 
-		fetch("https://yapms.org/auth/login.php", {
+		fetch('https://yapms.org/auth/login.php', {
 			method: 'POST',
 			body: formData,
 			credentials: 'include'
@@ -90,6 +112,8 @@ class Account {
 			}
 		}).catch(error => {
 			console.log(error);
+			const loginInfo = document.getElementById('login-info');
+			loginInfo.innerHTML = 'Connection Error';
 		});
 
 		/*
@@ -134,6 +158,31 @@ class Account {
 	static verifyState() {
 		const formData = new FormData();
 		formData.append('email', Account.email);
+		
+		fetch('https://yapms.org/auth/verify_login.php', {
+			method: 'POST',
+			body: formData,
+			credentials: 'include'
+		})
+		.then(response => response.text())
+		.then(data => {
+			console.log('Verify Login: ' + data);
+			const arr = data.split(' ');
+			Account.isLoggedIn = (arr[0] === 'good');
+			if(Account.isLoggedIn) {
+				Account.email = arr[1];
+				Account.id = arr[2];
+			} else {
+				Account.id = null;
+				Account.email = null;	
+			}
+			Account.updateHTML();
+		}).catch(error => {
+			console.log(error);
+			console.log("Account: Could not login");
+		});
+
+		/*
 		$.ajax({
 			url: "https://yapms.org/auth/verify_login.php",
 			type: "POST",
@@ -161,10 +210,26 @@ class Account {
 				console.log("Account: Could not login");
 			}	
 		});
+		*/
 	}
 
 	static logout() {
 		closeAllPopups();
+		
+		fetch('https://yapms.org/auth/verify_login.php', {
+			method: 'POST',
+			body: formData,
+			credentials: 'include'
+		})
+		.then(response => response.text())
+		.then(data => {
+			console.log('Logout: ' + data);
+			Account.verifyState();
+		}).catch(error => {
+			console.log(error);
+		});
+
+		/*
 		$.ajax({
 			url: "https://yapms.org/auth/logout.php",
 			type: "POST",
@@ -184,6 +249,7 @@ class Account {
 				console.log(c);
 			}	
 		});
+		*/
 	}
 
 	static unlink(mapName) {
@@ -6463,7 +6529,7 @@ function hideMenu(name) {
 	var menu = document.getElementById(name);
 	menu.style.display = 'none';
 }
-const currentCache = 'v2.55.3';
+const currentCache = 'v2.55.5';
 
 let states = [];
 let lands = [];
