@@ -287,6 +287,37 @@ class Account {
 		
 		formData.append("data", JSON.stringify(data));
 
+		fetch('https://yapms.org/users/.tools/upload.php', {
+			method: 'POST',
+			body: formData,
+			credentials: 'include'
+		})
+		.then(response => response.text())
+		.then(data => {
+			const arr = data.split(' ');
+			if(arr[0] === "bad") {
+				error.style.display = 'inline';
+				if(arr[1] === "no_map_name") {
+					error.innerHTML = "Enter Map Name";
+				} else if(arr[1] === "file_limit") {
+					error.innerHTML = "File Limit Reached";	
+				} else {
+					error.innerHTML = "Upload Error";	
+				}
+			} else {
+				const base64name = arr[1];
+				Account.addMapBox(base64name, true);
+				gtag('event', currentCache, {
+					'event_category': 'Account',
+					'event_label': 'Map Saved To Account'
+				});
+			}
+		})
+		.catch(error => {
+			console.log(error);
+		});
+
+		/*
 		$.ajax({
 			url: "https://yapms.org/users/.tools/upload.php",
 			type: "POST",
@@ -324,6 +355,7 @@ class Account {
 				console.log(c);
 			}
 		});
+		*/
 	}
 
 	static changePassword() {
