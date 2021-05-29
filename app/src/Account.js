@@ -181,31 +181,6 @@ class Account {
 		.catch(error => {
 			console.log(error);
 		});
-
-		/*
-		$.ajax({
-			url: "https://yapms.org/users/.tools/unlink.php",
-			type: "POST",
-			data: formData,
-			processData: false,
-			contentType: false,
-			xhrFields: {
-				withCredentials: true
-			},
-			crossDomain: true,
-			success: function(data) {
-				gtag('event', currentCache, {
-					'event_category': 'Account',
-					'event_label': 'Map Deleted From Account'
-				});
-			},
-			error: function(a, b, c) {
-				console.log(a);
-				console.log(b);
-				console.log(c);
-			}	
-		});
-		*/
 	}
 
 	static save(mapName) {
@@ -316,56 +291,54 @@ class Account {
 		.catch(error => {
 			console.log(error);
 		});
-
-		/*
-		$.ajax({
-			url: "https://yapms.org/users/.tools/upload.php",
-			type: "POST",
-			data: formData,
-			processData: false,
-			contentType: false,
-			xhrFields: {
-				withCredentials: true
-			},
-			crossDomain: true,
-			success: function(data) {
-				var arr = data.split(' ');
-				console.log(arr);
-				if(arr[0] === "bad") {
-					error.style.display = 'inline';
-					if(arr[1] === "no_map_name") {
-						error.innerHTML = "Enter Map Name";
-					} else if(arr[1] === "file_limit") {
-						error.innerHTML = "File Limit Reached";	
-					} else {
-						error.innerHTML = "Upload Error";	
-					}
-				} else {
-					var base64name = arr[1];
-					Account.addMapBox(base64name, true);
-					gtag('event', currentCache, {
-						'event_category': 'Account',
-						'event_label': 'Map Saved To Account'
-					});
-				}
-			},
-			error: function(a, b, c) {
-				console.log(a);
-				console.log(b);
-				console.log(c);
-			}
-		});
-		*/
 	}
 
 	static changePassword() {
-		var formData = new FormData();
-		var current = document.getElementById('password-reset-1').value;
-		var newPass = document.getElementById('password-reset-2').value;
-		var verifyPass = document.getElementById('password-reset-3').value;
+		const formData = new FormData();
+		const current = document.getElementById('password-reset-1').value;
+		const newPass = document.getElementById('password-reset-2').value;
+		const verifyPass = document.getElementById('password-reset-3').value;
 		formData.append('current', current);
 		formData.append('new', newPass);
 		formData.append('verify', verifyPass);
+
+		fetch('https://yapms.org/auth/change_password.php', {
+			method: 'POST',
+			body: formData,
+			credentials: 'include'
+		})
+		.then(response => response.text())
+		.then(data => {
+			console.log('Change Password: ' + data);
+			const arr = data.split(' ');
+			const passwordChangeInfo = document.getElementById('passwordchange-info');
+			if(arr[0] === 'good') {
+				closeAllPopups();
+				displayNotification('Password Change',
+					'Your password has been changed');
+				passwordChangeInfo.innerHTML = 'Please enter current and new password';
+				document.getElementById('password-reset-1').value = '';
+				document.getElementById('password-reset-2').value = '';
+				document.getElementById('password-reset-3').value = '';
+			} else if(arr[0] === 'bad') {
+				switch(arr[1]) {
+					case 'verify_incorrect':
+						passwordChangeInfo.innerHTML = 'Passwords do not match';
+						break;
+					case 'incorrect_pass':
+						passwordChangeInfo.innerHTML = 'Current password incorrect';
+						break;
+					case 'no_post':
+						passwordChangeInfo.innerHTML = 'Missing information';
+						break;
+				}
+			}
+		})
+		.catch(error => {
+			console.log(error);
+		});
+
+		/*
 		$.ajax({
 			url: "https://yapms.org/auth/change_password.php",
 			type: "POST",
@@ -404,12 +377,51 @@ class Account {
 				console.log(c);
 			}	
 		});
+		*/
 	}
 
 	static forgotPassword() {
-		var formData = new FormData();
-		var email = document.getElementById('email-forgot-input').value;
+		const formData = new FormData();
+		const email = document.getElementById('email-forgot-input').value;
 		formData.append('email', email);
+		
+		fetch('https://yapms.org/auth/forgot_password.php', {
+			method: 'POST',
+			body: formData,
+			credentials: 'include'
+		})
+		.then(response => response.text())
+		.then(data => {
+			console.log('Forgot Password: ' + data);
+			var arr = data.split(' ');
+			closeAllPopups();
+			if(arr[0] === 'good') {
+				if(arr[1] === 'reset_sent') {
+					displayNotification('Password Reset',
+						'Password reset email sent. (check your spam)');	
+				}
+			} else if(arr[0] === 'bad') {
+				switch(arr[1]) {
+					case 'innactive_account':
+						displayNotification('Password Reset Error',
+							email + ' is not active. Please register or verify.');	
+						break;
+					case 'recent_verification':
+						displayNotification('Password Reset Error',
+							'Password was recently reset, please wait.');	
+						break;
+					case 'please_register':
+						displayNotification('Password Reset Error',
+							email + ' is not registered. Please register.');	
+						break;
+				}
+			}
+		})
+		.catch(error => {
+			console.log(error);
+		});
+
+		/*
 		$.ajax({
 			url: "https://yapms.org/auth/forgot_password.php",
 			type: "POST",
@@ -448,6 +460,7 @@ class Account {
 				console.log(c);
 			}	
 		});
+		*/
 	}
 
 	static addMapBox(base64name, preappend) {
