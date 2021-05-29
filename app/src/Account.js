@@ -216,7 +216,7 @@ class Account {
 	static logout() {
 		closeAllPopups();
 		
-		fetch('https://yapms.org/auth/verify_login.php', {
+		fetch('https://yapms.org/auth/logout.php', {
 			method: 'POST',
 			credentials: 'include'
 		})
