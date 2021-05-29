@@ -218,7 +218,6 @@ class Account {
 		
 		fetch('https://yapms.org/auth/verify_login.php', {
 			method: 'POST',
-			body: formData,
 			credentials: 'include'
 		})
 		.then(response => response.text())
