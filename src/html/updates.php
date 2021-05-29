@@ -9,6 +9,19 @@
 		<div class="info-box-header">
 			<img src="app/res/flags/usa.svg">
 			<h3>
+				Update
+			</h3>
+		</div>
+		<div class="link-list">
+		<p>May 29th 2021</p>
+		<a class="link" href="./app/?t=USA_current_senate">Current Senate</a>
+		<a class="link" href="./app/?t=USA_current_house">Current House</a>
+		</div>
+	</div>
+	<div class="info-box">
+		<div class="info-box-header">
+			<img src="app/res/flags/usa.svg">
+			<h3>
 				New Map
 			</h3>
 		</div>
