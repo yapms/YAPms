@@ -672,6 +672,10 @@ h2.selectmenu-toptext {
 	opacity: 0.0;
 	transition: opacity 0.5s;
 }
+* {
+	-webkit-tap-highlight-color: transparent;
+}
+
 html, body {
 	background: white;
 	text-align: center;

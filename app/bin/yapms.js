@@ -6349,7 +6349,7 @@ function hideMenu(name) {
 	var menu = document.getElementById(name);
 	menu.style.display = 'none';
 }
-const currentCache = 'v3.0.4';
+const currentCache = 'v3.0.5';
 
 let states = [];
 let lands = [];

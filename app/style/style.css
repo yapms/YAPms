@@ -1,3 +1,7 @@
+* {
+	-webkit-tap-highlight-color: transparent;
+}
+
 html, body {
 	background: white;
 	text-align: center;
