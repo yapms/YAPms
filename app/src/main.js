@@ -363,6 +363,8 @@ function updateMobile() {
 }
 
 function start() {
+	Account.verifyState();
+
 	CookieManager.loadCookies();
 	CookieManager.askConsent();
 

@@ -1432,7 +1432,6 @@ class CookieManager {
 				CookieManager.cookies['custom' + index + 'likely'] + ',' +
 				CookieManager.cookies['custom' + index + 'leaning'] + ',' +
 				CookieManager.cookies['custom' + index + 'tilting'] + ')';
-			
 		}
 	}
 
@@ -6716,6 +6715,8 @@ function updateMobile() {
 }
 
 function start() {
+	Account.verifyState();
+
 	CookieManager.loadCookies();
 	CookieManager.askConsent();
 

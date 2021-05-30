@@ -40,7 +40,6 @@ class CookieManager {
 				CookieManager.cookies['custom' + index + 'likely'] + ',' +
 				CookieManager.cookies['custom' + index + 'leaning'] + ',' +
 				CookieManager.cookies['custom' + index + 'tilting'] + ')';
-			
 		}
 	}
 
