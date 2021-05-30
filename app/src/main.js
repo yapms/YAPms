@@ -1,4 +1,4 @@
-const currentCache = 'v3.1.1';
+const currentCache = 'v3.1.2';
 
 let states = [];
 let lands = [];
@@ -363,7 +363,7 @@ function updateMobile() {
 }
 
 function start() {
-	Account.verifyState();
+	//Account.verifyState();
 
 	CookieManager.loadCookies();
 	CookieManager.askConsent();
