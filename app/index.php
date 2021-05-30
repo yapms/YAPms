@@ -32,9 +32,6 @@
 	<link href="https://tpc.googlesyndication.com" rel="preconnect">
 	<link href="https://fonts.googleapis.com" rel="preconnect">
 	
-	<link href="https://cdn.jsdelivr.net" rel="preconnect">
-
-	<link rel="preload" href="./res/fonts/roboto/roboto-v20-latin-regular.woff" as="font">
 <?php
 		$mobile = strpos($_SERVER['HTTP_USER_AGENT'], 'Mobi');
 		$mobileText = $mobile ? "true" : "false";	
@@ -105,19 +102,10 @@
 		gtag('config', 'UA-132710089-1');
 	</script>
 
-	<style>
-	@font-face {
-		font-family: 'Roboto';
-		font-style: normal;
-		font-weight: 400;
-		font-display: swap;
-		src: local('Roboto'), local('Roboto-Regular'),
-		url('./res/fonts/roboto/roboto-v20-latin-regular.woff') format('woff');
-	}
-	</style>
 	<link rel="stylesheet" type="text/css" href="./bin/yapms.css">
-	<script defer src="./res/fontawesome/js/all.min.js"></script>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto&display=swap">
 	<script defer src="https://www.google.com/recaptcha/api.js?render=6LeDYbEUAAAAANfuJ4FxWVjoxPgDPsFGsdTLr1Jo"></script>
+	<script defer src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/js/all.min.js"></script>
 	<script defer src="https://cdn.jsdelivr.net/npm/dom-to-image@2.6.0/dist/dom-to-image.min.js"></script>
 	<script defer src="https://cdn.jsdelivr.net/npm/panzoom@9.4.2/dist/panzoom.min.js"></script>
 	<script defer src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>

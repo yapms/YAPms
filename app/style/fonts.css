@@ -1,7 +1,0 @@
-/* roboto-regular - latin */
-@font-face {
-  font-family: 'Roboto';
-  src: url('./res/fonts/roboto/roboto-v20-latin-regular.woff2') format('woff2'), 
-  url('./res/fonts/roboto/roboto-v20-latin-regular.woff') format('woff');
-}
-
