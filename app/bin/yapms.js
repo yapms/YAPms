@@ -492,51 +492,6 @@ class Account {
 			console.log('dom-to-image: ', error);
 		});
 
-		/*
-		html2canvas(document.getElementById("application"), {logging: false, onclone: function(clone) {
-			// remove the custom fonts from the clone
-			var svgtext = clone.getElementById('text');
-			if(svgtext) {
-				svgtext.style.fontFamily = 'arial';
-				svgtext.style.fontSize = '15px';
-			}
-			var svg = clone.getElementById('svgdata');
-			var mapdiv = clone.getElementById('map-div');
-			if(svg && mapdiv) {
-				svg.setAttribute('width', mapdiv.offsetWidth);
-				svg.setAttribute('height', mapdiv.offsetHeight);
-			}
-			var notification = clone.getElementById('legend-tooltip');
-			if(notification) {
-				notification.style.display = 'none';
-			}
-			var editButtons = clone.getElementsByClassName('legend-delete');
-			for(var index = 0, length = editButtons.length; index < length; ++index) {
-				var element = editButtons[index];
-				if(element) {
-					element.style.display = 'none';
-				}
-			}
-			var addCandidate = clone.getElementById('legend-addcandidate-button');
-			if(addCandidate) {
-				addCandidate.style.display = 'none';
-			}
-		}}).then(function(canvas) {
-			canvas.style.width = 0;
-			canvas.style.height = 0;	
-			canvas.style.display = 'none';
-			const img = canvas.toDataURL('image/png');
-			const i = document.getElementById('mysaves-current-mappreview');
-			i.src = img;
-			i.style.width = '40vw';
-			i.style.height = 'auto';
-			const current = document.getElementById("mysaves-current-map");
-			if(current) {
-				current.style.display = "inline-flex";
-			}
-		});
-		*/
-
 		fetch('https://yapms.org/users/.tools/get_maps.php', {
 			method: 'POST',
 			credentials: 'include'
@@ -3709,8 +3664,6 @@ class State {
 			}
 		}
 		this.setColor(majorityCandidate, majorityColor, {setDelegates: false});
-
-		
 	}
 
 	setVoteCount(value) {
@@ -3905,6 +3858,13 @@ class State {
 	// only incrememnt though the colors of the specified candidate
 	// if the state isn't this candidates color, start at solid
 	incrementCandidateColor(candidate, options = {setDelegates: true}) {
+		if(this.candidate === 'Tossup' && candidate === 'Tossup') {
+			const tooltip = document.getElementById('legend-tooltip');
+			tooltip.classList.remove('flash_animation');
+			void tooltip.offsetWidth;
+			tooltip.classList.add('flash_animation');
+		}
+
 		if(this.disabled) {
 			return;
 		}
@@ -6352,7 +6312,7 @@ function hideMenu(name) {
 	var menu = document.getElementById(name);
 	menu.style.display = 'none';
 }
-const currentCache = 'v3.2.0';
+const currentCache = 'v3.2.1';
 
 let states = [];
 let lands = [];
@@ -6429,63 +6389,6 @@ function share_afterCenter() {
 	.catch(function(error) {
 		console.log('dom-to-image: ', error);
 	});
-
-	/*
-	html2canvas(document.getElementById('application'), {
-		logging: true, onclone: function(clone) {
-		console.log(clone.getElementById("svgdata"));
-		const svgtext = clone.getElementById('text');
-		if(svgtext) {
-			svgtext.style.fontFamily = 'arial';
-			svgtext.style.fontSize = '15px';
-		}
-
-		const svg = clone.getElementById("svgdata");
-		const mapdiv = clone.getElementById("map-div");
-		if(svg && mapdiv) {
-			const width = mapdiv.offsetWidth + (mapdiv.offsetWidth * 0);
-			const height = mapdiv.offsetHeight + (mapdiv.offsetHeight * 0);
-			svg.setAttribute('width', width);
-			svg.setAttribute('height', height);
-		}
-
-		const notification = clone.getElementById('legend-tooltip');
-		if(notification) {
-			notification.style.display = 'none';
-		}
-
-		const editButtons = clone.getElementsByClassName('legend-delete');
-		for(const element of editButtons) {
-			element.style.display = 'none';
-		}
-
-		const addCandidate = clone.getElementById('legend-addcandidate-button');
-		if(addCandidate) {
-			addCandidate.style.display = 'none';
-		}
-	}}).then(function(canvas) {
-		notification.appendChild(canvas);
-		canvas.style.width = 0;
-		canvas.style.height = 0;	
-		canvas.style.display = 'none';
-		const img = canvas.toDataURL('image/png');
-		notification.removeChild(canvas);
-		const i = document.getElementById('screenshotimg');
-		i.src = img;
-		i.style.width = '40vw';
-		i.style.height = 'auto';
-		i.style.display = '';
-		var loadingAnimation = document.getElementById('loading-animation');
-		if(loadingAnimation) {
-			loadingAnimation.style.display = 'none';
-		}
-		if(grecaptcha)
-		grecaptcha.execute('6LeDYbEUAAAAANfuJ4FxWVjoxPgDPsFGsdTLr1Jo', {action: 'share'})
-		.then(function(token) {
-			SaveMap.upload(img, token);
-		});
-	});
-	*/
 }
 
 /* CATCH ERRORS AND LOG THEM */

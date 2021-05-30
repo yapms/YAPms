@@ -1,4 +1,4 @@
-const currentCache = 'v3.2.0';
+const currentCache = 'v3.2.1';
 
 let states = [];
 let lands = [];
@@ -75,63 +75,6 @@ function share_afterCenter() {
 	.catch(function(error) {
 		console.log('dom-to-image: ', error);
 	});
-
-	/*
-	html2canvas(document.getElementById('application'), {
-		logging: true, onclone: function(clone) {
-		console.log(clone.getElementById("svgdata"));
-		const svgtext = clone.getElementById('text');
-		if(svgtext) {
-			svgtext.style.fontFamily = 'arial';
-			svgtext.style.fontSize = '15px';
-		}
-
-		const svg = clone.getElementById("svgdata");
-		const mapdiv = clone.getElementById("map-div");
-		if(svg && mapdiv) {
-			const width = mapdiv.offsetWidth + (mapdiv.offsetWidth * 0);
-			const height = mapdiv.offsetHeight + (mapdiv.offsetHeight * 0);
-			svg.setAttribute('width', width);
-			svg.setAttribute('height', height);
-		}
-
-		const notification = clone.getElementById('legend-tooltip');
-		if(notification) {
-			notification.style.display = 'none';
-		}
-
-		const editButtons = clone.getElementsByClassName('legend-delete');
-		for(const element of editButtons) {
-			element.style.display = 'none';
-		}
-
-		const addCandidate = clone.getElementById('legend-addcandidate-button');
-		if(addCandidate) {
-			addCandidate.style.display = 'none';
-		}
-	}}).then(function(canvas) {
-		notification.appendChild(canvas);
-		canvas.style.width = 0;
-		canvas.style.height = 0;	
-		canvas.style.display = 'none';
-		const img = canvas.toDataURL('image/png');
-		notification.removeChild(canvas);
-		const i = document.getElementById('screenshotimg');
-		i.src = img;
-		i.style.width = '40vw';
-		i.style.height = 'auto';
-		i.style.display = '';
-		var loadingAnimation = document.getElementById('loading-animation');
-		if(loadingAnimation) {
-			loadingAnimation.style.display = 'none';
-		}
-		if(grecaptcha)
-		grecaptcha.execute('6LeDYbEUAAAAANfuJ4FxWVjoxPgDPsFGsdTLr1Jo', {action: 'share'})
-		.then(function(token) {
-			SaveMap.upload(img, token);
-		});
-	});
-	*/
 }
 
 /* CATCH ERRORS AND LOG THEM */

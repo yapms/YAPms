@@ -50,6 +50,27 @@
 	transition-timing-function: linear;
 }
 
+.flash_animation {
+	animation-name: flash_keyframes;
+	animation-duration: 1.5s;
+	animation-iteration-count: 1;
+	animation-timing-function: linear;
+}
+
+@keyframes flash_keyframes {
+	0% {
+		opacity: 1;
+	}
+
+	90% {
+		opacity: 1;
+	}
+
+	100% {
+		opacity: 0;
+	}
+}
+
 #legend-tooltip {
 	display: block;
 	position: relative;

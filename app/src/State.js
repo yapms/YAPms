@@ -81,8 +81,6 @@ class State {
 			}
 		}
 		this.setColor(majorityCandidate, majorityColor, {setDelegates: false});
-
-		
 	}
 
 	setVoteCount(value) {
@@ -277,6 +275,13 @@ class State {
 	// only incrememnt though the colors of the specified candidate
 	// if the state isn't this candidates color, start at solid
 	incrementCandidateColor(candidate, options = {setDelegates: true}) {
+		if(this.candidate === 'Tossup' && candidate === 'Tossup') {
+			const tooltip = document.getElementById('legend-tooltip');
+			tooltip.classList.remove('flash_animation');
+			void tooltip.offsetWidth;
+			tooltip.classList.add('flash_animation');
+		}
+
 		if(this.disabled) {
 			return;
 		}
