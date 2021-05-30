@@ -1,5 +1,5 @@
-const indexCache = 'i3.1.2';
-const staticCache = 's3.1.3';
+const indexCache = 'i3.1.5';
+const staticCache = 's3.1.5';
 
 const _indexCache = [
 	'./',
@@ -26,25 +26,16 @@ const _indexCache = [
 
 	'./app/?t=USA_current_house',
 	'./app/?t=USA_current_senate',
-	'./app/?t=USA_2016_presidential_county',
-	'./app/?t=USA_2020_presidential',
-	'./app/?t=USA_2020_cook',
-	'./app/?t=USA_2020_inside',
-	'./app/?t=USA_2020_sabatos',
-	'./app/?t=USA_2020_senate',
+	'./app/?t=USA_2024_presidential',
 	'./app/?t=USA_2022_senate',
-	'./app/?t=USA_2020_governors',
-	'./app/?t=USA_2020_house',
-	'./app/?t=USA_2020_democratic_primary',
-	'./app/?t=USA_2020_republican_primary',
+	'./app/?t=USA_2022_governors',
+	'./app/?t=USA_2022_house',
 	'./app/?t=USA_county',
 	'./app/?t=USA_governors',
 	'./app/?t=USA_senate',
 	'./app/?t=USA_takeall',
 	'./app/?t=USA_proportional',
 	'./app/?t=USA_split_maine',
-	'./app/?t=USA_2024_projection',
-	'./app/?t=USA_2020_house_cook',
 
 	'./app/?t=Argentina_chamber_of_deputies',
 	'./app/?t=Australia_states',
@@ -52,12 +43,6 @@ const _indexCache = [
 	'./app/?t=Canada_provinces',
 	'./app/?t=Canada_house_of_commons',
 	'./app/?t=Canada_2019_house_of_commons',
-	'./app/?t=Germany_states',
-	'./app/?t=Germany_bundestag',
-	'./app/?t=India_2019_lok_sabha',
-	'./app/?t=Ireland_dail_eireann',
-	'./app/?t=Switzerland_council_of_states',
-	'./app/?t=Switzerland_national_council',
 	'./app/?t=UnitedKingdom_house_of_commons',
 	'./app/?t=UnitedKingdom_current_parliament'
 ];
@@ -79,9 +64,6 @@ const _staticCache = [
 	'./app/res/aus/australia.svg',
 	'./app/res/can/canada_states.svg',
 	'./app/res/can/canada_constituencies.svg',
-	'./app/res/deu/germany.svg',
-	'./app/res/deu/germany_constituencies.svg',
-	'./app/res/irl/ireland_constituencies_2020.svg',
 	'./app/res/ukd/unitedkingdom.svg',
 
 	'./app/res/images/halloween.jpg',
@@ -94,7 +76,6 @@ const _staticCache = [
 	'./app/res/presets/usa/USA_2016_democratic_primary',
 
 	'./app/res/presets/usa/USA_2024_projection',
-	'./app/res/presets/usa/USA_trump_impeachment_support',
 
 	'./app/res/presets/usa/USA_2020_cook',
 	'./app/res/presets/usa/USA_2020_inside',
