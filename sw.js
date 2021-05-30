@@ -1,5 +1,5 @@
-const indexCache = 'i3.1.5';
-const staticCache = 's3.1.5';
+const indexCache = 'i3.2.0';
+const staticCache = 's3.2.0';
 
 const _indexCache = [
 	'./',
@@ -74,17 +74,7 @@ const _staticCache = [
 	'./app/res/presets/usa/USA_2016_presidential_county',
 	'./app/res/presets/usa/USA_2016_republican_primary',
 	'./app/res/presets/usa/USA_2016_democratic_primary',
-
-	'./app/res/presets/usa/USA_2024_projection',
-
-	'./app/res/presets/usa/USA_2020_cook',
-	'./app/res/presets/usa/USA_2020_inside',
-	'./app/res/presets/usa/USA_2020_sabatos',
 	
-	'./app/res/presets/can/Canada_2019_house_of_commons',
-	'./app/res/presets/ind/India_2019_lok_sabha',
-	'./app/res/presets/ukd/UnitedKingdom_current_parliament',
-
 	'./app/res/flags/arg.svg',
 	'./app/res/flags/aus.svg',
 	'./app/res/flags/bra.svg',

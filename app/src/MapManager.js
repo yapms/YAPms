@@ -5,9 +5,7 @@ class MapManager {
 
 			const mapdiv = document.getElementById("map-div");
 			const svg = document.getElementById("svgdata");
-			const outlines = document.getElementById("outlines");
 			const bb = svg.getBBox();
-			const bbb = outlines.getBBox();
 			svg.setAttribute("viewBox", "0 0 " + 
 				(bb.x + bb.width + bb.x) + " " + 
 				(bb.y + bb.height + bb.y));
