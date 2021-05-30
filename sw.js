@@ -1,15 +1,14 @@
 const indexCache = 'i3.1.2';
-const staticCache = 's3.1.2';
+const staticCache = 's3.1.3';
 
 const _indexCache = [
 	'./',
 	'./index.php',
 	'./offline.php',
 
-	'./src/style/mobile-navigation.css',
-	'./src/style/desktop-navigation.css',
+	'./src/style/navigation.css',
 	'./src/style/style.css',
-	'./src/script/mobile-navigation.js',
+	'./src/script/navigation.js',
 	'./src/script/bookmark.js',
 	'./src/script/cookies.js',
 	
