@@ -574,7 +574,7 @@ class CandidateManager {
 		}
 
 		delete CandidateManager.candidates[candidateid];
-		ChartManager.chart.generateLegend();
+		LegendManager.generateLegend();
 		countVotes();
 		LegendManager.updateLegend();
 		ChartManager.updateChart();
@@ -633,7 +633,7 @@ class CandidateManager {
 			}	
 		}
 
-		ChartManager.chart.generateLegend();
+		LegendManager.generateLegend();
 		LegendManager.updateLegend();
 		ChartManager.updateChart();
 	}
@@ -694,7 +694,7 @@ class CandidateManager {
 		CandidateManager.candidates[name] = candidate;
 
 		verifyPaintIndex();
-		ChartManager.chart.generateLegend();
+		LegendManager.generateLegend();
 		ChartManager.updateChart();
 		LegendManager.updateLegend();
 	}
@@ -772,224 +772,72 @@ CandidateManager.tossupColor = 2;
 CandidateManager.TOSSUP = new Candidate('Tossup', ['#000000', '#ffffff', '#696969', '#000000']);
 class ChartManager {
 	static initChart() {
+		Chart.register(ChartDataLabels);
+		Chart.defaults.font.color = '#ffffff';
 		ChartManager.chartOptions = {
-			// This basically inserts HTML into the legend-div div
-			// it's a WIP
-			legendCallback: function(chart) {
-				console.log("Generating Legend...");
-				var legendDiv = document.getElementById('legend-div');
-				legendDiv.innerHTML = '';
-				var index = -1;
-				for(const key in CandidateManager.candidates) {
-					const candidate = CandidateManager.candidates[key];
-					++index;
-					const legendElement = document.createElement('div');
-					legendElement.setAttribute('id', candidate.name);
-					legendElement.setAttribute('class', 'legend-button');
-					legendElement.addEventListener("click", (function() {
-						const ref_key = key;
-						return function() {
-							legendClick(ref_key, this);
-						}
-					})());
-					legendElement.style.background = 'none';
-					legendDiv.appendChild(legendElement);
-				
-					const legendText = document.createElement('div');
-					legendText.setAttribute('id', candidate.name + '-text');	
-					legendText.setAttribute('class', 'legend-button-text');	
-					legendText.style.backgroundColor = candidate.colors[0];
-					if(index == 0) {
-						const color = candidate.colors[CandidateManager.tossupColor];
-						legendText.style.backgroundColor = color;
-					}
-					legendText.style.padding = '0px';
-					legendText.innerHTML = candidate.name;
-					legendElement.appendChild(legendText);
-		
-					const legendDelete = document.createElement('div');
-					legendDelete.setAttribute('class', 'legend-delete');
-					legendDelete.style.backgroundColor = 'black';
-					legendText.appendChild(legendDelete);
-
-					const legendColorDiv = document.createElement('div');
-					legendColorDiv.setAttribute('class', 'legend-color-div');
-					legendElement.appendChild(legendColorDiv);
-				
-					if(candidate.singleColor) {
-						legendColorDiv.style.display = 'none';
-					}
-					
-					if(key !== "Tossup") {
-						// after adding all the candidates, add the add candidate button
-						const legendEdit = document.createElement('div');
-						legendEdit.setAttribute('class', 'legend-delete');
-						legendEdit.addEventListener("click", (function() {
-							const ref_name = candidate.name;
-							return function() {
-								displayCandidateEditMenu(ref_name);
-							}
-						})());
-						legendEdit.style.background = 'none';
-
-						/* ONLY ADD IF CANDIDATE EDIT IS ENABLED */
-						if(php_candidate_edit) {
-							legendDiv.appendChild(legendEdit);
-						}
-
-						const legendEditText = document.createElement('div');
-						legendEditText.setAttribute('class', 'legend-delete-text');	
-						legendEditText.style.backgroundColor = candidate.colors[0];
-						legendEditText.style.padding = '0px';
-						legendEditText.style.fontSize = '14px';
-						const legendEditIcon = document.createElement('i');
-						legendEditIcon.classList.add('fas', 'fa-cog');
-						legendEditText.appendChild(legendEditIcon);
-						legendEdit.appendChild(legendEditText);
-					}
-
-					if(key !== 'Tossup' && LegendManager.legendLeans) {
-						const amts = ['solid', 'likely', 'lean', 'tilt'];
-						for(let index = 0; index < amts.length; ++index) {
-							const legendColor = document.createElement('div');
-							legendColor.classList.add('legend-color');
-							legendColor.setAttribute('id', candidate.name + amts[index]);
-							legendColor.style.backgroundColor = candidate.colors[index];
-							legendColorDiv.appendChild(legendColor);
-						}
-					}
-				}
-			
-				// after adding all the candidates, add the add candidate button
-				const legendElement = document.createElement('div');
-				legendElement.id = 'legend-addcandidate-button';
-				legendElement.classList.add('legend-button');
-				legendElement.addEventListener('click', displayAddCandidateMenu);
-				legendElement.style.background = 'none';
-
-				/* ONLY ADD IF CANDIDATE EDIT IS ENABLED */
-				if(php_candidate_edit) {
-					legendDiv.appendChild(legendElement);
-				}
-
-				var legendText = document.createElement('div');
-				legendText.setAttribute('id', 'addcandidate-button-text');	
-				legendText.setAttribute('class', 'legend-button-text');	
-				legendText.style.backgroundColor = CandidateManager.candidates['Tossup'].colors[CandidateManager.tossupColor];
-				legendText.style.padding = '0px';
-				legendText.innerHTML = '+';
-				legendElement.appendChild(legendText);
-				var legendColorDiv = document.createElement('div');
-				legendColorDiv.setAttribute('class', 'legend-color-div');
-				legendElement.appendChild(legendColorDiv);
-				
-				var legendTooltip = document.createElement('div');
-				legendTooltip.setAttribute('id', 'legend-tooltip');
-				legendDiv.appendChild(legendTooltip);
-				var legendText = document.createElement('div');
-				legendText.setAttribute('id', 'legendtooltip-text');	
-				legendText.setAttribute('class', 'legend-button-text');	
-				legendText.style.padding = '0px';
-				legendText.innerHTML = 'Select a candidate';
-				legendTooltip.appendChild(legendText);
-
-			},
-			// do not display the build in legend for the chart
-			legend: {
-				display: false
-			},
-			tooltips: {
-				display: true,
-				position: 'average',
-				titleFontColor: 'black',
-				bodyFontColor: 'black',
-				backgroundColor: 'white',
-				borderColor: 'black',
-				borderWidth: 2,
-				caretSize: 0,
-				cornerRadius: 0
-			},
-			// turn off animation
-			animation: {
-				animateRotate: false,
-				animateScale: true
-			},
+			indexAxis: 'y',
 			plugins: {
 				datalabels: {
-					//display: 'auto',
 					display: function(context) {
 						return context.dataset.data[context.dataIndex] !== 0;
 					},
 					backgroundColor: 'white',
 					borderColor: 'black',
-					borderRadius: 5,
-					borderWidth: 2,
 					color: 'black',
 					font: {
 						family: 'Roboto',
 						size: 15,
-						weight: 700
+						weight: 600 
+					}
+				},
+				legend: {
+					display: false
+				},
+				tooltip: {
+					enabled: false
+				}
+			}
+		}
+
+		ChartManager.chartBarScales = {
+			x: {
+				stacked: true,
+				grid: {
+					display: false,
+					drawBorder: false
+				},
+				ticks: {
+					color: '#fff',
+					font: {
+						family: 'Roboto',
+						size: 13
 					}
 				}
 			},
-			barStrokeWidth: 0
-		}
-	//Chart.defaults.global.barPercentage = 0;
-	//Chart.defaults.global.categoryPercentage = 0;
-
-		ChartManager.chartBarScales = {
-			yAxes: [{
+			y: {
 				stacked: true,
-				gridLines: {
+				grid: {
 					display: false,
 					drawBorder: false
 				},
 				ticks: {
-					fontSize: 15,
-					fontColor: '#ffffff',
-					fontFamily: 'Roboto',
-					fontStyle: 500
+					color: '#fff',
+					font: {
+						family: 'Roboto',
+						size: 13
+					}
 				}
-			}],
-			xAxes: [{
-				stacked: true,
-				gridLines: {
-					display: false,
-					drawBorder: false
-				},
-				ticks: {
-					beginAtZero: true,
-					fontSize: 15,
-					fontColor: '#ffffff',
-					fontStyle: 500,
-					fontFamily: 'Roboto'
-				}
-			}]
+			}
 		}
 
 		ChartManager.chartPieScales = {
-			yAxes: [{
+			grid: {
 				display: false
-			}],
-			xAxes: [{
-				display: false
-			}]
-		}
-		
-		ChartManager.chartPolarScales = {
-			display: false
-		}
-
-		ChartManager.chartRadarScales = {
-			display: false
+			}
 		}
 
 		ChartManager.chartOptions.scales = ChartManager.chartPieScales;
-
-		Chart.defaults.global.elements.rectangle.borderWidth = 2;
-		
-		// get the context
-		var ctx = document.getElementById('chart-canvas').getContext('2d');
+		const ctx = document.getElementById('chart-canvas').getContext('2d');
 		ctx.height = 200;
 
 		// create the chart
@@ -1043,7 +891,6 @@ class ChartManager {
 			return;
 		} else if(type === 'horizontalbattle' || type === 'verticalbattle') {
 			if(Object.keys(CandidateManager.candidates).length > 3) {
-			
 				displayNotification('Sorry',
 					'This chart requires that there be two candidates');
 				return;
@@ -1051,7 +898,7 @@ class ChartManager {
 			
 			if(type === 'horizontalbattle') {
 				setBattleHorizontal();
-				var logo = document.getElementById('logo-div');
+				let logo = document.getElementById('logo-div');
 				logo.style.width = '15%';
 				logo.style.height = '100%';
 
@@ -1061,11 +908,10 @@ class ChartManager {
 				logo = document.getElementById('yapms-watermark');
 				logo.style.width = '15%';
 				logo.style.height = '100%';
-			}
-			else {
+			} else if(type === 'verticalbattle') {
 				unsetBattleHorizontal();
 				sidebar.style.width = '20vw';	
-				var logo = document.getElementById('logo-div');
+				let logo = document.getElementById('logo-div');
 				logo.style.width = '100%';
 				logo.style.height = '15%';
 				sidebar.style.borderTop = '0px';
@@ -1157,7 +1003,7 @@ class ChartManager {
 			ChartManager.chartOptions.scales = ChartManager.chartBarScales;
 			delete ChartManager.chartOptions.scale;
 			// horizontal bar needs multiple datasets
-			for(var i = 0; i < 3; ++i) {
+			for(let i = 0; i < 3; ++i) {
 				ChartManager.chartData.datasets.push({
 					borderColor: ChartManager.chartBorderColor,
 					borderWidth: ChartManager.chartBorderWidth,
@@ -1169,17 +1015,14 @@ class ChartManager {
 			delete ChartManager.chartOptions.scale;
 		}
 
-		// first destroy the chart
 		ChartManager.chart.destroy();
-		// then rebuild
-		ChartManager.chart = new Chart(ctx, {type: type, data: ChartManager.chartData, options: ChartManager.chartOptions});
+		ChartManager.chart = new Chart(ctx, {type: type === "horizontalBar" ? "bar" : type, data: ChartManager.chartData, options: ChartManager.chartOptions});
 		ChartManager.updateChart();
 	}
 
 	static rebuildChart() {
-		var html = document.getElementById('chart-canvas');
-		var ctx = html.getContext('2d');
-		//var type = chart.config.type;
+		const canvas = document.getElementById('chart-canvas');
+		const ctx = canvas.getContext('2d');
 		ChartManager.chart.destroy();
 		ChartManager.chart = new Chart(ctx, {
 			type: ChartManager.chart.config.type, 
@@ -1189,7 +1032,7 @@ class ChartManager {
 		
 		// dont display the chart if its a battle chart
 		if(ChartManager.chartType === 'battle') {	
-			var chartcontainer = document.getElementById('chart');
+			const chartcontainer = document.getElementById('chart');
 			chartcontainer.style.display = 'none';
 		}
 
@@ -1229,30 +1072,26 @@ class ChartManager {
 		}
 
 		if(ChartManager.chartLeans) {
-			for(var probIndex = 0; probIndex < 4; ++probIndex) {
-				for(var key in CandidateManager.candidates) {
-					var candidate = CandidateManager.candidates[key];
-					var name = candidate.name;
-					var count = candidate.probVoteCounts[probIndex];
+			for(let probIndex = 0; probIndex < 4; ++probIndex) {
+				for(const key in CandidateManager.candidates) {
+					const candidate = CandidateManager.candidates[key];
+					const count = candidate.probVoteCounts[probIndex];
 					ChartManager.chartData.datasets[probIndex].data.push(count);
-
-					var color = candidate.colors[probIndex];
+					const color = candidate.colors[probIndex];
 					ChartManager.chartData.datasets[probIndex].backgroundColor.push(color);
 				}
 			}
 		} else {
-			for(var key in CandidateManager.candidates) {
-				var candidate = CandidateManager.candidates[key];
-				var name = candidate.name;
-				var count = candidate.voteCount;
+			for(const key in CandidateManager.candidates) {
+				const candidate = CandidateManager.candidates[key];
+				const count = candidate.voteCount;
 				ChartManager.chartData.datasets[0].data.push(count);
-
 				if(key === 'Tossup') {
-					var color = candidate.colors[2];
+					const color = candidate.colors[2];
 					ChartManager.chartData.datasets[0].backgroundColor.push(color);
 
 				} else {
-					var color = candidate.colors[0];
+					const color = candidate.colors[0];
 					ChartManager.chartData.datasets[0].backgroundColor.push(color);
 				}
 			}
@@ -1267,33 +1106,29 @@ class ChartManager {
 		ChartManager.chartData.datasets[0].borderColor = ChartManager.chartBorderColor;
 		ChartManager.chartData.datasets[0].borderWidth = ChartManager.chartBorderWidth;
 
-		// loop though candidates
-		var candidateIndex = -1;
-		for(var key in CandidateManager.candidates) {
+		let candidateIndex = -1;
+		for(const key in CandidateManager.candidates) {
 			++candidateIndex;
-			var candidate = CandidateManager.candidates[key];
-			var name = candidate.name;
-			var voteCount = candidate.voteCount;
-			var color = candidate.colors[0];
+			const candidate = CandidateManager.candidates[key];
+			const name = candidate.name;
+			const voteCount = candidate.voteCount;
+			let color = candidate.colors[0];
 			if(candidateIndex == 0) {
 				color = CandidateManager.candidates['Tossup'].colors[CandidateManager.tossupColor];
-				// append the candidate label
 				ChartManager.chartData.labels[0] = 'Tossup';
-				// append the vote count
 				ChartManager.chartData.datasets[0].data[0] = voteCount;
-				// change the background color of the visual
 				ChartManager.chartData.datasets[0].backgroundColor.push(color);
 			} else if(ChartManager.chartLeans) {
-				for(var probIndex = 0; probIndex < 4; ++probIndex) {
-					var count = candidate.probVoteCounts[probIndex];
+				for(let probIndex = 0; probIndex < 4; ++probIndex) {
+					const count = candidate.probVoteCounts[probIndex];
 					color = candidate.colors[probIndex];
-					var index = (probIndex + (candidateIndex * 4)) - 3;
+					const index = (probIndex + (candidateIndex * 4)) - 3;
 					ChartManager.chartData.labels[index] = name;
 					ChartManager.chartData.datasets[0].data[index] = count;
 					ChartManager.chartData.datasets[0].backgroundColor.push(color);
 				}
 			} else {
-				var count = candidate.voteCount;
+				const count = candidate.voteCount;
 				color = candidate.colors[0];
 				ChartManager.chartData.labels[candidateIndex] = name;
 				ChartManager.chartData.datasets[0].data[candidateIndex] = count;
@@ -1340,8 +1175,6 @@ ChartManager.chartType = null;
 ChartManager.chartPosition = null;
 ChartManager.chartPieScales = null;
 ChartManager.chartBarScales = null;
-ChartManager.chartPolarScales = null;
-ChartManager.chartRadarScales = null;
 
 ChartManager.chartLeans = true;
 ChartManager.chartLabels = true;
@@ -1477,16 +1310,15 @@ class LegendManager {
 
 	static toggleLegendLeans() {
 		LegendManager.legendLeans = !LegendManager.legendLeans;
-		ChartManager.chart.generateLegend();
+		LegendManager.generateLegend();
 		LegendManager.updateLegend();
 	}
 	
 	static selectCandidateDisplay(html) {
-		var legendButtons = html.parentElement.children;
+		const legendButtons = html.parentElement.children;
 
-		for(var index = 0; index < legendButtons.length; ++index) {
-			var button = legendButtons[index];
-			var text = button.childNodes[0];
+		for(const button of legendButtons) {
+			const text = button.childNodes[0];
 			text.style.padding = '4px';
 		}
 		
@@ -1512,6 +1344,126 @@ class LegendManager {
 				LegendManager.selectCandidateDisplay(html.parentElement);
 			}
 		}
+	}
+
+	static generateLegend() {
+		console.log("Generating Legend...");
+		const legendDiv = document.getElementById('legend-div');
+		legendDiv.innerHTML = '';
+		let index = -1;
+		for(const key in CandidateManager.candidates) {
+			const candidate = CandidateManager.candidates[key];
+			++index;
+			const legendElement = document.createElement('div');
+			legendElement.setAttribute('id', candidate.name);
+			legendElement.setAttribute('class', 'legend-button');
+			legendElement.addEventListener("click", (function() {
+				const ref_key = key;
+				return function() {
+					legendClick(ref_key, this);
+				}
+			})());
+			legendElement.style.background = 'none';
+			legendDiv.appendChild(legendElement);
+		
+			const legendText = document.createElement('div');
+			legendText.setAttribute('id', candidate.name + '-text');	
+			legendText.setAttribute('class', 'legend-button-text');	
+			legendText.style.backgroundColor = candidate.colors[0];
+			if(index == 0) {
+				const color = candidate.colors[CandidateManager.tossupColor];
+				legendText.style.backgroundColor = color;
+			}
+			legendText.style.padding = '0px';
+			legendText.innerHTML = candidate.name;
+			legendElement.appendChild(legendText);
+
+			const legendDelete = document.createElement('div');
+			legendDelete.setAttribute('class', 'legend-delete');
+			legendDelete.style.backgroundColor = 'black';
+			legendText.appendChild(legendDelete);
+
+			const legendColorDiv = document.createElement('div');
+			legendColorDiv.setAttribute('class', 'legend-color-div');
+			legendElement.appendChild(legendColorDiv);
+		
+			if(candidate.singleColor) {
+				legendColorDiv.style.display = 'none';
+			}
+			
+			if(key !== "Tossup") {
+				// after adding all the candidates, add the add candidate button
+				const legendEdit = document.createElement('div');
+				legendEdit.setAttribute('class', 'legend-delete');
+				legendEdit.addEventListener("click", (function() {
+					const ref_name = candidate.name;
+					return function() {
+						displayCandidateEditMenu(ref_name);
+					}
+				})());
+				legendEdit.style.background = 'none';
+
+				/* ONLY ADD IF CANDIDATE EDIT IS ENABLED */
+				if(php_candidate_edit) {
+					legendDiv.appendChild(legendEdit);
+				}
+
+				const legendEditText = document.createElement('div');
+				legendEditText.setAttribute('class', 'legend-delete-text');	
+				legendEditText.style.backgroundColor = candidate.colors[0];
+				legendEditText.style.padding = '0px';
+				legendEditText.style.fontSize = '14px';
+				const legendEditIcon = document.createElement('i');
+				legendEditIcon.classList.add('fas', 'fa-cog');
+				legendEditText.appendChild(legendEditIcon);
+				legendEdit.appendChild(legendEditText);
+			}
+
+			if(key !== 'Tossup' && LegendManager.legendLeans) {
+				const amts = ['solid', 'likely', 'lean', 'tilt'];
+				for(let index = 0; index < amts.length; ++index) {
+					const legendColor = document.createElement('div');
+					legendColor.classList.add('legend-color');
+					legendColor.setAttribute('id', candidate.name + amts[index]);
+					legendColor.style.backgroundColor = candidate.colors[index];
+					legendColorDiv.appendChild(legendColor);
+				}
+			}
+		}
+	
+		// after adding all the candidates, add the add candidate button
+		const legendElement = document.createElement('div');
+		legendElement.id = 'legend-addcandidate-button';
+		legendElement.classList.add('legend-button');
+		legendElement.addEventListener('click', displayAddCandidateMenu);
+		legendElement.style.background = 'none';
+
+		/* ONLY ADD IF CANDIDATE EDIT IS ENABLED */
+		if(php_candidate_edit) {
+			legendDiv.appendChild(legendElement);
+		}
+
+		var legendText = document.createElement('div');
+		legendText.setAttribute('id', 'addcandidate-button-text');	
+		legendText.setAttribute('class', 'legend-button-text');	
+		legendText.style.backgroundColor = 
+			CandidateManager.candidates['Tossup'].colors[CandidateManager.tossupColor];
+		legendText.style.padding = '0px';
+		legendText.innerHTML = '+';
+		legendElement.appendChild(legendText);
+		var legendColorDiv = document.createElement('div');
+		legendColorDiv.setAttribute('class', 'legend-color-div');
+		legendElement.appendChild(legendColorDiv);
+		
+		var legendTooltip = document.createElement('div');
+		legendTooltip.setAttribute('id', 'legend-tooltip');
+		legendDiv.appendChild(legendTooltip);
+		var legendText = document.createElement('div');
+		legendText.setAttribute('id', 'legendtooltip-text');	
+		legendText.setAttribute('class', 'legend-button-text');	
+		legendText.style.padding = '0px';
+		legendText.innerHTML = 'Select a candidate';
+		legendTooltip.appendChild(legendText);
 	}
 }
 
@@ -1960,7 +1912,7 @@ class MapLoader {
 				break;
 			case "USA_presidential_territories":
 				PresetLoader.loadPreset("classic");
-				MapLoader.loadMap("./res/usa/usa_presidential_territories.svg", 16, 0.75, "usa_territories_ec", "takeall", "open");
+				MapLoader.loadMap("./res/usa/presidential/usa_presidential_territories.svg", 16, 0.75, "usa_territories_ec", "takeall", "open");
 				break;
 			case "USA_2024_presidential":
 				PresetLoader.loadPreset('classic');
@@ -2756,7 +2708,7 @@ class PresetLoader {
 		}
 	
 		ChartManager.updateChart();
-		ChartManager.chart.generateLegend();
+		LegendManager.generateLegend();
 		LegendManager.updateLegend();
 	}
 
@@ -3785,7 +3737,6 @@ class State {
 
 		if(this.disabled == false) {
 			this.setVoteCount(0);
-			//alert(MapLoader.save_type === "takeall");
 			this.setColor('Tossup', 2);
 
 			//this.setDisplayColor(candidates['Tossup'].colors[1]);
@@ -5011,8 +4962,8 @@ function darkPalette() {
 	ChartManager.chartOptions.plugins.datalabels.borderWidth = 2;
 	ChartManager.chartOptions.plugins.datalabels.borderRadius = 4;
 
-	ChartManager.chartBarScales.yAxes[0].ticks.fontColor = '#ffffff';
-	ChartManager.chartBarScales.xAxes[0].ticks.fontColor = '#ffffff';
+	ChartManager.chartBarScales.y.ticks.color = '#ffffff';
+	ChartManager.chartBarScales.x.ticks.color = '#ffffff';
 	ChartManager.setChart(ChartManager.chartType, ChartManager.chartPosition);
 	previousPalette = darkPalette;
 }
@@ -5042,8 +4993,8 @@ function greyscalePalette() {
 	ChartManager.chartOptions.plugins.datalabels.borderWidth = 2;
 	ChartManager.chartOptions.plugins.datalabels.borderRadius = 4;
 
-	ChartManager.chartBarScales.yAxes[0].ticks.fontColor = '#ffffff';
-	ChartManager.chartBarScales.xAxes[0].ticks.fontColor = '#ffffff';
+	ChartManager.chartBarScales.y.ticks.color = '#ffffff';
+	ChartManager.chartBarScales.x.ticks.color = '#ffffff';
 	ChartManager.setChart(ChartManager.chartType, ChartManager.chartPosition);
 	previousPalette = darkPalette;
 }
@@ -5072,9 +5023,9 @@ function terminalPalette() {
 	
 	ChartManager.chartOptions.plugins.datalabels.borderWidth = 2;
 	ChartManager.chartOptions.plugins.datalabels.borderRadius = 4;
-	
-	ChartManager.chartBarScales.yAxes[0].ticks.fontColor = '#ffffff';
-	ChartManager.chartBarScales.xAxes[0].ticks.fontColor = '#ffffff';
+
+	ChartManager.chartBarScales.y.ticks.color = '#ffffff';
+	ChartManager.chartBarScales.x.ticks.color = '#ffffff';
 	ChartManager.setChart(ChartManager.chartType, ChartManager.chartPosition);
 	previousPalette = terminalPalette;
 }
@@ -5105,9 +5056,9 @@ function lightPalette() {
 	
 	ChartManager.chartOptions.plugins.datalabels.borderWidth = 2;
 	ChartManager.chartOptions.plugins.datalabels.borderRadius = 4;
-	
-	ChartManager.chartBarScales.yAxes[0].ticks.fontColor = '#ffffff';
-	ChartManager.chartBarScales.xAxes[0].ticks.fontColor = '#ffffff';
+
+	ChartManager.chartBarScales.y.ticks.color = '#ffffff';
+	ChartManager.chartBarScales.x.ticks.color = '#ffffff';
 	ChartManager.setChart(ChartManager.chartType, ChartManager.chartPosition);
 	previousPalette = lightPalette;
 }
@@ -5137,8 +5088,8 @@ function contrastPalette() {
 	ChartManager.chartOptions.plugins.datalabels.borderWidth = 2;
 	ChartManager.chartOptions.plugins.datalabels.borderRadius = 4;
 
-	ChartManager.chartBarScales.yAxes[0].ticks.fontColor = '#000000';
-	ChartManager.chartBarScales.xAxes[0].ticks.fontColor = '#000000';
+	ChartManager.chartBarScales.y.ticks.color = '#000000';
+	ChartManager.chartBarScales.x.ticks.color = '#000000';
 	ChartManager.setChart(ChartManager.chartType, ChartManager.chartPosition);
 	previousPalette = contrastPalette;
 }
@@ -5167,9 +5118,9 @@ function metallicPalette() {
 
 	ChartManager.chartOptions.plugins.datalabels.borderWidth = 2;
 	ChartManager.chartOptions.plugins.datalabels.borderRadius = 4;
-	
-	ChartManager.chartBarScales.yAxes[0].ticks.fontColor = '#ffffff';
-	ChartManager.chartBarScales.xAxes[0].ticks.fontColor = '#ffffff';
+
+	ChartManager.chartBarScales.y.ticks.color = '#ffffff';
+	ChartManager.chartBarScales.x.ticks.color = '#ffffff';
 	ChartManager.setChart(ChartManager.chartType, ChartManager.chartPosition);
 	previousPalette = metallicPalette;
 }
@@ -5202,9 +5153,9 @@ function usaElectionPalette() {
 	
 	ChartManager.chartOptions.plugins.datalabels.borderWidth = 2;
 	ChartManager.chartOptions.plugins.datalabels.borderRadius = 4;
-	
-	ChartManager.chartBarScales.yAxes[0].ticks.fontColor = '#ffffff';
-	ChartManager.chartBarScales.xAxes[0].ticks.fontColor = '#ffffff';
+
+	ChartManager.chartBarScales.y.ticks.color = '#ffffff';
+	ChartManager.chartBarScales.x.ticks.color = '#ffffff';
 	ChartManager.setChart(ChartManager.chartType, ChartManager.chartPosition);
 	previousPalette = usaElectionPalette;
 }
@@ -5233,8 +5184,8 @@ function halloweenPalette() {
 	ChartManager.chartOptions.plugins.datalabels.borderWidth = 0;
 	ChartManager.chartOptions.plugins.datalabels.borderRadius = 2;
 
-	ChartManager.chartBarScales.yAxes[0].ticks.fontColor = '#ffffff';
-	ChartManager.chartBarScales.xAxes[0].ticks.fontColor = '#ffffff';
+	ChartManager.chartBarScales.y.ticks.color = '#ffffff';
+	ChartManager.chartBarScales.x.ticks.color = '#ffffff';
 	ChartManager.setChart(ChartManager.chartType, ChartManager.chartPosition);
 	previousPalette = halloweenPalette;
 }
@@ -5264,8 +5215,8 @@ function toWinPalette() {
 	ChartManager.chartOptions.plugins.datalabels.borderWidth = 0;
 	ChartManager.chartOptions.plugins.datalabels.borderRadius = 2;
 
-	ChartManager.chartBarScales.yAxes[0].ticks.fontColor = '#000000';
-	ChartManager.chartBarScales.xAxes[0].ticks.fontColor = '#000000';
+	ChartManager.chartBarScales.y.ticks.color = '#000000';
+	ChartManager.chartBarScales.x.ticks.color = '#000000';
 	ChartManager.setChart(ChartManager.chartType, ChartManager.chartPosition);
 	previousPalette = toWinPalette;
 }
@@ -6312,7 +6263,7 @@ function hideMenu(name) {
 	var menu = document.getElementById(name);
 	menu.style.display = 'none';
 }
-const currentCache = 'v3.2.1';
+const currentCache = 'v3.3.0';
 
 let states = [];
 let lands = [];

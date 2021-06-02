@@ -202,7 +202,6 @@ class State {
 
 		if(this.disabled == false) {
 			this.setVoteCount(0);
-			//alert(MapLoader.save_type === "takeall");
 			this.setColor('Tossup', 2);
 
 			//this.setDisplayColor(candidates['Tossup'].colors[1]);

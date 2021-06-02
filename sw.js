@@ -1,7 +1,6 @@
-const indexCache = 'i3.2.1';
-const staticCache = 's3.2.1';
+const version = '3.3.0';
 
-const _indexCache = [
+const _cache = [
 	'./',
 	'./index.php',
 	'./offline.php',
@@ -44,10 +43,8 @@ const _indexCache = [
 	'./app/?t=Canada_house_of_commons',
 	'./app/?t=Canada_2019_house_of_commons',
 	'./app/?t=UnitedKingdom_house_of_commons',
-	'./app/?t=UnitedKingdom_current_parliament'
-];
-
-const _staticCache = [
+	'./app/?t=UnitedKingdom_current_parliament',
+	
 	'./app/res/usa/presidential/usa_presidential.svg',
 	'./app/res/usa/presidential/usa_pre_civilwar.svg',
 	'./app/res/usa/presidential/usa_1972_presidential.svg',
@@ -109,14 +106,18 @@ const _staticCache = [
 	'https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/js/all.min.js',
 	'https://cdn.jsdelivr.net/npm/dom-to-image@2.6.0/dist/dom-to-image.min.js',
 	'https://cdn.jsdelivr.net/npm/panzoom@9.4.2/dist/panzoom.min.js',
-	'https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js',
-	'https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0/dist/chartjs-plugin-datalabels.min.js',
+	'https://cdn.jsdelivr.net/npm/chart.js@3.3.2/dist/chart.min.js',
+	'https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0-rc.1/dist/chartjs-plugin-datalabels.min.js',
 
 	'./manifest.json'
 ];
 
+const _staticCache = [
+
+];
+
 function swLog(cache, message) {
-	console.log('SW ' + cache + ': ' + message + ' ( ' + staticCache + ' / ' + indexCache + ' )');
+	console.log('SW ' + cache + ': ' + message);
 }
 
 self.addEventListener('message', function(event) {
@@ -135,37 +136,13 @@ self.addEventListener('message', function(event) {
 });
 
 self.addEventListener('install', function(event) {
-	event.waitUntil(caches.has(staticCache).then(function(exists) {
+	swLog(version, 'installing');
+	event.waitUntil(caches.has(version).then(function(exists) {
 		if(exists === false) {
-			return caches.open(staticCache).then(function(cache) {
-				swLog(staticCache, 'installing');
-				return cache.addAll(_staticCache).then(function() {
-					cache.add('./app/res/presets/usa/USA_1789_presidential');
-					for(let i = 1792; i < 2016; i += 4) {
-						cache.add('./app/res/presets/usa/USA_' + i + '_presidential');
-					}
-					return cache;
-				});
-			})
+			return caches.open(version).then(function(cache) {
+				return cache.addAll(_cache);
+			});
 		}
-	}).then(caches.has(indexCache).then(function(exists) {
-		if(exists === false) {
-			return caches.open(indexCache).then(function(cache) {
-				swLog(indexCache, 'installing');
-				return cache.addAll(_indexCache).then(function() {
-					cache.add('./app/?t=USA_1789_presidential');
-					for(let i = 1792; i < 2016; i += 4) {
-						cache.add('./app/?t=USA_' + i + '_presidential');
-					}
-					return cache;
-				});
-			})
-		}
-	})).then(function() {
-		return caches.open(staticCache).then(function(cache) {
-			swLog('flycatch', 'installing');
-			return cache.addAll([]);
-		});
 	}));
 });
 
@@ -187,7 +164,7 @@ self.addEventListener('fetch', function(event) {
 					return fetch(event.request)
 					.then(function(response) {
 						swLog('Web', 'caching ' + event.request.url);
-						return caches.open('flycache').then((cache) => {
+						return caches.open(version).then(function(cache) {
 							cache.put(event.request, response.clone());
 							return response;
 						});
@@ -212,8 +189,7 @@ self.addEventListener('activate', function(event) {
 	return event.waitUntil(
 		caches.keys().then(function(cacheNames) {
 			cacheNames.forEach(function(cacheName) {
-				if(cacheName === staticCache ||
-				cacheName === indexCache) {
+				if(cacheName === version) {
 					swLog(cacheName, 'keep');
 				} else {
 					swLog(cacheName, 'delete');

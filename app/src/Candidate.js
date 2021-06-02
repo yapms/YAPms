@@ -34,7 +34,7 @@ class CandidateManager {
 		}
 
 		delete CandidateManager.candidates[candidateid];
-		ChartManager.chart.generateLegend();
+		LegendManager.generateLegend();
 		countVotes();
 		LegendManager.updateLegend();
 		ChartManager.updateChart();
@@ -93,7 +93,7 @@ class CandidateManager {
 			}	
 		}
 
-		ChartManager.chart.generateLegend();
+		LegendManager.generateLegend();
 		LegendManager.updateLegend();
 		ChartManager.updateChart();
 	}
@@ -154,7 +154,7 @@ class CandidateManager {
 		CandidateManager.candidates[name] = candidate;
 
 		verifyPaintIndex();
-		ChartManager.chart.generateLegend();
+		LegendManager.generateLegend();
 		ChartManager.updateChart();
 		LegendManager.updateLegend();
 	}

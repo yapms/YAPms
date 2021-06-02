@@ -291,7 +291,7 @@ class MapLoader {
 				break;
 			case "USA_presidential_territories":
 				PresetLoader.loadPreset("classic");
-				MapLoader.loadMap("./res/usa/usa_presidential_territories.svg", 16, 0.75, "usa_territories_ec", "takeall", "open");
+				MapLoader.loadMap("./res/usa/presidential/usa_presidential_territories.svg", 16, 0.75, "usa_territories_ec", "takeall", "open");
 				break;
 			case "USA_2024_presidential":
 				PresetLoader.loadPreset('classic');

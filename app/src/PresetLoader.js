@@ -79,7 +79,7 @@ class PresetLoader {
 		}
 	
 		ChartManager.updateChart();
-		ChartManager.chart.generateLegend();
+		LegendManager.generateLegend();
 		LegendManager.updateLegend();
 	}
 

@@ -164,8 +164,8 @@ function darkPalette() {
 	ChartManager.chartOptions.plugins.datalabels.borderWidth = 2;
 	ChartManager.chartOptions.plugins.datalabels.borderRadius = 4;
 
-	ChartManager.chartBarScales.yAxes[0].ticks.fontColor = '#ffffff';
-	ChartManager.chartBarScales.xAxes[0].ticks.fontColor = '#ffffff';
+	ChartManager.chartBarScales.y.ticks.color = '#ffffff';
+	ChartManager.chartBarScales.x.ticks.color = '#ffffff';
 	ChartManager.setChart(ChartManager.chartType, ChartManager.chartPosition);
 	previousPalette = darkPalette;
 }
@@ -195,8 +195,8 @@ function greyscalePalette() {
 	ChartManager.chartOptions.plugins.datalabels.borderWidth = 2;
 	ChartManager.chartOptions.plugins.datalabels.borderRadius = 4;
 
-	ChartManager.chartBarScales.yAxes[0].ticks.fontColor = '#ffffff';
-	ChartManager.chartBarScales.xAxes[0].ticks.fontColor = '#ffffff';
+	ChartManager.chartBarScales.y.ticks.color = '#ffffff';
+	ChartManager.chartBarScales.x.ticks.color = '#ffffff';
 	ChartManager.setChart(ChartManager.chartType, ChartManager.chartPosition);
 	previousPalette = darkPalette;
 }
@@ -225,9 +225,9 @@ function terminalPalette() {
 	
 	ChartManager.chartOptions.plugins.datalabels.borderWidth = 2;
 	ChartManager.chartOptions.plugins.datalabels.borderRadius = 4;
-	
-	ChartManager.chartBarScales.yAxes[0].ticks.fontColor = '#ffffff';
-	ChartManager.chartBarScales.xAxes[0].ticks.fontColor = '#ffffff';
+
+	ChartManager.chartBarScales.y.ticks.color = '#ffffff';
+	ChartManager.chartBarScales.x.ticks.color = '#ffffff';
 	ChartManager.setChart(ChartManager.chartType, ChartManager.chartPosition);
 	previousPalette = terminalPalette;
 }
@@ -258,9 +258,9 @@ function lightPalette() {
 	
 	ChartManager.chartOptions.plugins.datalabels.borderWidth = 2;
 	ChartManager.chartOptions.plugins.datalabels.borderRadius = 4;
-	
-	ChartManager.chartBarScales.yAxes[0].ticks.fontColor = '#ffffff';
-	ChartManager.chartBarScales.xAxes[0].ticks.fontColor = '#ffffff';
+
+	ChartManager.chartBarScales.y.ticks.color = '#ffffff';
+	ChartManager.chartBarScales.x.ticks.color = '#ffffff';
 	ChartManager.setChart(ChartManager.chartType, ChartManager.chartPosition);
 	previousPalette = lightPalette;
 }
@@ -290,8 +290,8 @@ function contrastPalette() {
 	ChartManager.chartOptions.plugins.datalabels.borderWidth = 2;
 	ChartManager.chartOptions.plugins.datalabels.borderRadius = 4;
 
-	ChartManager.chartBarScales.yAxes[0].ticks.fontColor = '#000000';
-	ChartManager.chartBarScales.xAxes[0].ticks.fontColor = '#000000';
+	ChartManager.chartBarScales.y.ticks.color = '#000000';
+	ChartManager.chartBarScales.x.ticks.color = '#000000';
 	ChartManager.setChart(ChartManager.chartType, ChartManager.chartPosition);
 	previousPalette = contrastPalette;
 }
@@ -320,9 +320,9 @@ function metallicPalette() {
 
 	ChartManager.chartOptions.plugins.datalabels.borderWidth = 2;
 	ChartManager.chartOptions.plugins.datalabels.borderRadius = 4;
-	
-	ChartManager.chartBarScales.yAxes[0].ticks.fontColor = '#ffffff';
-	ChartManager.chartBarScales.xAxes[0].ticks.fontColor = '#ffffff';
+
+	ChartManager.chartBarScales.y.ticks.color = '#ffffff';
+	ChartManager.chartBarScales.x.ticks.color = '#ffffff';
 	ChartManager.setChart(ChartManager.chartType, ChartManager.chartPosition);
 	previousPalette = metallicPalette;
 }
@@ -355,9 +355,9 @@ function usaElectionPalette() {
 	
 	ChartManager.chartOptions.plugins.datalabels.borderWidth = 2;
 	ChartManager.chartOptions.plugins.datalabels.borderRadius = 4;
-	
-	ChartManager.chartBarScales.yAxes[0].ticks.fontColor = '#ffffff';
-	ChartManager.chartBarScales.xAxes[0].ticks.fontColor = '#ffffff';
+
+	ChartManager.chartBarScales.y.ticks.color = '#ffffff';
+	ChartManager.chartBarScales.x.ticks.color = '#ffffff';
 	ChartManager.setChart(ChartManager.chartType, ChartManager.chartPosition);
 	previousPalette = usaElectionPalette;
 }
@@ -386,8 +386,8 @@ function halloweenPalette() {
 	ChartManager.chartOptions.plugins.datalabels.borderWidth = 0;
 	ChartManager.chartOptions.plugins.datalabels.borderRadius = 2;
 
-	ChartManager.chartBarScales.yAxes[0].ticks.fontColor = '#ffffff';
-	ChartManager.chartBarScales.xAxes[0].ticks.fontColor = '#ffffff';
+	ChartManager.chartBarScales.y.ticks.color = '#ffffff';
+	ChartManager.chartBarScales.x.ticks.color = '#ffffff';
 	ChartManager.setChart(ChartManager.chartType, ChartManager.chartPosition);
 	previousPalette = halloweenPalette;
 }
@@ -417,8 +417,8 @@ function toWinPalette() {
 	ChartManager.chartOptions.plugins.datalabels.borderWidth = 0;
 	ChartManager.chartOptions.plugins.datalabels.borderRadius = 2;
 
-	ChartManager.chartBarScales.yAxes[0].ticks.fontColor = '#000000';
-	ChartManager.chartBarScales.xAxes[0].ticks.fontColor = '#000000';
+	ChartManager.chartBarScales.y.ticks.color = '#000000';
+	ChartManager.chartBarScales.x.ticks.color = '#000000';
 	ChartManager.setChart(ChartManager.chartType, ChartManager.chartPosition);
 	previousPalette = toWinPalette;
 }
