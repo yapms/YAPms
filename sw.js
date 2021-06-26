@@ -1,4 +1,4 @@
-const version = '3.3.0';
+const version = '3.3.3';
 
 const _cache = [
 	'./',
@@ -159,7 +159,8 @@ self.addEventListener('fetch', function(event) {
 					event.request.url.includes('yapms.com/app/?m=') === false &&
 					event.request.url.includes('yapms.com/app/savemap.php') === false &&
 					event.request.url.includes('yapms.com/app/savemap_new.php') === false &&
-					event.request.url.includes('yapms.com/app/savemap_simple.php') === false) {
+					event.request.url.includes('yapms.com/app/savemap_simple.php') === false &&
+					event.request.url.includes('adsbygoogle.js') === false) {
 					swLog('Web', 'fetch+cache ' + event.request.url);
 					return fetch(event.request)
 					.then(function(response) {
