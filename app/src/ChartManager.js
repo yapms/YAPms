@@ -96,7 +96,7 @@ class ChartManager {
 
 	// dynamically change the chart from one form to another
 	static setChart(type, position) {
-		console.log('Set Chart - ' + type);
+		console.log('Chart Manager: ' + type);
 		var sidebar = document.getElementById('chart-div');
 		var chartHTML = document.getElementById('chart');
 		var html = document.getElementById('chart-canvas');

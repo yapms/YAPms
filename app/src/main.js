@@ -1,4 +1,4 @@
-const currentCache = 'v3.3.3';
+const currentCache = 'v3.3.4';
 
 let states = [];
 let lands = [];
@@ -92,9 +92,6 @@ window.onerror = function(message, source, lineno, colno, error) {
 }
 
 function setMode(set) {
-	console.log('mode ' +  mode + ' | set ' + set + 
-		' | mapType ' + MapLoader.save_type + ' | mapYear ' + MapLoader.save_year);
-
 	LogoManager.loadButtons();
 
 	mode = set;
@@ -327,7 +324,8 @@ function start() {
 		if(php_load_user === true) {
 			url = 'https://yapms.org/users/' + php_load_user_id + '/' + php_load_map_id + '.txt'; 	
 		} else {
-			url = 'https://yapms.org/maps/' + php_load_map_id + '.txt'; 	
+			//url = 'https://yapms.org/maps/' + php_load_map_id + '.txt'; 	
+			url = "./maps/" + php_load_map_id + ".txt.gz";
 		}
 		MapLoader.loadMapFromURL(url);
 

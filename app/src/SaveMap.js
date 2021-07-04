@@ -121,7 +121,8 @@ class SaveMap {
 		
 		formData.append("data", JSON.stringify(data));
 
-		fetch("https://yapms.org/upload.php", {
+		//fetch("https://yapms.org/upload.php", {
+		fetch("./api/maps/upload.php", {
 			method: "POST",
 			body: formData
 		})

@@ -868,7 +868,7 @@ class ChartManager {
 
 	// dynamically change the chart from one form to another
 	static setChart(type, position) {
-		console.log('Set Chart - ' + type);
+		console.log('Chart Manager: ' + type);
 		var sidebar = document.getElementById('chart-div');
 		var chartHTML = document.getElementById('chart');
 		var html = document.getElementById('chart-canvas');
@@ -1338,10 +1338,9 @@ class LegendManager {
 
 			if(html !== null) {
 				html.innerHTML = newHTML;
-			}
-
-			if(key === paintIndex) {
-				LegendManager.selectCandidateDisplay(html.parentElement);
+				if(key === paintIndex) {
+					LegendManager.selectCandidateDisplay(html.parentElement);
+				}
 			}
 		}
 	}
@@ -1653,16 +1652,16 @@ class MapLoader {
 		.then(response => response.json())
 		.then(data => {
 			PresetLoader.loadPreset('none');
-			console.log("Map Load: Found saved map");
-			console.log('Map Loader: Attemping new file load');
+			console.log("Map Loader: Found saved map");
 			MapLoader.loadSavedMap(data);
 		}).catch(error => {
 			console.log("Map Loader: Did not find saved map");
-			MapLoader.loadMap('./res/usa_presidential.svg', 16, 1, 'usa_ec',"presidential", "open");
-
-			var notification = document.getElementById('notification');
-			var message = notification.querySelector('#notification-message');
-			var title = notification.querySelector('#notification-title');
+			console.log(error);
+			PresetLoader.loadPreset("classic");
+			MapLoader.loadMap("./res/usa/presidential/usa_presidential.svg", 16, 1, 'usa_ec',"presidential", "open");
+			const notification = document.getElementById('notification');
+			const message = notification.querySelector('#notification-message');
+			const title = notification.querySelector('#notification-title');
 			title.innerHTML = 'Sorry';
 			message.innerHTML = 'The map you are looking for does not exist.<br><br>This feature is still in development and it may have been deleted.';
 			notification.style.display = 'inline';
@@ -2118,11 +2117,6 @@ class MapLoader {
 				PresetLoader.loadPreset('classic');
 				MapLoader.loadMap("./res/other/world.svg", 38, 0.25, "1", "takeall", "open");
 				break;
-			case "YAPmg":
-				//PresetLoader.loadPreset('classic');
-				//MapLoader.loadMap("./res/mock/yapmg.svg", 38, 0.25, "1", "proportional", "open");
-				//MapLoader.loadMap("./res/mock/yapmg.svg", 16, 0.75, "2", "takeall", "open");
-				//break;
 			default:
 				PresetLoader.loadPreset('classic');
 				MapLoader.loadMap("./res/usa_presidential.svg", 16, 1, "usa_ec", "takeall", "open");
@@ -2202,7 +2196,7 @@ class MapLoader {
 		strokeMultiplier = strokewidth;
 		var dataname = './data/' + type + '_' + year;
 
-		console.log('Loading ' + filename);
+		console.log('Map Loader: Loading ' + filename);
 
 		fetch(filename)
 		.then(response => response.text())
@@ -2210,7 +2204,7 @@ class MapLoader {
 			let mapdiv = document.getElementById("map-div");
 			mapdiv.innerHTML = data;
 
-			console.log('Done loading ' + filename);
+			console.log('Map Loader: Done loading ' + filename);
 			MapLoader.onLoadSVG();
 
 			const svg = document.getElementById("svgdata");
@@ -6121,7 +6115,8 @@ class SaveMap {
 		
 		formData.append("data", JSON.stringify(data));
 
-		fetch("https://yapms.org/upload.php", {
+		//fetch("https://yapms.org/upload.php", {
+		fetch("./api/maps/upload.php", {
 			method: "POST",
 			body: formData
 		})
@@ -6263,7 +6258,7 @@ function hideMenu(name) {
 	var menu = document.getElementById(name);
 	menu.style.display = 'none';
 }
-const currentCache = 'v3.3.3';
+const currentCache = 'v3.3.4';
 
 let states = [];
 let lands = [];
@@ -6357,9 +6352,6 @@ window.onerror = function(message, source, lineno, colno, error) {
 }
 
 function setMode(set) {
-	console.log('mode ' +  mode + ' | set ' + set + 
-		' | mapType ' + MapLoader.save_type + ' | mapYear ' + MapLoader.save_year);
-
 	LogoManager.loadButtons();
 
 	mode = set;
@@ -6592,7 +6584,8 @@ function start() {
 		if(php_load_user === true) {
 			url = 'https://yapms.org/users/' + php_load_user_id + '/' + php_load_map_id + '.txt'; 	
 		} else {
-			url = 'https://yapms.org/maps/' + php_load_map_id + '.txt'; 	
+			//url = 'https://yapms.org/maps/' + php_load_map_id + '.txt'; 	
+			url = "./maps/" + php_load_map_id + ".txt.gz";
 		}
 		MapLoader.loadMapFromURL(url);
 

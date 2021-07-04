@@ -34,10 +34,9 @@ class LegendManager {
 
 			if(html !== null) {
 				html.innerHTML = newHTML;
-			}
-
-			if(key === paintIndex) {
-				LegendManager.selectCandidateDisplay(html.parentElement);
+				if(key === paintIndex) {
+					LegendManager.selectCandidateDisplay(html.parentElement);
+				}
 			}
 		}
 	}
